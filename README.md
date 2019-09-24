@@ -5,13 +5,13 @@
 
 ## 库目录说明
 
-**document: **存放设计文件，答辩ppt，培养方案等相关资料
+document:存放设计文件，答辩ppt，培养方案等相关资料
 
-**Frontend: **前端代码
+Frontend: 前端代码
 
-**Backend: **后端代码
+Backend: 后端代码
 
-**log：**日志文件，每周的meeting PPT
+log: 日志文件，每周的meeting PPT
 
 不需要放进库里的文件有：
 
