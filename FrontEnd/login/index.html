@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="indexScript.js"></script>
+    <style>
+        #head1
+        {
+            position: relative;
+            text-align: center;
+            top: 10px;
+        }
+        body
+        {
+            background-color: lightcoral;
+        }
+        .main
+        {
+            text-align: center;
+            background-color: #fff;
+            border:2px solid;
+            border-radius:25px;
+            width: width;
+            height: 250px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .text
+        {
+            alignment: center;
+            margin: auto;
+
+        }
+    </style>
+</head>
+<body>
+<h2 id="head1">Courschema</h2>
+<div class="main">
+
+    <div class="text">
+        <form  method="post">
+            账号：<input type="text" name="name"> <br/>
+            密码：<input type="password" name="password" > <br/>
+            <input type="submit" value="登陆">
+        </form>
+    </div>
+    <button type="button"
+            onclick="document.getElementById('demo').innerHTML = Date()">
+        Click me to display Date and Time.</button>
+    <p id = "demo"></p>
+<!--    <iframe src="https://cas.sustech.edu.cn/cas/login?service=https%3A%2F%2Fjwxt.sustech.edu.cn%2Fjsxsd%2F" width="500" height="500"></iframe>-->
+</div>
+
+</body>
+</html>
