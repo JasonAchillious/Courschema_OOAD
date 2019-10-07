@@ -412,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Question` (
   `createrId` INT NOT NULL,
   `questionId` INT NOT NULL,
   PRIMARY KEY (`questionId`),
-  CONSTRAINT `stuId`
+  CONSTRAINT `stuId1`
     FOREIGN KEY (`createrId`)
     REFERENCES `mydb`.`Student` (`idStudent`)
     ON DELETE NO ACTION
