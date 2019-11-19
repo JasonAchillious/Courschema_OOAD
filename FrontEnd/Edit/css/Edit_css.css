@@ -1,0 +1,27 @@
+#All_Major {
+    height:600px;
+    overflow: auto;
+    background: #EEEEEE;
+}
+.major
+{
+    background-color: skyblue !important;
+}
+.droppable {
+    min-height: 180px;
+    /*float: left;*/
+    /*margin: 10px;*/
+}
+.grid{
+    border: #4e3206;
+    min-height: 500px;
+}
+#bottom
+{
+    height: 200px;
+    background-color: #0f7864;
+}
+.draggable{
+    max-width: 350px;
+}
+

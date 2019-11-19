@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="=device-width, initial-scale=1">
+    <title>Edit Major Page</title>
+    <link rel="stylesheet" href="./css/Edit_css.css">
+    <!--    Jquery-->
+    <script src="../JS/jquery-3.4.1.js"></script>
+    <script src="../JS/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.theme.min.css">
+    <!--    Jquery-->
+    <script src="Edit_JS.js"></script>
+    <!--    Bootstrap-->
+    <link rel="stylesheet" href="./css/flatly.css">
+    <!--    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">-->
+    <!--    Bootstrap-->
+
+</head>
+<body style="background-color: #ecf0f1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
+    <a class="navbar-brand" href="#">Sustech Courschema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="jumbotron">
+
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="row">
+                <button type="button" disabled="disabled" class="btn btn-primary btn-lg btn-block col-md-12">所有专业
+                </button>
+            </div>
+            <div class="row">
+                <input class="form-control col-md-9" type="text" placeholder="Search" id="search">
+                <button type="button" class="btn btn-secondary col-md-3" id="searchbtn">Find</button>
+            </div>
+            <div class="row">
+                <div id="All_Major" class="col-md-12">
+                    <div class="row">
+                        <div class="list-group col-md-12">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                计算机科学与工程系
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action draggable">计算机科学与技术
+                            </a>
+                        </div>
+                        <div class="list-group col-md-12">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                物理系
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">物理学
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">应用物理学
+                            </a>
+                        </div>
+                        <div class="list-group col-md-12">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                物理系
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">物理学
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">应用物理学
+                            </a>
+                        </div>
+                        <div class="list-group col-md-12">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                物理系
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">物理学
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">应用物理学
+                            </a>
+                        </div>
+                        <div class="list-group col-md-12">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                物理系
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">物理学
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">应用物理学
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="jumbotron">
+                <!--                弹出提示框：拖动左侧列表来收藏你关注的培养方案！-->
+                <div class="grid row">
+                    <div class="col-md-4" id="place0">
+                        <div class="card text-white bg-primary mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place1">
+                        <div class="card text-white bg-secondary mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place2">
+                        <div class="card text-white bg-success mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place3">
+                        <div class="card text-white bg-danger mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header"><p>NULL</p></div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place4">
+                        <div class="card text-white bg-warning mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place5">
+                        <div class="card text-white bg-info mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place6">
+                        <div class="card text-white bg-warning mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place7">
+                        <div class="card bg-light mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="place8">
+                        <div class="card text-white bg-dark mb-3 droppable" style="max-width: 20rem;">
+                            <div class="card-header">NULL</div>
+                            <div class="card-body">
+                                <h4 class="card-title">培养方案名称</h4>
+                                <p class="card-text">Introduction...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" style="background-color: #5cb85c">保存</button>
+
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" style="background-color: #e12e1c">放弃</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
