@@ -1,24 +1,31 @@
 
 var dragFrame = {
     ready:function() {
+        $(".droppable").find("div.card-header").text("Not Set");
+
         $(".draggable").draggable({
             revert: "valid",
             helper: "clone",
             appendTo: "body"
         });
 
-        $(".droppable").droppable({
-            hoverClass: "card border-primary mb-3",
+        $(".droppable")
+            .droppable({
+
             drop: function( event, ui ) {
+                var name = ui.draggable.text();
                 $( this )
                     .removeClass()
                     .addClass( "card border-info mb-3 droppable" )
-                    .find("p").html("set!")
+                    .find("h4").text(name);
+                $(this).find("div.card-header").text("SET");
+                // alert(text);
+
                 return false;
             }
-        })
+        });
 
     }
 };
 
-$(document).ready(dragFrame.ready)
+$(document).ready(dragFrame.ready);

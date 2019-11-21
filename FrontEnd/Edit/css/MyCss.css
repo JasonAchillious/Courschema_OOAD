@@ -3,11 +3,13 @@
     overflow: auto;
     background: #EEEEEE;
 }
-.major
-{
-    background-color: skyblue !important;
+
+.major{
+    min-height: 180px;
+    max-height: 180px;
 }
-.droppable {
+
+.droppable{
     min-height: 180px;
     /*float: left;*/
     /*margin: 10px;*/

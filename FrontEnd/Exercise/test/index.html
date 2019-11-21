@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+<h3>$hello</h3>
+<div id="container-get" style="border:1px solid red; width:300px; height:100px;">
+    loading...
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $.get('/testGet', function(data){
+            $("#container-get").html(data);
+        });
+    });
+</script>
