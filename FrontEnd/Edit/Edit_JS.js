@@ -26,7 +26,6 @@ var dragFrame = {
         });
 
     }
-    major_list: []
 };
 
 $(document).ready(dragFrame.ready);
