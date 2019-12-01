@@ -2,14 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b06f7030-60f8-47c7-83e6-6354c68d00ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/TestTransmitController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/vue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/api/AnswerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/api/AnswerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/api/CollectionsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/api/CollectionsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/api/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/api/QuestionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/collections.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/collections.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/courschemas.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/courschemas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/question.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/domain/student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/AnswerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/AnswerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/AnswerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CollectionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CollectionsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CollectionsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CollectionsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CourschemasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CourschemasService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CourschemasServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/CourschemasServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/QuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/QuestionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/service/QuestionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/AnswerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/CollectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/CollectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/CourschemasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/CourschemasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/CoursechemaApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/CoursechemaApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/QuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/TestTransmitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/TestTransmitController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/send_data.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/java/com/exercise/springproject/web/send_data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/css/MyCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/css/MyCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/css/my-login.css" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/css/my-login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/Edit_JS.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/Edit_JS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/TransmitTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/TransmitTest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/my-login.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/my-login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/userhome_JS.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/userhome_JS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/static/js/util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/Edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/Edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/TransmitTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/TransmitTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/userhome.html" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/springproject/src/main/resources/templates/userhome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/2017级本科生培养方案/附件6、2017级计算机专业培养方案（2018年6月更新）.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/document/2017级本科生培养方案/附件6、2017级计算机专业培养方案（2018年6月更新）.pdf" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="$PROJECT_DIR$/Backend/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,19 +49,8 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Backend/pom.xml" />
-        <option value="$PROJECT_DIR$/.idea/dictionaries/evanna.xml" />
-      </list>
-    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -41,32 +60,12 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand />
-      <select />
-    </treeState>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="117" />
-    <option name="y" value="6" />
-    <option name="width" value="1440" />
-    <option name="height" value="838" />
-  </component>
+  <component name="ProjectId" id="1UNkVenLherwNWHQbwR7T4HYbPA" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -141,6 +140,8 @@
       <updated>1568640304184</updated>
       <workItem from="1568906013438" duration="3566000" />
       <workItem from="1575100639530" duration="24000" />
+      <workItem from="1575204472037" duration="758000" />
+      <workItem from="1575205300903" duration="61000" />
     </task>
     <task id="LOCAL-00001" summary="evanna">
       <created>1568640405637</created>
@@ -180,159 +181,24 @@
     <option name="localTasksCounter" value="6" />
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3590000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="65" y="-7" width="1478" height="878" extended-state="6" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26760563" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Learn" order="3" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="UI Designer" order="6" />
-      <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3295325" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5028612" side_tool="true" visible="true" weight="0.32841823" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49713877" weight="0.32885906" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3295325" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" visible="true" weight="0.3299356" />
-      <window_info anchor="right" id="Maven" order="9" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="evanna" />
     <option name="LAST_COMMIT_MESSAGE" value="evanna" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/log/20190911.md" />
-    <entry file="file://$PROJECT_DIR$/Backend/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/.idea/dictionaries/evanna.xml" />
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="400" column="29" selection-start-line="400" selection-start-column="29" selection-end-line="400" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml" />
-    <entry file="file://$PROJECT_DIR$/Courschema_OOAD.iml" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evanna" />
-    <entry file="file://$PROJECT_DIR$/.idea/misc.xml" />
-    <entry file="file://$PROJECT_DIR$/Backend/src/main/dao/test" />
-    <entry file="file://$PROJECT_DIR$/Backend/src/main/controller/TestController" />
-    <entry file="file://$PROJECT_DIR$/Backend/src/main/socket/TestInfo" />
-    <entry file="file://$PROJECT_DIR$/document/需求分析.md" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>11.0</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>Backend</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

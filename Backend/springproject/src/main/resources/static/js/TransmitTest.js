@@ -13,14 +13,13 @@ $(document).ready(
                 list.push(j);
             }
             var J_list = JSON.stringify(list);
-            var data = JSON.stringify({ 'list': J_list });
 
             alert(J_list);
-            alert(data);//json
+            // alert(data);//json
             //传递到后台
             $.ajax({
                 type: 'POST',
-                data: data,//json
+                data: J_list,//json
                 contentType: 'application/json',
                 dataType: 'json',
                 async:false,
