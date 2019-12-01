@@ -5,6 +5,11 @@ public class Carowner {
     private String cars;
     private int obj;
 
+    public Carowner(String n, String c, int o){
+        this.name = n;
+        this.cars = c;
+        this.obj = o;
+    }
     public int getObj() {
         return obj;
     }
