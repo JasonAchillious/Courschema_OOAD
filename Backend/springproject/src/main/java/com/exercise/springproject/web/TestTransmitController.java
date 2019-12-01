@@ -33,6 +33,7 @@ public class TestTransmitController {
         try {
             List data = mapper.readValue(list, List.class);
             System.out.println(data);
+            System.out.println(data.get(0));
         }
         catch (IOException e)
         {

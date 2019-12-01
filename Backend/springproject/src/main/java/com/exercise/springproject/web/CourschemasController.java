@@ -2,10 +2,12 @@ package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.courschemas;
 import com.exercise.springproject.service.CourschemasService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,8 +19,18 @@ public class CourschemasController {
     private CourschemasService courschemasService;
 
     @GetMapping("/recordCourschemas")
-    public List<courschemas> findAllCourschemas(){
-        return courschemasService.findAll();
+    public String findAllCourschemas(){
+        ObjectMapper mapper = new ObjectMapper();
+        String result = null;
+        try {
+            result = mapper.writeValueAsString(courschemasService.findAll());
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 
