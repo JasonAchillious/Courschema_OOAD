@@ -10,4 +10,5 @@ public interface CourschemasService {
     public courschemas save(courschemas student);
     public void deleteCourschema(int courschema);
     public courschemas findCourschema(int courschema);
+    public courschemas findCourschemaName(String chinese_name);
 }

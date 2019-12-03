@@ -28,6 +28,11 @@ public class CourschemasServiceImpl implements CourschemasService {
     }
 
     @Override
+    public courschemas findCourschemaName(String chinese_name){
+        return courschemasRepository.findCourschema(chinese_name);
+    }
+
+    @Override
     public void deleteCourschema(int courschema) {
         courschemasRepository.deleteCourschema(courschema);
     }

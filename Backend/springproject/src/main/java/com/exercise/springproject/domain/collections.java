@@ -3,7 +3,6 @@ package com.exercise.springproject.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
