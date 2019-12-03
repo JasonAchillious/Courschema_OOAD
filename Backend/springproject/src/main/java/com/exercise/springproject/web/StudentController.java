@@ -38,7 +38,7 @@ public class StudentController{
     public String loginpage(){return "login";}
 
     @PostMapping("/login")
-    public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes ){
+    public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes){
         student search = studentService.findStudentByid_student(stu.getUsername());
         if ((stu.getUsername() == 0 )&&(stu.getPassword() == null)){
             attributes.addFlashAttribute("pswmsg","password cannot be none");
@@ -61,6 +61,7 @@ public class StudentController{
             return "redirect:/login";
         }else {
             if (search.getPassword().equals(stu.getPassword())){
+                attributes.addAttribute("param", stu.getUsername());
                 return "redirect:/userhome";
             }else{
                // attributes.addFlashAttribute("errorMsg","password is not correct");
