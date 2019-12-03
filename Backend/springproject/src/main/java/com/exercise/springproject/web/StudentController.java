@@ -1,16 +1,24 @@
 package com.exercise.springproject.web;
 
 
+import com.exercise.springproject.domain.Carowner;
 import com.exercise.springproject.domain.student;
 import com.exercise.springproject.domain.studentForm;
 import com.exercise.springproject.service.StudentService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /*
 这个是控制login的controller，会检测name（id）和密码是否正确，但是给前端传message还存在一点问题，
@@ -36,12 +44,20 @@ public class StudentController{
     @GetMapping("/Edit")
     public String edit(){return "Edit";}
 
+    @GetMapping(value = "/home_student")
+    @ResponseBody
+    public student handle(@RequestBody Map<String, Integer> json_map){
+        ObjectMapper mapper = new ObjectMapper();
+        return studentService.findStudentByid_student(json_map.get("id"));
+    }
+
     // from /home/login change to this
     @GetMapping("/login")
     public String loginpage(){return "login";}
 
     @PostMapping("/login")
     public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes){
+        //判断开头数字，从不同表里找用户
         student search = studentService.findStudentByid_student(stu.getUsername());
         if ((stu.getUsername() == 0 )&&(stu.getPassword() == null)){
             attributes.addFlashAttribute("pswmsg","password cannot be none");
