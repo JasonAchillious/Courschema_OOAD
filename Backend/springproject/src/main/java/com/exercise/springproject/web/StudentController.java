@@ -28,7 +28,10 @@ public class StudentController{
     public String homepage(){return "home";}
 
     @GetMapping("/userhome")
-    public String userhomepage(){return "userhome";}
+    public String userhomepage(){
+        //todo 直接访问应该返回404 page
+        return "userhome";
+    }
 
     @GetMapping("/Edit")
     public String edit(){return "Edit";}

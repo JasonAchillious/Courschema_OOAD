@@ -6,8 +6,9 @@
     <title>User Home</title>
     <link rel="stylesheet" type="text/css" href="../static/css/flatly.css"/>
     <link rel="stylesheet" type="text/css" href="../static/css/MyCss.css">
-
-    <script src="../static/js/userhome_JS.js"></script>
+    <script src="../static/js/util.js"></script>
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <script src="../static/js/studenthome_JS.js"></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@
     </div>
     <ul class="mr-auto navbar-nav">
         <li>
-            <a class="nav-link" href="#">王天麒，11711613</a>
+            <a class="nav-link" href="#" id="user_infor">王天麒，11711613</a>
         </li>
         <li>
             <a class="nav-link" href="#">设置</a>
@@ -52,7 +53,7 @@
 </nav>
 
 <div class="jumbotron">
-    <h1 class="display-3">欢迎, 11711613</h1>
+    <h1 class="display-3" id = "welcome_info">欢迎</h1>
     <p class="lead">在Courschema中，您可以定制关注的培养方案、轻松查看已修未修课程并制定您的选课安排</p>
     <p class="lead">
         <a class="btn btn-primary btn-lg" href="#" role="button">Q&A 常见问题</a>
