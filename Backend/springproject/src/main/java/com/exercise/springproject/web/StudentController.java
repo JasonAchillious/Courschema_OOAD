@@ -49,6 +49,15 @@ public class StudentController{
         return "userhome";
     }
 
+    @GetMapping("/adminhome")
+    public String adminhomepage()
+    {
+        return "adminhome";
+    }
+
+    @GetMapping("/sechome")
+    public String sechomepage(){return "sechome";}
+
     @GetMapping("/Edit")
     public String edit(){return "Edit";}
 

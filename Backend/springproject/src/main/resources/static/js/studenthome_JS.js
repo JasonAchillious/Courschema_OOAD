@@ -22,9 +22,12 @@ var load = {
 
                 reply = JSON.stringify(response);
                 console.log(reply);
-                var name = response.name;
 
+
+                //修改主页显示信息
                 $("a#user_infor").text(name+','+uid);
+                $("p#major_info").text(response.department+": "+response.major);
+
 
             },
             error: function (response) {
