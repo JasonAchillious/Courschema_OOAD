@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface SecretaryService {
-    public secretary findsecreatryById(int id);
+    public secretary findSecretaryById(int id);
 }

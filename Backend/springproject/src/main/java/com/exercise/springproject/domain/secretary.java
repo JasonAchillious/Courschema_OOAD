@@ -1,23 +1,23 @@
 package com.exercise.springproject.domain;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "secretary", schema = "mydb", catalog = "")
 public class secretary {
-    private int idSecretary;
+    private int id;
     private String name;
     private int major;
+    private String password;
 
     @Id
-    @Column(name = "id_secretary")
-    public int getIdAdmin() {
-        return idSecretary;
+    @Column(name = "Id")
+    public int getId() {
+        return id;
     }
 
-    public void setIdAdmin(int idSecretary) {
-        this.idSecretary = idSecretary;
+    public void setId(int idSecretary) {
+        this.id = idSecretary;
     }
 
     @Basic
@@ -38,4 +38,11 @@ public class secretary {
         this.major = major;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

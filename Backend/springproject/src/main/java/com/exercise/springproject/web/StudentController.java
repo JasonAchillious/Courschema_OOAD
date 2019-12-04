@@ -2,9 +2,7 @@ package com.exercise.springproject.web;
 
 
 import com.exercise.springproject.domain.*;
-import com.exercise.springproject.service.DepartmentService;
-import com.exercise.springproject.service.MajorService;
-import com.exercise.springproject.service.StudentService;
+import com.exercise.springproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +33,12 @@ public class StudentController{
 
     @Autowired
     private MajorService majorService;
+
+    @Autowired
+    private SecretaryService secretaryService;
+
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/home")
     public String homepage(){return "home";}
@@ -80,8 +84,6 @@ public class StudentController{
 
     @PostMapping("/login")
     public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes){
-        //判断开头数字，从不同表里找用户
-        student search = studentService.findStudentByid_student(stu.getUsername());
         if ((stu.getUsername() == 0 )&&(stu.getPassword() == null)){
             attributes.addFlashAttribute("pswmsg","password cannot be none");
             attributes.addFlashAttribute("namemsg","StudentId cannot be none");
@@ -97,22 +99,62 @@ public class StudentController{
             attributes.addFlashAttribute("pswmsg","password cannot be none");
             return "redirect:/login";
         }
-        if (search==null){
-            attributes.addFlashAttribute("errorMsg","the ID is not correct");
-            attributes.addFlashAttribute("namemsg","the ID is not correct");
-            return "redirect:/login";
-        }else {
-            if (search.getPassword().equals(stu.getPassword())){
-                attributes.addAttribute("param", stu.getUsername());
-                return "redirect:/userhome";
-            }else{
-               // attributes.addFlashAttribute("errorMsg","password is not correct");
-                attributes.addFlashAttribute("pswmsg","password is not correct");
-                // console.log("here");
 
+
+        //判断开头数字，从不同表里找用户
+        int idtemp = stu.getUsername();
+        if(idtemp>10000000 && idtemp <20000000){
+            //stu
+            student search = studentService.findStudentByid_student(stu.getUsername());
+            if (search==null){
+                attributes.addFlashAttribute("errorMsg","the ID is not correct");
+                attributes.addFlashAttribute("namemsg","the ID is not correct");
                 return "redirect:/login";
+            }else {
+                if (search.getPassword().equals(stu.getPassword())){
+                    attributes.addAttribute("param", stu.getUsername());
+                    return "redirect:/userhome";
+                }else{
+                    attributes.addFlashAttribute("pswmsg","password is not correct");
+                    return "redirect:/login";
+                }
+            }
+        }else if(idtemp>30000000 && idtemp <40000000){
+            //secreatary
+            secretary secr = secretaryService.findSecretaryById(stu.getUsername());
+            if (secr==null){
+                attributes.addFlashAttribute("errorMsg","the ID is not correct");
+                attributes.addFlashAttribute("namemsg","the ID is not correct");
+                return "redirect:/login";
+            }else {
+                if (secr.getPassword().equals(stu.getPassword())){
+                    attributes.addAttribute("param", stu.getUsername());
+                    return "redirect:/sechome";
+                }else{
+                    attributes.addFlashAttribute("pswmsg","password is not correct");
+                    return "redirect:/login";
+                }
+            }
+        }else{
+            //admin
+            Admin adm = adminService.findAdminByIdAdmin(stu.getUsername());
+            if (adm==null){
+                attributes.addFlashAttribute("errorMsg","the ID is not correct");
+                attributes.addFlashAttribute("namemsg","the ID is not correct");
+                return "redirect:/login";
+            }else {
+                if (adm.getPassword().equals(stu.getPassword())){
+                    attributes.addAttribute("param", stu.getUsername());
+                    return "redirect:/adminhome";
+                }else{
+                    attributes.addFlashAttribute("pswmsg","password is not correct");
+                    return "redirect:/login";
+                }
             }
         }
+       // student search = studentService.findStudentByid_student(stu.getUsername());
+
+
     }
 
 

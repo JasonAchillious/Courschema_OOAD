@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Admin {
     private int idAdmin;
     private String name;
+    private String password;
 
     @Id
     @Column(name = "idAdmin")
@@ -27,6 +28,14 @@ public class Admin {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "password")
+    public void setPassword(String password){this.password = password;}
+
+    public String getPassword(){
+        return this.password;
     }
 
     @Override
