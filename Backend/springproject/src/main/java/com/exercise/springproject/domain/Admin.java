@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Admin", schema = "mydb", catalog = "")
+@Table(name = "admin", schema = "mydb", catalog = "")
 public class Admin {
     private int idAdmin;
     private String name;
