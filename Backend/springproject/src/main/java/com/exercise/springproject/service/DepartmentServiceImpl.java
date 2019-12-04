@@ -1,7 +1,7 @@
 package com.exercise.springproject.service;
 
 import com.exercise.springproject.api.DepartmentRepository;
-import com.exercise.springproject.domain.Major;
+import com.exercise.springproject.domain.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DepartmentServiceImpl implements DepartmentService{
@@ -11,7 +11,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
 
     @Override
-    public Major findDepartmentById(int idDepartment) {
+    public Department findDepartmentById(int idDepartment) {
         return departmentRepository.findDepartmentById(idDepartment);
     }
 }

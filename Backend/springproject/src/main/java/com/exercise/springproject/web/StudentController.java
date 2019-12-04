@@ -1,9 +1,9 @@
 package com.exercise.springproject.web;
 
 
-import com.exercise.springproject.domain.Carowner;
-import com.exercise.springproject.domain.student;
-import com.exercise.springproject.domain.studentForm;
+import com.exercise.springproject.domain.*;
+import com.exercise.springproject.service.DepartmentService;
+import com.exercise.springproject.service.MajorService;
 import com.exercise.springproject.service.StudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,8 @@ import java.util.Map;
 public class StudentController{
     @Autowired
     private StudentService studentService;
+    private DepartmentService departmentService;
+    private MajorService majorService;
     @GetMapping("/home")
     public String homepage(){return "home";}
 
@@ -47,13 +49,21 @@ public class StudentController{
     @PostMapping(value = "/home_student")
     @ResponseBody
     public student handle(@RequestBody Map<String, Object> json_map){
-        ObjectMapper mapper = new ObjectMapper();
-        System.out.println(json_map.get("id"));
-        Class t = json_map.get("id").getClass();
-        System.out.println(t.getName());
-//        Map <String,Object> reply = new HashMap<String,Object>();
-        student s = studentService.findStudentByid_student((int)json_map.get("id"));
+       // ObjectMapper mapper = new ObjectMapper();
 
+        System.out.println(json_map.get("id"));
+        Map <String,Object> reply = new HashMap<String,Object>();
+        //Class t = json_map.get("id").getClass();
+       // System.out.println(t.getName());
+        student s = studentService.findStudentByid_student((int)json_map.get("id"));
+        Major m = majorService.findMajorById(s.getMajor());
+        Department d = departmentService.findDepartmentById(s.getDepartment());
+        reply.put("id", json_map.get("id"));
+        reply.put("department", d.getChineseName());
+        reply.put("major", m.getChineseName());
+        reply.put("name", s.getName());
+        reply.put("beginyear", s.getBeginYear());
+        reply.put("englishlevel", s.getEnglishLevel());
         return s;
     }
 
