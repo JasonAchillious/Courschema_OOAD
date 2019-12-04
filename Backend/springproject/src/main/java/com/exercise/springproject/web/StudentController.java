@@ -5,7 +5,6 @@ import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.DepartmentService;
 import com.exercise.springproject.service.MajorService;
 import com.exercise.springproject.service.StudentService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /*
@@ -32,8 +29,13 @@ import java.util.Map;
 public class StudentController{
     @Autowired
     private StudentService studentService;
+
+    @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
     private MajorService majorService;
+
     @GetMapping("/home")
     public String homepage(){return "home";}
 
@@ -56,8 +58,13 @@ public class StudentController{
         //Class t = json_map.get("id").getClass();
        // System.out.println(t.getName());
         student s = studentService.findStudentByid_student((int)json_map.get("id"));
-        Major m = majorService.findMajorById(s.getMajor());
+        System.out.println(s.getMajor());
+
+        major m = majorService.findmajorById(s.getMajor());
+        System.out.println(m.getChineseName());
+
         Department d = departmentService.findDepartmentById(s.getDepartment());
+        System.out.println(d.getChineseName());
         reply.put("id", json_map.get("id"));
         reply.put("department", d.getChineseName());
         reply.put("major", m.getChineseName());
