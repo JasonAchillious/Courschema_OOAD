@@ -44,11 +44,17 @@ public class StudentController{
     @GetMapping("/Edit")
     public String edit(){return "Edit";}
 
-    @GetMapping(value = "/home_student")
+    @PostMapping(value = "/home_student")
     @ResponseBody
-    public student handle(@RequestBody Map<String, Integer> json_map){
+    public student handle(@RequestBody Map<String, Object> json_map){
         ObjectMapper mapper = new ObjectMapper();
-        return studentService.findStudentByid_student(json_map.get("id"));
+        System.out.println(json_map.get("id"));
+        Class t = json_map.get("id").getClass();
+        System.out.println(t.getName());
+//        Map <String,Object> reply = new HashMap<String,Object>();
+        student s = studentService.findStudentByid_student((int)json_map.get("id"));
+
+        return s;
     }
 
     // from /home/login change to this
