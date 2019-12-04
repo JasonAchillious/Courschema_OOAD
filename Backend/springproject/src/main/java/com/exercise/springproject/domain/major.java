@@ -4,20 +4,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Major", schema = "mydb", catalog = "")
-public class Major {
-    private int idMajor;
+@Table(name = "major", schema = "mydb", catalog = "")
+public class major {
+    private int id_major;
     private String chineseName;
     private String englishName;
 
     @Id
-    @Column(name = "idMajor")
-    public int getIdMajor() {
-        return idMajor;
+    @Column(name = "id_major")
+    public int getId_major() {
+        return id_major;
     }
 
-    public void setIdMajor(int idMajor) {
-        this.idMajor = idMajor;
+    public void setId_major(int idMajor) {
+        this.id_major = idMajor;
     }
 
     @Basic
@@ -44,14 +44,14 @@ public class Major {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Major that = (Major) o;
-        return idMajor == that.idMajor &&
+        major that = (major) o;
+        return id_major == that.id_major &&
                 Objects.equals(chineseName, that.chineseName) &&
                 Objects.equals(englishName, that.englishName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMajor, chineseName, englishName);
+        return Objects.hash(id_major, chineseName, englishName);
     }
 }
