@@ -48,7 +48,7 @@ public class StudentController{
 
     @PostMapping(value = "/home_student")
     @ResponseBody
-    public student handle(@RequestBody Map<String, Object> json_map){
+    public Map handle(@RequestBody Map<String, Object> json_map){
        // ObjectMapper mapper = new ObjectMapper();
 
         System.out.println(json_map.get("id"));
@@ -64,7 +64,7 @@ public class StudentController{
         reply.put("name", s.getName());
         reply.put("beginyear", s.getBeginYear());
         reply.put("englishlevel", s.getEnglishLevel());
-        return s;
+        return reply;
     }
 
     // from /home/login change to this
