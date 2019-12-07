@@ -73,7 +73,7 @@ public class StudentController{
         student s = studentService.findStudentByid_student((int)json_map.get("id"));
         System.out.println(s.getMajor());
 
-        major m = majorService.findmajorById(s.getMajor());
+        Major m = majorService.findMajorById(s.getMajor());
         System.out.println(m.getChineseName());
 
         Department d = departmentService.findDepartmentById(s.getDepartment());
