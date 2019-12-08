@@ -49,6 +49,9 @@ public class StudentController{
         return "userhome";
     }
 
+    @GetMapping("/courschemaEdit")
+    public String courshemaEdit(){return "MajorEdit";}
+
     @GetMapping("/adminhome")
     public String adminhomepage()
     {

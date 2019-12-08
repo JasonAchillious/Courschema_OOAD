@@ -28,4 +28,9 @@
 .draggable{
     max-width: 350px;
 }
+.editPlace
+{
+    max-height: 600px;
+    overflow: auto;
+}
 

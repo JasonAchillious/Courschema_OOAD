@@ -34,6 +34,8 @@ public class CourschemasController {
     @Autowired
     private CourseService courseService;
 
+
+
     @GetMapping("/recordCourschemas")
     public List<courschemas> findAllCourschemas(){
         return courschemasService.findAll();
