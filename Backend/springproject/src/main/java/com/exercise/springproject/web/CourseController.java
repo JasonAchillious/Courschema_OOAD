@@ -80,13 +80,13 @@ public class CourseController {
         //reply.put("courseLang", ans.);
         String term = "";
         if(ans.getAutumn()==1){
-            term.concat("autumn");
+            term.concat(" autumn");
         }
         if(ans.getSpring()==1){
-            term.concat(", spring");
+            term.concat(" spring");
         }
         if(ans.getSummer()==1){
-            term.concat(", spring");
+            term.concat(" spring");
         }
         reply.put("SetTerm", term);
         //reply.put("preCourse", s.getEnglishLevel());
