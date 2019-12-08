@@ -38,6 +38,7 @@ public class DepartmentController {
 
     @PostMapping("findDepartmentById")
     public Department findDepartmentById(@RequestParam int id){
+        System.out.println(id);
         return departmentService.findDepartmentById(id);
     }
 

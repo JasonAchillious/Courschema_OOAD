@@ -1,10 +1,9 @@
 package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.Course;
+import com.exercise.springproject.domain.Department;
 import com.exercise.springproject.domain.courschemas;
-import com.exercise.springproject.service.ClassificationService;
-import com.exercise.springproject.service.CourschemasService;
-import com.exercise.springproject.service.CourseService;
+import com.exercise.springproject.service.*;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -17,8 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RestController
@@ -26,6 +24,9 @@ import java.util.List;
 public class CourschemasController {
     @Autowired
     private CourschemasService courschemasService;
+
+    @Autowired
+    private DepartmentService departmentService;
 
     @Autowired
     private ClassificationService classificationService;
@@ -36,6 +37,30 @@ public class CourschemasController {
     @GetMapping("/recordCourschemas")
     public List<courschemas> findAllCourschemas(){
         return courschemasService.findAll();
+    }
+    @GetMapping("/allCourschemas")
+    public List<Object> findCourschemasName()
+    {
+
+        List<Object> result = new ArrayList<Object>();
+
+        List<courschemas> all = courschemasService.findAll();
+
+        for(int i = 0;i < all.size();i ++)
+        {
+            Map<String,Object> ele = new HashMap<>();
+            courschemas c = all.get(i);
+            ele.put("chineseName",c.getChineseName());
+            int dep_id = c.getDepartment();
+            System.out.println(dep_id);
+            Department d = departmentService.findDepartmentById(dep_id);
+            ele.put("department",d.getChineseName());
+            ele.put("courschema",c.getCourschema());
+
+            result.add(ele);
+        }
+
+        return result;
     }
 
 

@@ -8,9 +8,6 @@ var load = {
         $("div.card-header").text("Not Set");
 
         var J_id = {id:parseInt(uid, 10)};
-        alert(JSON.stringify(J_id));
-
-
         $.ajax({
             type: 'POST',
             data: JSON.stringify(J_id),//json
@@ -23,9 +20,8 @@ var load = {
                 reply = JSON.stringify(response);
                 console.log(reply);
 
-
                 //修改主页显示信息
-                $("a#user_infor").text(name+','+uid);
+                $("a#user_infor").text(response.name+','+uid);
                 $("p#major_info").text(response.department+": "+response.major);
 
 

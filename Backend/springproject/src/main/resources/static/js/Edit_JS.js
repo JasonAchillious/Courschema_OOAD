@@ -55,6 +55,9 @@ var dragFrame = {
 };
 
 var load = {
+
+    departmentMap: new Map(),
+
     ready: function () {
 
 
@@ -64,31 +67,58 @@ var load = {
             contentType: 'application/json',
             dataType: 'json',
             async: false,
-            url: '/exer/recordCourschemas',
+            url: '/exer/allCourschemas',
             success: function (reply) {
 
+                console.log(JSON.stringify(reply));
 
-                var str_reply = JSON.stringify(reply);
-
-                var res_list = eval("("+str_reply+")");
-
-                console.log(res_list);
-
-
-                for(var i = 0;i < res_list.length;i ++)
+                for(var i = 0;i < reply.length;i++)
                 {
-                    var courschema = res_list[i];
-                    // 拼接后加入div
-                    var content = joint(courschema.chineseName);
-                    $('a.list-group-item list-group-item-action active').append(content)
+                    console.log(reply[i].chineseName);
+                    //todo append List, write a backend requirement.
+                    load.appendDepartment(reply[i]);
+                    load.appendMajor(reply[i]);
                 }
+
             },
             error: function (response) {
                 alert("Error")
             }
         });
 
+    },
+
+    appendMajor: function (major) {
+        var name = major.chineseName;
+        var courseid = major.courschema;
+        var departmentID = load.departmentMap.get(major.department);
+        var major_html = "<a href=\"#\" class=\"list-group-item list-group-item-action draggable\" id = \""+courseid+"\">"+name+"</a>"
+
+        $('div#'+departmentID).append(major_html);
+    },
+
+    appendDepartment: function (major) {
+
+        var department = major.department;
+
+        if(!load.departmentMap.has(department))
+        {
+            load.departmentMap.set(department,load.departmentMap.size);
+
+            departmentID = load.departmentMap.get(department);
+
+            var div = "<div class=\"list-group col-md-12\" id = \""+departmentID+"\"></div>";
+
+            var dep_html = "<a href=\"#\" class=\"list-group-item list-group-item-action active\">" +department + "</a>";
+
+            $('#Major_List').append(div);
+            $('div#'+departmentID).append(dep_html);
+            //append
+            console.log("append department:"+department);
+        }
+
+
     }
 };
-$(window).onload = load.ready();
+$(document).ready(load.ready);
 $(document).ready(dragFrame.ready);
