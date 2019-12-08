@@ -33,6 +33,21 @@ public class CourschemasServiceImpl implements CourschemasService {
     }
 
     @Override
+    public courschemas findcourschemasBymajor(int major) {
+        return courschemasRepository.findcourschemasBymajor(major);
+    }
+
+    @Override
+    public courschemas findcourschemasByYear(int year) {
+        return courschemasRepository.findcourschemasByYear(year);
+    }
+
+    @Override
+    public courschemas findcourschemasByDepartment(int de) {
+        return courschemasRepository.findcourschemasByDepartment(de);
+    }
+
+    @Override
     public void deleteCourschema(int courschema) {
         courschemasRepository.deleteCourschema(courschema);
     }

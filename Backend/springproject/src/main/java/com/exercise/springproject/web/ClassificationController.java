@@ -1,7 +1,10 @@
 package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.Classification;
+import com.exercise.springproject.domain.SchemaEdit;
+import com.exercise.springproject.domain.courschemas;
 import com.exercise.springproject.service.ClassificationService;
+import com.exercise.springproject.service.CourschemasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
 public class ClassificationController {
     @Autowired
     private ClassificationService classificationService;
+    @Autowired
+    private CourschemasService courschemasService;
 
     @GetMapping("/recordClassification")
     public List<Classification> findAllClassification(){
@@ -65,5 +70,33 @@ public class ClassificationController {
     @PostMapping("findTonCourse")
     public List<Integer> findTonCourse(@RequestParam int courschema){
         return classificationService.findTypeTonCourse(courschema);
+    }
+
+
+    @PostMapping(value = "/show_classification")
+    @ResponseBody
+    public SchemaEdit handle(@RequestBody Integer schema_id){
+        SchemaEdit reply = new SchemaEdit();
+        reply.setTongshi(findTonCourse(schema_id));
+        reply.setRuxi(findRuxiCourse(schema_id));
+        reply.setBixiu(findComCourse(schema_id));
+        //reply.setXuanxiu();
+
+
+        return reply;
+    }
+
+    @PostMapping(value = "/edit_classification")
+    @ResponseBody
+    public void handleedit(@RequestBody Integer schema_id,
+                           @RequestBody SchemaEdit newEdit){
+        //save newEdit to database
+        //maybe first delete from database, then add
+        courschemas editting = courschemasService.findCourschema(schema_id);
+        for(int now: newEdit.getBixiu()){
+
+        }
+
+
     }
 }

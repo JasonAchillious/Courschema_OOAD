@@ -15,4 +15,9 @@ public class SecretaryServiceImpl implements  SecretaryService{
     public secretary findSecretaryById(int id) {
         return secretaryRepository.findSecretaryById(id);
     }
+
+    @Override
+    public secretary findsecretaryByDepartment(int de) {
+        return secretaryRepository.findsecretaryByDepartment(de);
+    }
 }

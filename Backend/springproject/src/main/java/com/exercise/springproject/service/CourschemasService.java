@@ -1,6 +1,7 @@
 package com.exercise.springproject.service;
 
 import com.exercise.springproject.domain.courschemas;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -11,4 +12,7 @@ public interface CourschemasService {
     public void deleteCourschema(int courschema);
     public courschemas findCourschema(int courschema);
     public courschemas findCourschemaName(String chinese_name);
+    public courschemas findcourschemasBymajor(int major);
+    public courschemas findcourschemasByYear(int year);
+    public courschemas findcourschemasByDepartment(int de);
 }

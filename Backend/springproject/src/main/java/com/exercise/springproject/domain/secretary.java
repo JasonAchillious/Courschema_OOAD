@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class secretary {
     private int id;
     private String name;
-    private int major;
+    private int department;
     private String password;
 
     @Id
@@ -30,12 +30,12 @@ public class secretary {
         this.name = name;
     }
 
-    public int getMajor() {
-        return major;
+    public int getDepartment() {
+        return department;
     }
 
-    public void setMajor(int major) {
-        this.major = major;
+    public void setDepartment(int major) {
+        this.department = major;
     }
 
     public String getPassword() {
