@@ -9,8 +9,13 @@ public interface CourseRepository extends JpaRepository<Course, Integer>{
     @Query("select p from Course p where p.idCourse=?1")
     public Course findCourseById(int idCourse);
 
+    @Query("select p from Course p where p.department=?1")
+    public List<Course> findCourseByDepartment(int idDepartment);
+
+    /*
     @Query("select p from Course p")
     public List<Course> findAll();
+     */
 
     @Query("delete from Course p where p.idCourse=?1")
     public void deleteCourseById(int idCourse);

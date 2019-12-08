@@ -16,9 +16,10 @@ public class Course {
     private byte summer;
     private String englishName;
     private int year;
+    private int department;
 
     @Id
-    @Column(name = "idCourse")
+    @Column(name = "id_course")
     public int getIdCourse() {
         return idCourse;
     }
@@ -115,6 +116,16 @@ public class Course {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Basic
+    @Column(name = "Department")
+    public int getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
     }
 
     @Override

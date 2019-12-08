@@ -24,11 +24,17 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public Course findCourseById(int idCourse){
+        System.out.println("courseId" + idCourse);
         return courseRepository.findCourseById(idCourse);
     }
 
     @Override
     public void deleteCourseById(int idCourse) {
         courseRepository.deleteCourseById(idCourse);
+    }
+
+    @Override
+    public List<Course> findCourseByDepartment(int idDepartment){
+        return courseRepository.findCourseByDepartment(idDepartment);
     }
 }

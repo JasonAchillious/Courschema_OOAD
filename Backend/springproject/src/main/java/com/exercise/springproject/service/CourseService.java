@@ -10,4 +10,5 @@ public interface CourseService {
     public void deleteCourseById(int idCourse);
     public Course findCourseById(int idCourse);
     List<Course> findAll();
+    public List<Course> findCourseByDepartment(int idDepartment);
 }

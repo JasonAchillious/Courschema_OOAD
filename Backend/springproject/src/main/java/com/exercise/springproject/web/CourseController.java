@@ -62,6 +62,11 @@ public class CourseController {
     public String findCourseCnameById(@RequestParam int idCourse){
         return courseService.findCourseById(idCourse).getChineseName();
     }
+    
+    @PostMapping("findCourseDepartment")
+    public List<Course> findCourseDepartment(@RequestParam int idDepartment){
+        return courseService.findCourseByDepartment(idDepartment);
+    }
 
     @PostMapping(value = "/show_course")
     @ResponseBody
