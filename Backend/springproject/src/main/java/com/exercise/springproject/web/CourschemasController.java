@@ -1,8 +1,6 @@
 package com.exercise.springproject.web;
 
-import com.exercise.springproject.domain.Course;
-import com.exercise.springproject.domain.Department;
-import com.exercise.springproject.domain.courschemas;
+import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.*;
 import jxl.Workbook;
 import jxl.write.Label;
@@ -38,6 +36,7 @@ public class CourschemasController {
     public List<courschemas> findAllCourschemas(){
         return courschemasService.findAll();
     }
+
     @GetMapping("/allCourschemas")
     public List<Object> findCourschemasName()
     {
@@ -373,5 +372,6 @@ public class CourschemasController {
             e.printStackTrace();
         }
     }
+
 
 }

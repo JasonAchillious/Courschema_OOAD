@@ -1,6 +1,8 @@
 package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.Classification;
+import com.exercise.springproject.domain.SchemaEdit;
+import com.exercise.springproject.domain.courschemas;
 import com.exercise.springproject.service.ClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,4 +68,19 @@ public class ClassificationController {
     public List<Integer> findTonCourse(@RequestParam int courschema){
         return classificationService.findTypeTonCourse(courschema);
     }
+
+
+    @PostMapping(value = "/show_schema")
+    @ResponseBody
+    public SchemaEdit handle(@RequestBody Integer schema_id){
+        SchemaEdit reply = new SchemaEdit();
+        reply.setTongshi(findTonCourse(schema_id));
+        reply.setRuxi(findRuxiCourse(schema_id));
+        reply.setBixiu(findComCourse(schema_id));
+        //reply.setXuanxiu();
+
+
+        return reply;
+    }
+
 }
