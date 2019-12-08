@@ -1,8 +1,6 @@
 package com.exercise.springproject.web;
 
-import com.exercise.springproject.domain.Course;
-import com.exercise.springproject.domain.Department;
-import com.exercise.springproject.domain.courschemas;
+import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +61,38 @@ public class CourseController {
     @PostMapping("findCourseCname")
     public String findCourseCnameById(@RequestParam int idCourse){
         return courseService.findCourseById(idCourse).getChineseName();
+    }
+
+    @PostMapping(value = "/show_course")
+    @ResponseBody
+    public Map handle(@RequestBody Integer courseID){
+        Map <String,Object> reply = new HashMap<String,Object>();
+        //Class t = json_map.get("id").getClass();
+        // System.out.println(t.getName());
+        Course ans = courseService.findCourseById(courseID);
+
+        reply.put("courseID", courseID);
+        reply.put("courseName", ans.getChineseName());
+        reply.put("courseScore", ans.getCredit());
+        //reply.put("experimentScore", ans.);
+       // reply.put("weekLearningTime", ans.);
+        reply.put("AdviceTerm:", ans.getYear());
+        //reply.put("courseLang", ans.);
+        String term = "";
+        if(ans.getAutumn()==1){
+            term.concat("autumn");
+        }
+        if(ans.getSpring()==1){
+            term.concat(", spring");
+        }
+        if(ans.getSummer()==1){
+            term.concat(", spring");
+        }
+        reply.put("SetTerm", term);
+        //reply.put("preCourse", s.getEnglishLevel());
+        //reply.put("institute", );
+        //reply.put("introduction",ans.getIntro());
+        return reply;
     }
 
 }
