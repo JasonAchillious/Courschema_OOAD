@@ -18,7 +18,6 @@ import java.util.*;
 
 @Controller
 @RestController
-@RequestMapping("/exer")
 public class CourschemasController {
     @Autowired
     private CourschemasService courschemasService;
@@ -39,16 +38,17 @@ public class CourschemasController {
         return courschemasService.findAll();
     }
 
+    @PostMapping(value = "allschema")
+    @ResponseBody
+    public List<courschemas>  allschema(){
+        return courschemasService.findAll();
+    }
+
     @GetMapping("/allCourschemas")
-    public List<Object> findCourschemasName()
-    {
-
+    public List<Object> findCourschemasName(){
         List<Object> result = new ArrayList<Object>();
-
         List<courschemas> all = courschemasService.findAll();
-
-        for(int i = 0;i < all.size();i ++)
-        {
+        for(int i = 0;i < all.size();i ++) {
             Map<String,Object> ele = new HashMap<>();
             courschemas c = all.get(i);
             ele.put("chineseName",c.getChineseName());
