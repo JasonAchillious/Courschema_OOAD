@@ -11,13 +11,19 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/course")
+
 public class CourseController {
     @Autowired
     private CourseService courseService;
 
     @GetMapping("/recordCourse")
     public List<Course> findAllCourse(){
+        return courseService.findAll();
+    }
+
+    @PostMapping("/allcourse")
+    @ResponseBody
+    public List<Course> allcourse(){
         return courseService.findAll();
     }
 
@@ -62,11 +68,19 @@ public class CourseController {
     public String findCourseCnameById(@RequestParam int idCourse){
         return courseService.findCourseById(idCourse).getChineseName();
     }
-    
+
     @PostMapping("findCourseDepartment")
     public List<Course> findCourseDepartment(@RequestParam int idDepartment){
         return courseService.findCourseByDepartment(idDepartment);
     }
+
+
+    @PostMapping("/coursebydepart")
+    @ResponseBody
+    public List<Course> coursebyDepart(@RequestBody Integer id){
+        return courseService.findCourseByDepartment(id);
+    }
+
 
     @PostMapping(value = "/show_course")
     @ResponseBody
