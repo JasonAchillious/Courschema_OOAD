@@ -44,6 +44,26 @@ public class CourschemasController {
         return courschemasService.findAll();
     }
 
+    @PostMapping(value = "schemabyMajor")
+    @ResponseBody
+    public List<courschemas> schemabyMajor(@RequestBody Integer majorId){
+        return courschemasService.findcourschemasBymajor(majorId);
+    }
+
+    @PostMapping(value = "schemabyMajorAndYear")
+    @ResponseBody
+    public List<courschemas> schemabyMajorAndYear(@RequestBody Integer majorId,
+                                                  @RequestBody Integer year){
+        List<courschemas> first = courschemasService.findcourschemasBymajor(majorId);
+        List<courschemas> ans = null;
+        for(courschemas now:first){
+            if(now.getYear()==year){
+                ans.add(now);
+            }
+        }
+        return ans;
+    }
+
     @GetMapping("/allCourschemas")
     public List<Object> findCourschemasName(){
         List<Object> result = new ArrayList<Object>();

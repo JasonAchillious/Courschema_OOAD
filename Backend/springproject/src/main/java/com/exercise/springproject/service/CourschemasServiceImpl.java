@@ -33,7 +33,7 @@ public class CourschemasServiceImpl implements CourschemasService {
     }
 
     @Override
-    public courschemas findcourschemasBymajor(int major) {
+    public List<courschemas> findcourschemasBymajor(int major) {
         return courschemasRepository.findcourschemasBymajor(major);
     }
 
