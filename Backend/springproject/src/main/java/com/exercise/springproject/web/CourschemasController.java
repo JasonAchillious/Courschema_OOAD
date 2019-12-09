@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +33,9 @@ public class CourschemasController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private MajorService majorService;
+
 
 
     @GetMapping("/recordCourschemas")
@@ -40,8 +45,32 @@ public class CourschemasController {
 
     @PostMapping(value = "allschema")
     @ResponseBody
-    public List<courschemas>  allschema(){
-        return courschemasService.findAll();
+    public List<Map>  allschema(){
+         List<courschemas>  search = courschemasService.findAll();
+         List<Map> reply = new LinkedList<>();
+         for(courschemas now: search) {
+             Map<String, Object> tmp = new HashMap<String, Object>();
+             tmp.put("Foreign", now.getForeign());
+             tmp.put("one_plus3", now.getOne_plus3());
+             tmp.put("major_elec_alt", now.getMajor_elec_alt());
+             tmp.put("altered_course1", now.getAltered_course1());
+             tmp.put("altered_course2", now.getAltered_course2());
+             tmp.put("coursechema", now.getCourschema());
+             int m = now.getMajor();
+             Major major = majorService.findMajorById(m);
+             tmp.put("Major", major.getChineseName());
+             tmp.put("year", now.getYear());
+             Department department = departmentService.findDepartmentById(now.getDepartment());
+             tmp.put("Department", department.getChineseName());
+             tmp.put("major_elec", now.getMajor_elec());
+             tmp.put("HU_elec", now.getHU_elec());
+             tmp.put("SS_elec", now.getSS_elec());
+             tmp.put("AR_elec", now.getAR_elec());
+             tmp.put("political", now.getPolitical());
+             tmp.put("ChineseName", now.getChineseName());
+             reply.add(tmp);
+         }
+        return reply;
     }
 
     @PostMapping(value = "schemabyMajor")
