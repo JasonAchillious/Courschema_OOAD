@@ -41,7 +41,7 @@ public class CourseController {
             int de = now.getDepartment();
             Department department = departmentService.findDepartmentById(de);
             temp.put("department", department.getChineseName());
-            
+
             reply.add(temp);
 
         }

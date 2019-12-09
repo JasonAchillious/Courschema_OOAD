@@ -15,4 +15,5 @@ public interface ClassificationService {
     public List<Integer> findTypeComCourse(int courschema);
     public List<Integer> findTypeRuxiCourse(int courschema);
     public List<Integer> findTypeTonCourse(int courschema);
+    public List<Integer> findTypeXuanXiuCourse(int courschema);
 }

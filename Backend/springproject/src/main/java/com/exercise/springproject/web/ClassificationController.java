@@ -72,6 +72,11 @@ public class ClassificationController {
         return classificationService.findTypeTonCourse(courschema);
     }
 
+    @PostMapping("findXuanXiuCourse")
+    public List<Integer> findXuanXiuCourse(@RequestParam int courschema){
+        return classificationService.findTypeXuanXiuCourse(courschema);
+    }
+
 
     @PostMapping(value = "/showClassification")
     @ResponseBody
@@ -80,6 +85,7 @@ public class ClassificationController {
         reply.setTongshi(findTonCourse(schema_id));
         reply.setRuxi(findRuxiCourse(schema_id));
         reply.setBixiu(findComCourse(schema_id));
+        reply.setXuanxiu(findXuanXiuCourse(schema_id));
         courschemas schema = courschemasService.findCourschema(schema_id);
         reply.setXuanxiu_credit(schema.getMajor_elec());
         reply.setRenwen_credit(schema.getHU_elec());
@@ -129,6 +135,19 @@ public class ClassificationController {
             classificationService.deleteCourseClass(now, schema_id);
         }
         for(int now: newEdit.getTongshi()){
+            Classification cla = new Classification();
+            cla.setCompulsory((byte)0);
+            cla.setCourschema(schema_id);
+            cla.setIdCourse(now);
+            cla.setRu_xi((byte)0);
+            cla.setTongshi((byte)1);
+            classificationService.save(cla);
+        }
+        for(int now: findXuanXiuCourse(schema_id)){
+            //old xuanxiu
+            classificationService.deleteCourseClass(now, schema_id);
+        }
+        for(int now: newEdit.getXuanxiu()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
             cla.setCourschema(schema_id);
