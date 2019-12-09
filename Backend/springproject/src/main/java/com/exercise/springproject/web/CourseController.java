@@ -2,19 +2,19 @@ package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.CourseService;
+import com.exercise.springproject.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @GetMapping("/recordCourse")
     public List<Course> findAllCourse(){
@@ -23,8 +23,29 @@ public class CourseController {
 
     @PostMapping("/allcourse")
     @ResponseBody
-    public List<Course> allcourse(){
-        return courseService.findAll();
+    public List<Map> allcourse(){
+        List<Course> tmp =  courseService.findAll();
+        List<Map> reply = new LinkedList<>();
+        for(Course now: tmp){
+            Map<String, Object> temp = new HashMap<String,Object>();
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("code", now.getCode());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getYear());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+            
+            reply.add(temp);
+
+        }
+        return reply;
     }
 
     @PostMapping("/recordClassification")
