@@ -1,3 +1,6 @@
+
+courseMap = new Map();
+
 var dragFrame = {
 
     ready: function () {
@@ -5,19 +8,66 @@ var dragFrame = {
         $(".draggable").draggable({
             revert: "valid",
             helper: "clone",
-            appendTo: "body"
+            appendTo: "body",
+            drag: function (event,ui) {
+
+            }
         });
 
         $(".droppable")
             .droppable({
 
                 drop: function (event, ui) {
-                    //todo drop function
+                    var id = Number(ui.draggable.prop('id'));
+                    var course = courseMap.get(id);
+                    console.log(JSON.stringify(course));
 
-                    $(this).append();
+                    $(this).find("tbody").append(dragFrame.course_html(course));
                     return false;
                 }
             });
+    },
+
+    course_html: function (course) {
+        var chinese_name = course.chineseName;
+        var credit = course.credit;
+        var code = course.code;
+        var year = course.year;
+        var department = course.department;
+        var english_name = course.englishName;
+        var season = dragFrame.set_season(course);
+
+        //make html
+
+        var html = "<tr>\n" +
+            "          <th scope=\"row\">"+code+"</th>\n" +
+            "          <td>"+chinese_name+"|"+english_name+"</td>\n" +
+            "          <td>"+credit+"</td>\n" +
+            "          <td>"+season+"</td>\n" +
+            "          <td>"+year+"</td>\n" +
+            "          <td>"+department+"</td>\n" +
+            "       </tr>";
+
+        return html;
+
+    },
+
+    set_season: function (course) {
+        var season_str = '';
+        if(course.spring == 1)
+        {
+            season_str += "春季学期 "
+        }
+        else if(course.autume == 1)
+        {
+            season_str += "秋季学期 "
+        }
+        else if(course.summer == 1)
+        {
+            season_str += "夏季学期 "
+        }
+
+        return season_str;
     }
 };
 var loadcourse = {
@@ -40,12 +90,13 @@ var loadcourse = {
 
                 for(var i = 0;i < reply.length;i++)
                 {
-                    console.log(reply[i].chineseName);
+                    courseMap.set(reply[i].idCourse,reply[i]);
+
                     loadcourse.appendDepartment(reply[i]);
                     loadcourse.appendCourse(reply[i]);
-
                 }
-
+                alert("Map size:"+courseMap.size);
+                alert("reply size: "+reply.length);
             },
             error: function (response) {
                 alert("Error")
@@ -56,7 +107,7 @@ var loadcourse = {
     appendCourse: function (course) {
         var name = course.chineseName;
         var courseid = course.idCourse;
-        var departmentID = load.departmentMap.get(course.);
+        var departmentID = loadcourse.departmentMap.get(course.department);
         var major_html = "<a href=\"#\" class=\"list-group-item list-group-item-action draggable\" id = \""+courseid+"\">"+name+"</a>"
 
         $('div#'+departmentID).append(major_html);
@@ -67,17 +118,17 @@ var loadcourse = {
 
         var department = course.department;
 
-        if(!load.departmentMap.has(department))
+        if(!loadcourse.departmentMap.has(department))
         {
-            load.departmentMap.set(department,load.departmentMap.size);
+            loadcourse.departmentMap.set(department,loadcourse.departmentMap.size);
 
-            departmentID = load.departmentMap.get(department);
+            departmentID = loadcourse.departmentMap.get(department);
 
             var div = "<div class=\"list-group col-md-12\" id = \""+departmentID+"\"></div>";
 
             var dep_html = "<a href=\"#\" class=\"list-group-item list-group-item-action active\">" +department + "</a>";
 
-            $('#Major_List').append(div);
+            $('#Course_List').append(div);
             $('div#'+departmentID).append(dep_html);
             //append
             console.log("append department:"+department);
