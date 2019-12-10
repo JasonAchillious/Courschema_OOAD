@@ -176,12 +176,12 @@ public class CourschemasController {
 
         courschemas.setAR_elec((int)map.get("AR_elec"));
         courschemas.setChineseName((String) map.get("schema_name"));
-        String depart = (String) map.get("department");
-        courschemas.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
+        //String depart = (String) map.get("department");
+        //courschemas.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
         courschemas.setForeign((int) map.get("foreign"));
         courschemas.setHU_elec((int)map.get("HU_elec"));
-        String major = (String) map.get("major");
-        courschemas.setMajor(majorService.findMajorByCname(major).getIdMajor());
+        //String major = (String) map.get("major");
+       // courschemas.setMajor(majorService.findMajorByCname(major).getIdMajor());
         courschemas.setMajor_elec((int)map.get("major_elec"));
         courschemas.setOne_plus3((int)map.get("one_plus3"));
         courschemas.setSS_elec((int)map.get("SS_elec"));

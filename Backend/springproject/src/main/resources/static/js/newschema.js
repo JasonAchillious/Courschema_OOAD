@@ -16,7 +16,7 @@ function schema(data) {
     this.schema_name = data.schema_name;//string
     this.major = data.major;//string
     this.department = data.department;//string
-    this.major_elec = data.major_elec;//int
+    this.major_elec = Number(data.major_elec);//int
     this.HU_elec = Number(data.HU_elec);//int
     this.SS_elec = Number(data.SS_elec);//int
     this.AR_elec = Number(data.AR_elec);//int
