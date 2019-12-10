@@ -26,4 +26,14 @@ public class XianxiuServiceImpl implements XianxiuService{
     public Xianxiu_condition findXianxiu_conditionByIdCourseAndCourschema(int course, int schema) {
         return xianXiuRepository.findXianxiu_conditionByIdCourseAndCourschema(course, schema);
     }
+
+    @Override
+    public Xianxiu_condition save(Xianxiu_condition con) {
+        return xianXiuRepository.save(con);
+    }
+
+    @Override
+    public void deleteXianxiuCondition(int course, int courschema) {
+        xianXiuRepository.deleteXianxiu_condition(course, courschema);
+    }
 }

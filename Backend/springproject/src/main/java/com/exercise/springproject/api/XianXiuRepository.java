@@ -19,5 +19,7 @@ public interface XianXiuRepository extends JpaRepository<Xianxiu_condition, Inte
     @Query("select p from Xianxiu_condition p where p.idCourse=?1 and p.courschema=?2")
     public Xianxiu_condition findXianxiu_conditionByIdCourseAndCourschema(int course, int schema);
 
+    @Query("delete from graduate_condition where idCourse=?1 and courschema=?2")
+    public void deleteXianxiu_condition(int course, int courschema);
 
 }
