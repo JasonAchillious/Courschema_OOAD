@@ -34,3 +34,7 @@
     overflow: auto;
 }
 
+.course-board{
+    height: 600px;
+    overflow: auto;
+}

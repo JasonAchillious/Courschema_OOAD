@@ -30,8 +30,8 @@
     </div>
 
     <div class="collapse navbar-collapse offset-5">
-        <button type="button" class="btn btn-success col-lg-5">保存</button>
-        <button type="button" class="btn btn-danger col-lg-5 offset-1">放弃</button>
+        <button type="button" class="btn btn-success col-lg-5" onclick="upload()">保存</button>
+        <button type="button" class="btn btn-danger col-lg-5 offset-1" onclick="">放弃</button>
     </div>
 
 </nav>
@@ -40,7 +40,7 @@
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3">
             <div class="row">
-                <button type="button" disabled="disabled" class="btn btn-primary btn-lg btn-block col-md-12">所有专业
+                <button type="button" disabled="disabled" class="btn btn-primary btn-lg btn-block col-md-12">所有课程
                 </button>
             </div>
             <div class="row">
@@ -58,20 +58,20 @@
         <div class="col-lg-9 col-md-9 col-sm-9">
             <ul id="myTab" class="nav nav-tabs">
                 <li class="active">
-                    <a href="#ruxi" data-toggle="tab">
+                    <a href="#ruxi_part" data-toggle="tab">
                         入系必修课
                     </a>
                 </li>
-                <li><a href="#tongshi" data-toggle="tab">通识必修课</a></li>
-                <li><a href="#bixiu" data-toggle="tab">专业必修课</a></li>
-                <li><a href="#xuanxiu" data-toggle="tab">专业选修课</a></li>
+                <li><a href="#tongshi_part" data-toggle="tab">通识必修课</a></li>
+                <li><a href="#bixiu_part" data-toggle="tab">专业必修课</a></li>
+                <li><a href="#xuanxiu_part" data-toggle="tab">专业选修课</a></li>
 
             </ul>
             <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade in active" id="ruxi">
-                    <div class="card text-white bg-secondary mb-3 " style="min-height: 300px">
+                <div class="tab-pane fade in active" id="ruxi_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
                         <div class="card-header">将课程拖入选择栏</div>
-                        <div class="card-body droppable">
+                        <div class="card-body droppable " id="ruxi">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
@@ -84,105 +84,83 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">课程编号</th>
-                                    <td>课程名称</td>
-                                    <td>课程学分</td>
-                                    <td>开课学期</td>
-                                    <td>建议修读学年</td>
-                                    <td>开课院系</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tongshi">
-                    <div class="card text-white bg-secondary mb-3 " style="min-height: 300px">
+                <div class="tab-pane fade" id="tongshi_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
                         <div class="card-header">将课程拖入选择栏</div>
-                        <div class="card-body droppable">
+                        <div class="card-body droppable " id="tongshi">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
+                                    <th scope="col">课程编号</th>
                                     <th scope="col">课程名称</th>
-                                    <th scope="col">课程代码</th>
-                                    <th scope="col">开课学期</th>
-                                    <th scope="col">课程简介</th>
-                                    <th scope="col">建议修读年份</th>
                                     <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">面向对象程序设计</th>
-                                    <td>CS30x</td>
-                                    <td>秋季学期</td>
-                                    <td>学写bug</td>
-                                    <td>大三上</td>
-                                    <td>3</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="bixiu">
-                    <div class="card text-white bg-secondary mb-3 " style="min-height: 300px">
+                <div class="tab-pane fade" id="bixiu_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
                         <div class="card-header">将课程拖入选择栏</div>
-                        <div class="card-body droppable">
-                            <table class="table table-hover">
+                        <div class="card-body droppable " id="bixiu">
+                            <table class="table table-hover ">
                                 <thead>
                                 <tr>
+                                    <th scope="col">课程编号</th>
                                     <th scope="col">课程名称</th>
-                                    <th scope="col">课程代码</th>
-                                    <th scope="col">开课学期</th>
-                                    <th scope="col">课程简介</th>
-                                    <th scope="col">建议修读年份</th>
                                     <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">面向对象程序设计</th>
-                                    <td>CS30x</td>
-                                    <td>秋季学期</td>
-                                    <td>学写bug</td>
-                                    <td>大三上</td>
-                                    <td>3</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="xuanxiu">
-                    <div class="card text-white bg-secondary mb-3 " style="min-height: 300px">
+                <div class="tab-pane fade" id = "xuanxiu_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
                         <div class="card-header">将课程拖入选择栏</div>
-                        <div class="card-body droppable">
+                        <div class="card-body droppable " id="xuanxiu">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
+                                    <th scope="col">课程编号</th>
                                     <th scope="col">课程名称</th>
-                                    <th scope="col">课程代码</th>
-                                    <th scope="col">开课学期</th>
-                                    <th scope="col">课程简介</th>
-                                    <th scope="col">建议修读年份</th>
                                     <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">面向对象程序设计</th>
-                                    <td>CS30x</td>
-                                    <td>秋季学期</td>
-                                    <td>学写bug</td>
-                                    <td>大三上</td>
-                                    <td>3</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
+                    <div class="form-group col-3 offset-9">
+                        <label class="col-form-label" for="inputDefault">选修学分要求</label>
+                        <input type="number" class="form-control" placeholder="Default input" id="inputDefault">
+                    </div>
+
                 </div>
             </div>
         </div>

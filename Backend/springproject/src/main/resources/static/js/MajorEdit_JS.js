@@ -1,6 +1,17 @@
 
 courseMap = new Map();
 
+var schemaedit = {
+    tongshi : [],//保存所有通识课
+    ruxi: [],//同理
+    bixiu: [],
+    xuanxiu: [],
+    xuanxiu_credit: 0,//默认为0
+    renwen_credit: 0,
+    sheke_credit: 0
+};
+
+
 var dragFrame = {
 
     ready: function () {
@@ -20,12 +31,33 @@ var dragFrame = {
                 drop: function (event, ui) {
                     var id = Number(ui.draggable.prop('id'));
                     var course = courseMap.get(id);
-                    console.log(JSON.stringify(course));
 
+                    //找到课程加入的是哪个表
+                    var type = $(this).prop('id');
+                    dragFrame.store_course(type,course);
+                    //todo 检查重复
                     $(this).find("tbody").append(dragFrame.course_html(course));
                     return false;
                 }
             });
+    },
+
+    store_course: function(type,course)
+    {
+        switch (type) {
+            case "ruxi":
+                schemaedit.ruxi.push(course);
+                break;
+            case "tongshi":
+                schemaedit.tongshi.push(course);
+                break;
+            case "bixiu":
+                schemaedit.bixiu.push(course);
+                break;
+            case "xuanxiu":
+                schemaedit.xuanxiu.push(course);
+                break;
+        }
     },
 
     course_html: function (course) {
@@ -95,8 +127,6 @@ var loadcourse = {
                     loadcourse.appendDepartment(reply[i]);
                     loadcourse.appendCourse(reply[i]);
                 }
-                alert("Map size:"+courseMap.size);
-                alert("reply size: "+reply.length);
             },
             error: function (response) {
                 alert("Error")
@@ -137,6 +167,12 @@ var loadcourse = {
 
     }
 };
+
+function upload()
+{
+    // 按钮按下，上传更新后的培养方案
+    console.log(JSON.stringify(schemaedit));
+}
 
 
 $(document).ready(loadcourse.load);
