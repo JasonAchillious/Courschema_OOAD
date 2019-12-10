@@ -5,12 +5,11 @@ import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +38,13 @@ public class StudentController{
 
     @Autowired
     private AdminService adminService;
+
+    @GetMapping("/")
+    public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String account, Model model) {
+        model.addAttribute("name", account);
+        return "index";
+    }
+
 
     @GetMapping("/home")
     public String homepage(){return "home";}
@@ -92,28 +98,40 @@ public class StudentController{
 
     // from /home/login change to this
     @GetMapping("/login")
-    public String loginpage(){return "login";}
-
-    @PostMapping("/login")
-    public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes){
+    public String loginpage(){
+        return "login";
+    }
+    @PostMapping("/loginPost")
+    public @ResponseBody Map<String, Object> loginPost(@Valid studentForm stu,RedirectAttributes attributes, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
         if ((stu.getUsername() == 0 )&&(stu.getPassword() == null)){
             attributes.addFlashAttribute("pswmsg","password cannot be none");
             attributes.addFlashAttribute("namemsg","StudentId cannot be none");
-            return "redirect:/login";
+            //return "redirect:/login";
+            map.put("type", null);
+            map.put("success", false);
+            map.put("message", "用户名和密码不能为空");
+            return map;
         }
         if (stu.getUsername() == 0){
             attributes.addFlashAttribute("errorMsg","StudentId cannot be none");
             attributes.addFlashAttribute("namemsg","StudentId cannot be none");
-            return "redirect:/login";
+            //return "redirect:/login";
+            map.put("type", null);
+            map.put("success", false);
+            map.put("message", "用户名不能为空");
+            return map;
         }
         if (stu.getPassword().equals("")){
             attributes.addFlashAttribute("errorMsg","password cannot be none");
             attributes.addFlashAttribute("pswmsg","password cannot be none");
-            return "redirect:/login";
+            //return "redirect:/login";
+            map.put("type", null);
+            map.put("success", false);
+            map.put("message", "密码不能为空");
+            return map;
         }
 
-
-        //判断开头数字，从不同表里找用户
         int idtemp = stu.getUsername();
         if(idtemp>10000000 && idtemp <20000000){
             //stu
@@ -121,14 +139,28 @@ public class StudentController{
             if (search==null){
                 attributes.addFlashAttribute("errorMsg","the ID is not correct");
                 attributes.addFlashAttribute("namemsg","the ID is not correct");
-                return "redirect:/login";
+                //return "redirect:/login";
+                map.put("type", "student");
+                map.put("success", false);
+                map.put("message","用户名不正确");
+                return map;
             }else {
                 if (search.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-                    return "redirect:/userhome";
+                    //return "redirect:/userhome";
+                    session.setAttribute(WebSecurityConfig.SESSION_KEY, stu.getUsername());
+                    map.put("type", "student");
+                    map.put("success", true);
+                    map.put("message", "登录成功");
+                    return map;
+
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
-                    return "redirect:/login";
+                    //return "redirect:/login";
+                    map.put("type", "student");
+                    map.put("success", false);
+                    map.put("message","密码不正确");
+                    return map;
                 }
             }
         }else if(idtemp>30000000 && idtemp <40000000){
@@ -137,14 +169,27 @@ public class StudentController{
             if (secr==null){
                 attributes.addFlashAttribute("errorMsg","the ID is not correct");
                 attributes.addFlashAttribute("namemsg","the ID is not correct");
-                return "redirect:/login";
+                //return "redirect:/login";
+                map.put("type", "secretary");
+                map.put("success", false);
+                map.put("message","用户名不正确");
+                return map;
             }else {
                 if (secr.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-                    return "redirect:/sechome";
+                    //return "redirect:/sechome";
+                    map.put("type", "secretary");
+                    map.put("success", true);
+                    map.put("message","登录成功");
+                    session.setAttribute(WebSecurityConfig.SESSION_KEY, stu.getUsername());
+                    return map;
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
-                    return "redirect:/login";
+                    //return "redirect:/login";
+                    map.put("type", "secretary");
+                    map.put("success", false);
+                    map.put("message","密码不正确");
+                    return map;
                 }
             }
         }else{
@@ -153,21 +198,116 @@ public class StudentController{
             if (adm==null){
                 attributes.addFlashAttribute("errorMsg","the ID is not correct");
                 attributes.addFlashAttribute("namemsg","the ID is not correct");
-                return "redirect:/login";
+                //return "redirect:/login";
+                map.put("type", "admin");
+                map.put("success", false);
+                map.put("message","用户名不正确");
+                return map;
             }else {
                 if (adm.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-                    return "redirect:/adminhome";
+                    //return "redirect:/adminhome";
+                    map.put("type", "admin");
+                    map.put("success", true);
+                    map.put("message","登录成功");
+                    session.setAttribute(WebSecurityConfig.SESSION_KEY, stu.getUsername());
+                    return map;
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
-                    return "redirect:/login";
+                    //return "redirect:/login";
+                    map.put("type", "admin");
+                    map.put("success", false);
+                    map.put("message","密码不正确");
+
+
                 }
             }
         }
-       // student search = studentService.findStudentByid_student(stu.getUsername());
-
+        return map;
 
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        // 移除session
+        session.removeAttribute(WebSecurityConfig.SESSION_KEY);
+        return "redirect:/login";
+    }
+
+//    @PostMapping("/login")
+//    public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes){
+//        if ((stu.getUsername() == 0 )&&(stu.getPassword() == null)){
+//            attributes.addFlashAttribute("pswmsg","password cannot be none");
+//            attributes.addFlashAttribute("namemsg","StudentId cannot be none");
+//            return "redirect:/login";
+//        }
+//        if (stu.getUsername() == 0){
+//            attributes.addFlashAttribute("errorMsg","StudentId cannot be none");
+//            attributes.addFlashAttribute("namemsg","StudentId cannot be none");
+//            return "redirect:/login";
+//        }
+//        if (stu.getPassword().equals("")){
+//            attributes.addFlashAttribute("errorMsg","password cannot be none");
+//            attributes.addFlashAttribute("pswmsg","password cannot be none");
+//            return "redirect:/login";
+//        }
+//
+//
+//        //判断开头数字，从不同表里找用户
+//        int idtemp = stu.getUsername();
+//        if(idtemp>10000000 && idtemp <20000000){
+//            //stu
+//            student search = studentService.findStudentByid_student(stu.getUsername());
+//            if (search==null){
+//                attributes.addFlashAttribute("errorMsg","the ID is not correct");
+//                attributes.addFlashAttribute("namemsg","the ID is not correct");
+//                return "redirect:/login";
+//            }else {
+//                if (search.getPassword().equals(stu.getPassword())){
+//                    attributes.addAttribute("param", stu.getUsername());
+//                    return "redirect:/userhome";
+//                }else{
+//                    attributes.addFlashAttribute("pswmsg","password is not correct");
+//                    return "redirect:/login";
+//                }
+//            }
+//        }else if(idtemp>30000000 && idtemp <40000000){
+//            //secreatary
+//            secretary secr = secretaryService.findSecretaryById(stu.getUsername());
+//            if (secr==null){
+//                attributes.addFlashAttribute("errorMsg","the ID is not correct");
+//                attributes.addFlashAttribute("namemsg","the ID is not correct");
+//                return "redirect:/login";
+//            }else {
+//                if (secr.getPassword().equals(stu.getPassword())){
+//                    attributes.addAttribute("param", stu.getUsername());
+//                    return "redirect:/sechome";
+//                }else{
+//                    attributes.addFlashAttribute("pswmsg","password is not correct");
+//                    return "redirect:/login";
+//                }
+//            }
+//        }else{
+//            //admin
+//            Admin adm = adminService.findAdminByIdAdmin(stu.getUsername());
+//            if (adm==null){
+//                attributes.addFlashAttribute("errorMsg","the ID is not correct");
+//                attributes.addFlashAttribute("namemsg","the ID is not correct");
+//                return "redirect:/login";
+//            }else {
+//                if (adm.getPassword().equals(stu.getPassword())){
+//                    attributes.addAttribute("param", stu.getUsername());
+//                    return "redirect:/adminhome";
+//                }else{
+//                    attributes.addFlashAttribute("pswmsg","password is not correct");
+//                    return "redirect:/login";
+//                }
+//            }
+//        }
+//       // student search = studentService.findStudentByid_student(stu.getUsername());
+//
+//
+//    }
 
 
 }

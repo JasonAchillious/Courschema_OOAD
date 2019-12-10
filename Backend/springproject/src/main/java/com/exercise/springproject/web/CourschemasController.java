@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,7 +20,6 @@ import java.util.*;
 
 @Controller
 @RestController
-@RequestMapping("/exer")
 public class CourschemasController {
     @Autowired
     private CourschemasService courschemasService;
@@ -32,6 +33,9 @@ public class CourschemasController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private MajorService majorService;
+
 
 
     @GetMapping("/recordCourschemas")
@@ -39,16 +43,61 @@ public class CourschemasController {
         return courschemasService.findAll();
     }
 
+    @PostMapping(value = "allschema")
+    @ResponseBody
+    public List<Map>  allschema(){
+         List<courschemas>  search = courschemasService.findAll();
+         List<Map> reply = new LinkedList<>();
+         for(courschemas now: search) {
+             Map<String, Object> tmp = new HashMap<String, Object>();
+             tmp.put("Foreign", now.getForeign());
+             tmp.put("one_plus3", now.getOne_plus3());
+             tmp.put("major_elec_alt", now.getMajor_elec_alt());
+//             tmp.put("altered_course1", now.getAltered_course1());
+//             tmp.put("altered_course2", now.getAltered_course2());
+             tmp.put("coursechema", now.getCourschema());
+             int m = now.getMajor();
+             Major major = majorService.findMajorById(m);
+             tmp.put("Major", major.getChineseName());
+             tmp.put("year", now.getYear());
+             Department department = departmentService.findDepartmentById(now.getDepartment());
+             tmp.put("Department", department.getChineseName());
+             tmp.put("major_elec", now.getMajor_elec());
+             tmp.put("HU_elec", now.getHU_elec());
+             tmp.put("SS_elec", now.getSS_elec());
+             tmp.put("AR_elec", now.getAR_elec());
+             tmp.put("political", now.getPolitical());
+             tmp.put("ChineseName", now.getChineseName());
+             reply.add(tmp);
+         }
+        return reply;
+    }
+
+    @PostMapping(value = "schemabyMajor")
+    @ResponseBody
+    public List<courschemas> schemabyMajor(@RequestBody Integer majorId){
+        return courschemasService.findcourschemasBymajor(majorId);
+    }
+
+    @PostMapping(value = "schemabyMajorAndYear")
+    @ResponseBody
+    public List<courschemas> schemabyMajorAndYear(@RequestBody Integer majorId,
+                                                  @RequestBody Integer year){
+        List<courschemas> first = courschemasService.findcourschemasBymajor(majorId);
+        List<courschemas> ans = null;
+        for(courschemas now:first){
+            if(now.getYear()==year){
+                ans.add(now);
+            }
+        }
+        return ans;
+    }
+
     @GetMapping("/allCourschemas")
-    public List<Object> findCourschemasName()
-    {
-
+    public List<Object> findCourschemasName(){
         List<Object> result = new ArrayList<Object>();
-
         List<courschemas> all = courschemasService.findAll();
-
-        for(int i = 0;i < all.size();i ++)
-        {
+        for(int i = 0;i < all.size();i ++) {
             Map<String,Object> ele = new HashMap<>();
             courschemas c = all.get(i);
             ele.put("chineseName",c.getChineseName());
@@ -65,18 +114,19 @@ public class CourschemasController {
     }
 
 
-    @PostMapping("/recordCourschemas")
-    public courschemas addOne(courschemas courschemas){
-        return courschemasService.save(courschemas);
-    }
+//    @PostMapping("/recordCourschemas")
+//    public courschemas addOne(courschemas courschemas){
+//        System.out.print(courschemas);
+//        return courschemasService.save(courschemas);
+//    }
 
     @PutMapping("/recordCourschemas")
-    public courschemas update(@RequestParam int courschema,
+    public courschemas update(//@RequestParam int courschema,
                               @RequestParam int Foreign,
                               @RequestParam int one_plus3,
                               @RequestParam int major_elec_art,
-                              @RequestParam int altered_course1,
-                              @RequestParam int altered_course2,
+//                              @RequestParam int altered_course1,
+//                              @RequestParam int altered_course2,
                               @RequestParam int Major,
                               @RequestParam int Year,
                               @RequestParam int Department,
@@ -87,9 +137,9 @@ public class CourschemasController {
                               @RequestParam int political,
                               @RequestParam String ChineseName){
         courschemas courschemas = new courschemas();
-        courschemas.setCourschema(courschema);
-        courschemas.setAltered_course1(altered_course1);
-        courschemas.setAltered_course2(altered_course2);
+     //   courschemas.setCourschema(courschema);
+//        courschemas.setAltered_course1(altered_course1);
+//        courschemas.setAltered_course2(altered_course2);
         courschemas.setAR_elec(AR_elec);
         courschemas.setChineseName(ChineseName);
         courschemas.setDepartment(Department);
@@ -102,7 +152,31 @@ public class CourschemasController {
         courschemas.setPolitical(political);
         courschemas.setSS_elec(SS_elec);
         courschemas.setYear(Year);
+        return courschemasService.save(courschemas);
+    }
 
+    @PostMapping("/saveCourschemas")
+    public courschemas addOne(courschemas courschemas){
+        return courschemasService.save(courschemas);
+    }
+
+    @PutMapping("/saveCourschemas")
+    public courschemas saveSchema(@RequestParam Map<String, Object> json){
+        courschemas courschemas = new courschemas();
+        System.out.println(courschemas);
+        courschemas.setAR_elec((int)json.get("AR_elec"));
+        courschemas.setChineseName((String) json.get("schema_name"));
+        String depart = (String) json.get("department");
+        courschemas.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
+        courschemas.setForeign((int) json.get("foreign"));
+        courschemas.setHU_elec((int)json.get("HU_elec"));
+        String major = (String) json.get("major");
+        courschemas.setMajor(majorService.findMajorByCname(major).getIdMajor());
+        courschemas.setMajor_elec((int)json.get("major_elec"));
+        courschemas.setOne_plus3((int)json.get("one_plus3"));
+        courschemas.setSS_elec((int)json.get("SS_elec"));
+        courschemas.setYear((int)json.get("year"));
+        courschemas.setIntro((String)json.get("intro"));
         return courschemasService.save(courschemas);
     }
 

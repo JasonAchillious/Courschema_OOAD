@@ -50,4 +50,9 @@ public class ClassificationServiceImpl implements ClassificationService{
     public List<Integer> findTypeTonCourse(int courschema){
         return classificationRepository.findTypeTonCourse(courschema);
     }
+
+    @Override
+    public List<Integer> findTypeXuanXiuCourse(int courschema) {
+        return classificationRepository.findTypeXuanXiuCourse(courschema);
+    }
 }

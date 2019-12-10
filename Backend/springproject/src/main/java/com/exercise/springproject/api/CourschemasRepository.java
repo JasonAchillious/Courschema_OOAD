@@ -4,6 +4,8 @@ import com.exercise.springproject.domain.courschemas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 
 public interface CourschemasRepository extends JpaRepository<courschemas, Integer> {
     @Query("select p from courschemas p where p.courschema=?1")
@@ -13,7 +15,7 @@ public interface CourschemasRepository extends JpaRepository<courschemas, Intege
     public courschemas findCourschema(String chinese_name);
 
     @Query("select p from courschemas p where p.Major=?1")
-    public courschemas findcourschemasBymajor(int major);
+    public List<courschemas> findcourschemasBymajor(int major);
 
     @Query("select p from courschemas p where p.Year=?1")
     public courschemas findcourschemasByYear(int year);

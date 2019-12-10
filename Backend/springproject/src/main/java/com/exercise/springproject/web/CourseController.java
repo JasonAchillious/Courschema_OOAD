@@ -2,23 +2,50 @@ package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.CourseService;
+import com.exercise.springproject.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
-@RequestMapping("/course")
+
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @GetMapping("/recordCourse")
     public List<Course> findAllCourse(){
         return courseService.findAll();
+    }
+
+    @PostMapping("/allcourse")
+    @ResponseBody
+    public List<Map> allcourse(){
+        List<Course> tmp =  courseService.findAll();
+        List<Map> reply = new LinkedList<>();
+        for(Course now: tmp){
+            Map<String, Object> temp = new HashMap<String,Object>();
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("code", now.getCode());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getYear());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+
+            reply.add(temp);
+
+        }
+        return reply;
     }
 
     @PostMapping("/recordClassification")
@@ -62,11 +89,19 @@ public class CourseController {
     public String findCourseCnameById(@RequestParam int idCourse){
         return courseService.findCourseById(idCourse).getChineseName();
     }
-    
+
     @PostMapping("findCourseDepartment")
     public List<Course> findCourseDepartment(@RequestParam int idDepartment){
         return courseService.findCourseByDepartment(idDepartment);
     }
+
+
+    @PostMapping("/coursebydepart")
+    @ResponseBody
+    public List<Course> coursebyDepart(@RequestBody Integer id){
+        return courseService.findCourseByDepartment(id);
+    }
+
 
     @PostMapping(value = "/show_course")
     @ResponseBody
@@ -85,13 +120,13 @@ public class CourseController {
         //reply.put("courseLang", ans.);
         String term = "";
         if(ans.getAutumn()==1){
-            term.concat("autumn");
+            term.concat(" autumn");
         }
         if(ans.getSpring()==1){
-            term.concat(", spring");
+            term.concat(" spring");
         }
         if(ans.getSummer()==1){
-            term.concat(", spring");
+            term.concat(" spring");
         }
         reply.put("SetTerm", term);
         //reply.put("preCourse", s.getEnglishLevel());

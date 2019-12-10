@@ -12,7 +12,7 @@ public interface CourschemasService {
     public void deleteCourschema(int courschema);
     public courschemas findCourschema(int courschema);
     public courschemas findCourschemaName(String chinese_name);
-    public courschemas findcourschemasBymajor(int major);
+    public List<courschemas> findcourschemasBymajor(int major);
     public courschemas findcourschemasByYear(int year);
     public courschemas findcourschemasByDepartment(int de);
 }
