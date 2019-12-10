@@ -14,7 +14,7 @@ public class courschemas {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int courschema;
     @NotNull
-    private int Major;
+    private int Major;//
     private int Year;
     private int Department;
     private int major_elec;
@@ -23,6 +23,15 @@ public class courschemas {
     private int AR_elec;
     private int political;
     private String ChineseName;
+    private String Intro;
+
+    public String getIntro() {
+        return Intro;
+    }
+
+    public void setIntro(String intro) {
+        Intro = intro;
+    }
 
     public int getForeign() {
         return Foreign;

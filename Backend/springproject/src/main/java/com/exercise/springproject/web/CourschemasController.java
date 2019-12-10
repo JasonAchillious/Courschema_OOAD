@@ -114,11 +114,11 @@ public class CourschemasController {
     }
 
 
-    @PostMapping("/recordCourschemas")
-    public courschemas addOne(courschemas courschemas){
-        System.out.print(courschemas);
-        return courschemasService.save(courschemas);
-    }
+//    @PostMapping("/recordCourschemas")
+//    public courschemas addOne(courschemas courschemas){
+//        System.out.print(courschemas);
+//        return courschemasService.save(courschemas);
+//    }
 
     @PutMapping("/recordCourschemas")
     public courschemas update(//@RequestParam int courschema,
@@ -152,6 +152,31 @@ public class CourschemasController {
         courschemas.setPolitical(political);
         courschemas.setSS_elec(SS_elec);
         courschemas.setYear(Year);
+        return courschemasService.save(courschemas);
+    }
+
+    @PostMapping("/saveCourschemas")
+    public courschemas addOne(courschemas courschemas){
+        return courschemasService.save(courschemas);
+    }
+
+    @PutMapping("/saveCourschemas")
+    public courschemas saveSchema(@RequestParam Map<String, Object> json){
+        courschemas courschemas = new courschemas();
+        System.out.println(courschemas);
+        courschemas.setAR_elec((int)json.get("AR_elec"));
+        courschemas.setChineseName((String) json.get("schema_name"));
+        String depart = (String) json.get("department");
+        courschemas.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
+        courschemas.setForeign((int) json.get("foreign"));
+        courschemas.setHU_elec((int)json.get("HU_elec"));
+        String major = (String) json.get("major");
+        courschemas.setMajor(majorService.findMajorByCname(major).getIdMajor());
+        courschemas.setMajor_elec((int)json.get("major_elec"));
+        courschemas.setOne_plus3((int)json.get("one_plus3"));
+        courschemas.setSS_elec((int)json.get("SS_elec"));
+        courschemas.setYear((int)json.get("year"));
+        courschemas.setIntro((String)json.get("intro"));
         return courschemasService.save(courschemas);
     }
 
