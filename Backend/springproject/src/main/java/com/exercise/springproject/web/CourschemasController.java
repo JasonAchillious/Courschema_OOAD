@@ -53,8 +53,8 @@ public class CourschemasController {
              tmp.put("Foreign", now.getForeign());
              tmp.put("one_plus3", now.getOne_plus3());
              tmp.put("major_elec_alt", now.getMajor_elec_alt());
-             tmp.put("altered_course1", now.getAltered_course1());
-             tmp.put("altered_course2", now.getAltered_course2());
+//             tmp.put("altered_course1", now.getAltered_course1());
+//             tmp.put("altered_course2", now.getAltered_course2());
              tmp.put("coursechema", now.getCourschema());
              int m = now.getMajor();
              Major major = majorService.findMajorById(m);
@@ -116,16 +116,17 @@ public class CourschemasController {
 
     @PostMapping("/recordCourschemas")
     public courschemas addOne(courschemas courschemas){
+        System.out.print(courschemas);
         return courschemasService.save(courschemas);
     }
 
     @PutMapping("/recordCourschemas")
-    public courschemas update(@RequestParam int courschema,
+    public courschemas update(//@RequestParam int courschema,
                               @RequestParam int Foreign,
                               @RequestParam int one_plus3,
                               @RequestParam int major_elec_art,
-                              @RequestParam int altered_course1,
-                              @RequestParam int altered_course2,
+//                              @RequestParam int altered_course1,
+//                              @RequestParam int altered_course2,
                               @RequestParam int Major,
                               @RequestParam int Year,
                               @RequestParam int Department,
@@ -136,9 +137,9 @@ public class CourschemasController {
                               @RequestParam int political,
                               @RequestParam String ChineseName){
         courschemas courschemas = new courschemas();
-        courschemas.setCourschema(courschema);
-        courschemas.setAltered_course1(altered_course1);
-        courschemas.setAltered_course2(altered_course2);
+     //   courschemas.setCourschema(courschema);
+//        courschemas.setAltered_course1(altered_course1);
+//        courschemas.setAltered_course2(altered_course2);
         courschemas.setAR_elec(AR_elec);
         courschemas.setChineseName(ChineseName);
         courschemas.setDepartment(Department);
@@ -151,7 +152,6 @@ public class CourschemasController {
         courschemas.setPolitical(political);
         courschemas.setSS_elec(SS_elec);
         courschemas.setYear(Year);
-
         return courschemasService.save(courschemas);
     }
 

@@ -1,8 +1,6 @@
 package com.exercise.springproject.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -10,14 +8,14 @@ public class courschemas {
     private int Foreign;
     private int one_plus3;
     private int major_elec_alt;
-    private int altered_course1;
-    private int altered_course2;
+    //private int altered_course1;
+    //private int altered_course2;
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int courschema;
     @NotNull
     private int Major;
     private int Year;
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Department;
     private int major_elec;
     private int HU_elec;
@@ -50,21 +48,21 @@ public class courschemas {
         this.major_elec_alt = major_elec_alt;
     }
 
-    public int getAltered_course1() {
-        return altered_course1;
-    }
-
-    public void setAltered_course1(int altered_course1) {
-        this.altered_course1 = altered_course1;
-    }
-
-    public int getAltered_course2() {
-        return altered_course2;
-    }
-
-    public void setAltered_course2(int altered_course2) {
-        this.altered_course2 = altered_course2;
-    }
+//    public int getAltered_course1() {
+//        return altered_course1;
+//    }
+//
+//    public void setAltered_course1(int altered_course1) {
+//        this.altered_course1 = altered_course1;
+//    }
+//
+//    public int getAltered_course2() {
+//        return altered_course2;
+//    }
+//
+//    public void setAltered_course2(int altered_course2) {
+//        this.altered_course2 = altered_course2;
+//    }
 
     public int getCourschema() {
         return courschema;

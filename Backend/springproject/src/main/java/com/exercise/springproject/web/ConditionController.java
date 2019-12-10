@@ -1,7 +1,6 @@
 package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.Xianxiu_condition;
-import com.exercise.springproject.domain.courschemas;
 import com.exercise.springproject.domain.graduate_condition;
 import com.exercise.springproject.service.GraduateService;
 import com.exercise.springproject.service.XianxiuService;
@@ -28,6 +27,11 @@ public class ConditionController {
     public List<graduate_condition> findGraduationConditionBySchema(int schema){
         return graduateService.findgraduate_conditionByCourschema(schema);
     }
+    @PostMapping("/BySchemaGraduationCondition")
+    @ResponseBody
+    public List<graduate_condition> findGraduation(@RequestParam int schema){
+        return graduateService.findgraduate_conditionByCourschema(schema);
+    }
 
     @GetMapping("/SpecificGraduationCondition")
     public graduate_condition findGraduationCondition(int course, int schema){
@@ -42,6 +46,12 @@ public class ConditionController {
     @GetMapping("/BySchemaXianxiuCondition")
     public List<Xianxiu_condition> findXianxiuConditionBySchema(int schema){
         return xianxiuService.findXianxiu_conditionByCourschema(schema);
+    }
+
+    @PostMapping("/BySchemaXianxiuCondition")
+    @ResponseBody
+    public List<Xianxiu_condition> find(@RequestParam int id){
+        return xianxiuService.findXianxiu_conditionByCourschema(id);
     }
 
     @GetMapping("/SpecificXianxiuCondition")
@@ -80,7 +90,5 @@ public class ConditionController {
         xian.setConditionString(conditionString);
         return xianxiuService.save(xian);
     }
-
-
 
 }
