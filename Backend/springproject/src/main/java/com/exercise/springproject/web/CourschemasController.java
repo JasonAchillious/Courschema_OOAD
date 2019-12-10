@@ -165,7 +165,7 @@ public class CourschemasController {
     public Map saveSchema(@RequestBody Map<String, Object> map){
         courschemas courschemas = new courschemas();
         System.out.println(courschemas);
-        System.out.println(map.get("department"));
+        System.out.println(map.keySet());
         courschemas.setAR_elec((int)map.get("AR_elec"));
         courschemas.setChineseName((String) map.get("schema_name"));
         String depart = (String) map.get("department");

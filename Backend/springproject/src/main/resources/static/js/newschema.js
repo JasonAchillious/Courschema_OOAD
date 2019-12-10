@@ -27,24 +27,24 @@ function schema(data) {
 }
 
 function newschema() {
-    let data = {};
-    let value = $('#data').serializeArray();
+    var data = {};
+    var value = $('#data').serializeArray();
     $.each(value, function (index, item) {
         data[item.name] = item.value;
     });
     var c_schema = new schema(data);
 
-    let json = JSON.stringify(c_schema);
+    var json = JSON.stringify(c_schema);
     console.log('c_schema : ',json);
     console.log('data: ',JSON.stringify(data))
 
     $.ajax({
-        type: 'POST',
-        data: c_schema,//json
+        type: 'post',
+        data: json,//json
         contentType: 'application/json',
         dataType: 'json',
-        async: false,
-        url: '/saveCourschemas',
+        // async: false,
+        url: '/saveCou',
         success: function (reply) {
             alert("success")
 
