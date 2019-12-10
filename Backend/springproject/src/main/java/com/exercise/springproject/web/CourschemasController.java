@@ -166,6 +166,14 @@ public class CourschemasController {
         courschemas courschemas = new courschemas();
         System.out.println(courschemas);
         System.out.println(map.get("department"));
+        System.out.println(map.get("AR_elec"));
+        System.out.println(map.get("schema_name"));
+        System.out.println(map.get("major_elec"));
+        System.out.println(map.get("HU_elec"));
+        System.out.println(map.get("foreign"));
+        System.out.println(map.get("major"));
+        System.out.println(map.get("one_plus3"));
+
         courschemas.setAR_elec((int)map.get("AR_elec"));
         courschemas.setChineseName((String) map.get("schema_name"));
         String depart = (String) map.get("department");
