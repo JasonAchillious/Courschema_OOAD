@@ -160,26 +160,28 @@ public class CourschemasController {
 //        return courschemasService.save(courschemas);
 //    }
 
-    @PostMapping(value="/saveCourschemas")
+    @PostMapping(value="/saveCou")
     @ResponseBody
-    public courschemas saveSchema(@RequestParam Map<String, Object> json){
+    public Map saveSchema(@RequestBody Map<String, Object> map){
         courschemas courschemas = new courschemas();
         System.out.println(courschemas);
-        System.out.println(json.get("department"));
-        courschemas.setAR_elec((int)json.get("AR_elec"));
-        courschemas.setChineseName((String) json.get("schema_name"));
-        String depart = (String) json.get("department");
+        System.out.println(map.get("department"));
+        courschemas.setAR_elec((int)map.get("AR_elec"));
+        courschemas.setChineseName((String) map.get("schema_name"));
+        String depart = (String) map.get("department");
         courschemas.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
-        courschemas.setForeign((int) json.get("foreign"));
-        courschemas.setHU_elec((int)json.get("HU_elec"));
-        String major = (String) json.get("major");
+        courschemas.setForeign((int) map.get("foreign"));
+        courschemas.setHU_elec((int)map.get("HU_elec"));
+        String major = (String) map.get("major");
         courschemas.setMajor(majorService.findMajorByCname(major).getIdMajor());
-        courschemas.setMajor_elec((int)json.get("major_elec"));
-        courschemas.setOne_plus3((int)json.get("one_plus3"));
-        courschemas.setSS_elec((int)json.get("SS_elec"));
-        courschemas.setYear((int)json.get("year"));
-        courschemas.setIntro((String)json.get("intro"));
-        return courschemasService.save(courschemas);
+        courschemas.setMajor_elec((int)map.get("major_elec"));
+        courschemas.setOne_plus3((int)map.get("one_plus3"));
+        courschemas.setSS_elec((int)map.get("SS_elec"));
+        courschemas.setYear((int)map.get("year"));
+        courschemas.setIntro((String)map.get("intro"));
+        Map <String,Object> reply = new HashMap<String,Object>();
+        //return courschemasService.save(courschemas);
+        return reply;
     }
 
     @DeleteMapping("recordCourschemas/{courschema}")

@@ -4,12 +4,12 @@ import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.CourseService;
 import com.exercise.springproject.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@RestController
-
+@Controller
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -47,6 +47,24 @@ public class CourseController {
         }
         return reply;
     }
+
+//    @PostMapping(value="/saveCourschemas")
+//    @ResponseBody
+//    public Course saveCourse(@RequestParam Map<String, Object> json){
+//        Course course = new Course();
+//        course.setAutumn((Byte) json.get("autumn"));
+//        course.setChineseName((String) json.get("ChineseName"));
+//        course.setCode((String)json.get("code"));
+//        course.setCredit((Double) json.get("credit"));
+//        course.setEnglishName((String)json.get("EnglighName"));
+//        course.setIdCourse((int)json.get("idCourse"));
+//        course.setIntro((String)json.get("intro"));
+//        course.setYear((int)json.get("year"));
+//        course.setSpring((Byte)json.get("spring"));
+//        course.setSummer((Byte)json.get("summer"));
+//        course.setDepartment((int)json.get("department"));
+//        return courseService.save(course);
+//    }
 
     @PostMapping("/recordClassification")
     public Course addOne(Course course){

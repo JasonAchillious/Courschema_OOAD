@@ -13,6 +13,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
+@RestController
 public class TestTransmitController {
     @GetMapping("/TransmitTest")
     public String sayHello(){
