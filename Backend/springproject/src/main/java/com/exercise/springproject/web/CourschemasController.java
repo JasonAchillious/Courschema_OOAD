@@ -155,15 +155,17 @@ public class CourschemasController {
         return courschemasService.save(courschemas);
     }
 
-    @PostMapping("/saveCourschemas")
-    public courschemas addOne(courschemas courschemas){
-        return courschemasService.save(courschemas);
-    }
+//    @PostMapping("/saveCourschemas")
+//    public courschemas addOne(courschemas courschemas){
+//        return courschemasService.save(courschemas);
+//    }
 
-    @PutMapping("/saveCourschemas")
+    @PostMapping(value="/saveCourschemas")
+    @ResponseBody
     public courschemas saveSchema(@RequestParam Map<String, Object> json){
         courschemas courschemas = new courschemas();
         System.out.println(courschemas);
+        System.out.println(json.get("department"));
         courschemas.setAR_elec((int)json.get("AR_elec"));
         courschemas.setChineseName((String) json.get("schema_name"));
         String depart = (String) json.get("department");

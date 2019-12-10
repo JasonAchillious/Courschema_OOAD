@@ -20,6 +20,7 @@ public class AnswerController {
         //tested
         return answerService.findAll();
     }
+
     @PostMapping("/record")
     public answer addOne(answer answer){
         return answerService.save(answer);
