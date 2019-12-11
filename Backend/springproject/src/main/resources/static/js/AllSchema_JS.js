@@ -14,7 +14,7 @@ function getData()
             url: '/allschema',
             success: function (reply) {
                 console.log(JSON.stringify(reply));
-
+                //reply[i]:{"major":"计算机科学与技术","year":2020,"name":"测试测试","dept":"计算机科学与工程系","type":"1+3培养","foreign":"是"}
                 for(i = 0;i < reply.length;i ++) {
                     var ele = reply[i];
 
@@ -25,7 +25,7 @@ function getData()
                         major: ele.major,
                         foreign: ele.foreign,
                         type: ele.type,
-                        check: '查看对应url'
+                        check: '<a href="/courschemaEdit?id='+ele.id+'">编辑</a>'
                     };
                     data.push(item);
                 }

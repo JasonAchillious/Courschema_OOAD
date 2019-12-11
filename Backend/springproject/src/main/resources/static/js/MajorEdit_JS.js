@@ -1,5 +1,6 @@
 
 courseMap = new Map();
+// idCourse:course
 
 var schemaedit = {
     tongshi : [],//保存所有通识课
@@ -36,7 +37,7 @@ var dragFrame = {
                     var type = $(this).prop('id');
                     dragFrame.store_course(type,course);
                     //todo 检查重复
-                    $(this).find("tbody").append(dragFrame.course_html(course));
+                    $(this).find("tbody").append(dragFrame.course_html(course,type));
                     return false;
                 }
             });
@@ -44,6 +45,7 @@ var dragFrame = {
 
     store_course: function(type,course)
     {
+        alert(type);
         switch (type) {
             case "ruxi":
                 schemaedit.ruxi.push(course);
@@ -60,24 +62,30 @@ var dragFrame = {
         }
     },
 
-    course_html: function (course) {
+    course_html: function (course,type) {
+        //type 表的id
+
         var chinese_name = course.chineseName;
         var credit = course.credit;
-        var code = course.code;
+        var code = course.BianHao;
         var year = course.year;
         var department = course.department;
         var english_name = course.englishName;
         var season = dragFrame.set_season(course);
+        var id = course.idCourse;
+
+        var del = "<button onclick='del("+id+",\""+ type + "\")'>删除</button>";
 
         //make html
 
-        var html = "<tr>\n" +
+        var html = "<tr class=\""+course.idCourse+"\">\n" +
             "          <th scope=\"row\">"+code+"</th>\n" +
             "          <td>"+chinese_name+"|"+english_name+"</td>\n" +
             "          <td>"+credit+"</td>\n" +
             "          <td>"+season+"</td>\n" +
             "          <td>"+year+"</td>\n" +
             "          <td>"+department+"</td>\n" +
+            "          <td>"+del+"</td>"+
             "       </tr>";
 
         return html;
@@ -110,12 +118,12 @@ var loadcourse = {
     {
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             // data: data,//json
             contentType: 'application/json',
             dataType: 'json',
             async: false,
-            url: '/course/recordCourse',
+            url: '/allcourse',
             success: function (reply) {
 
                 console.log(JSON.stringify(reply));
@@ -172,6 +180,68 @@ function upload()
 {
     // 按钮按下，上传更新后的培养方案
     console.log(JSON.stringify(schemaedit));
+    
+}
+
+function transmitList()
+{
+    $.ajax(
+        {
+            type: 'POST',
+            data: data,//json
+            contentType: 'application/json',
+            dataType: 'json',
+            // async: false,
+            url: '/allcourse',
+            
+            success: function () {
+                
+            }
+        }
+    )
+}
+
+function transmitInfo()
+{
+    $.ajax(
+        {
+            type: 'POST',
+            data: data,//json
+            contentType: 'application/json',
+            dataType: 'json',
+            // async: false,
+            url: '/allcourse',
+        }
+    )
+}
+
+function deleteCourse(type,course) {
+    switch (type) {
+        case "ruxi":
+            alert('index: '+schemaedit.ruxi.indexOf(course));
+            schemaedit.ruxi.splice(schemaedit.ruxi.indexOf(course),1);
+            break;
+        case "tongshi":
+            schemaedit.tongshi.splice(schemaedit.tongshi.indexOf(course),1);
+            break;
+        case "bixiu":
+            schemaedit.bixiu.splice(schemaedit.bixiu.indexOf(course),1);
+            break;
+        case "xuanxiu":
+            schemaedit.xuanxiu.splice(schemaedit.xuanxiu.indexOf(course),1);
+            break;
+    }
+}
+
+function del(id,type)
+{
+    alert(type.toString());
+    $('.'+id).remove();
+
+    var course = courseMap.get(id);
+    alert(JSON.stringify(course));
+    deleteCourse(type.toString(),course);
+
 }
 
 

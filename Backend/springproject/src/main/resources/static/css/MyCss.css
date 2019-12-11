@@ -44,3 +44,8 @@
     color: #fff;
     min-height: 600px;
 }
+
+#info_board{
+    height:600px;
+    background-color: ghostwhite;
+}
