@@ -87,9 +87,6 @@ public class ClassificationController {
         reply.setBixiu(findComCourse(schema_id));
         reply.setXuanxiu(findXuanXiuCourse(schema_id));
         courschemas schema = courschemasService.findCourschema(schema_id);
-        reply.setXuanxiu_credit(schema.getMajor_elec());
-        reply.setRenwen_credit(schema.getHU_elec());
-        reply.setSheke_credit(schema.getAR_elec());
         reply.setXuanxiu(null);
         return reply;
     }
@@ -101,9 +98,6 @@ public class ClassificationController {
         //save newEdit to database
         //maybe first delete from database, then add
         courschemas editting = courschemasService.findCourschema(schema_id);
-        editting.setHU_elec(newEdit.getRenwen_credit());
-        editting.setAR_elec(newEdit.getSheke_credit());
-        editting.setMajor_elec(newEdit.getXuanxiu_credit());
         for(int now: findComCourse(schema_id)){
             //old compulsorys
             classificationService.deleteCourseClass(now, schema_id);
