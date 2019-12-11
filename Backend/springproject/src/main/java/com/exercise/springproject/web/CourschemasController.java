@@ -59,6 +59,8 @@ public class CourschemasController {
              tmp.put("foreign", foreign);
              String one_plus3 = now.getOne_plus3() == 0?"2+2培养":"1+3培养";
              tmp.put("type", one_plus3);//type
+             tmp.put("intro", now.getIntro());
+             tmp.put("id", now.getCourschema());
 
              //todo put intro
 

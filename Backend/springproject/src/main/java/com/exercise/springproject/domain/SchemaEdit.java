@@ -9,7 +9,6 @@ public class SchemaEdit {
     private List<Integer> xuanxiu;
     private List<Integer> political;
 
-
     public List<Integer> getBixiu() {
         return bixiu;
     }
@@ -29,6 +28,7 @@ public class SchemaEdit {
     public List<Integer> getPolitical(){ return political;}
 
     public void setPolitical(List<Integer> p){ this.political = p;}
+
     public void setBixiu(List<Integer> bixiu) {
         this.bixiu = bixiu;
     }
