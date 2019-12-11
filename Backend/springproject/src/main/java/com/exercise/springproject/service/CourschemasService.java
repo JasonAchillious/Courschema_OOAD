@@ -15,4 +15,5 @@ public interface CourschemasService {
     public List<courschemas> findcourschemasBymajor(int major);
     public courschemas findcourschemasByYear(int year);
     public courschemas findcourschemasByDepartment(int de);
+    public courschemas findcourschemasById(int id);
 }

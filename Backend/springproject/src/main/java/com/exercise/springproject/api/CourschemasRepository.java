@@ -26,6 +26,9 @@ public interface CourschemasRepository extends JpaRepository<courschemas, Intege
     @Query("delete from courschemas where courschema=?1")
     public void deleteCourschema(int courschema);
 
+    @Query("select p from courschemas p where p.courschema=?1")
+    public courschemas findcourschemasById(int id);
+
 }
 
 
