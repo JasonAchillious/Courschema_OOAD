@@ -30,14 +30,14 @@ public class CourseController {
             Map<String, Object> temp = new HashMap<String,Object>();
             temp.put("chineseName",now.getChineseName());
             temp.put("idCourse", now.getIdCourse());
-            temp.put("code", now.getCode());
+            temp.put("BianHao", now.getBianHao());
             temp.put("intro",now.getIntro());
             temp.put("credit", now.getCredit());
             temp.put("spring", now.getSpring());
             temp.put("autumn", now.getAutumn());
             temp.put("summer", now.getSummer());
             temp.put("englishName", now.getEnglishName());
-            temp.put("year", now.getYear());
+            temp.put("year", now.getNian());
             int de = now.getDepartment();
             Department department = departmentService.findDepartmentById(de);
             temp.put("department", department.getChineseName());
@@ -51,14 +51,14 @@ public class CourseController {
     public Course savecourse(Map<String, Object> json_map){
             Course newcourse = new Course();
             newcourse.setChineseName((String) json_map.get("chineseName"));
-            newcourse.setCode((String) json_map.get("code"));
+            newcourse.setBianHao((String) json_map.get("code"));
             newcourse.setIntro((String) json_map.get("intro"));
             newcourse.setCredit((Double) json_map.get("credit"));
             newcourse.setSummer((Byte) json_map.get("summer"));
             newcourse.setSpring((Byte) json_map.get("spring"));
             newcourse.setAutumn((Byte) json_map.get("autumn"));
             newcourse.setEnglishName((String) json_map.get("englishName"));
-            newcourse.setYear((Integer) json_map.get("year"));
+            newcourse.setNian((int) json_map.get("year"));
            // temp.put("idCourse", now.getIdCourse());
             String depart = (String) json_map.get("department");
             Department de = departmentService.findDepartmentByName(depart);
@@ -106,13 +106,13 @@ public class CourseController {
         course.setIdCourse(idCourse);
         course.setAutumn(autumn);
         course.setChineseName(chineseName);
-        course.setCode(code);
+        course.setBianHao(code);
         course.setCredit(credit);
         course.setEnglishName(englishName);
         course.setIntro(intro);
         course.setSpring(spring);
         course.setSummer(summer);
-        course.setYear(year);
+        course.setNian(year);
 
         return courseService.save(course);
     }
@@ -153,7 +153,7 @@ public class CourseController {
         reply.put("courseScore", ans.getCredit());
         //reply.put("experimentScore", ans.);
        // reply.put("weekLearningTime", ans.);
-        reply.put("AdviceTerm:", ans.getYear());
+        reply.put("AdviceTerm:", ans.getNian());
         //reply.put("courseLang", ans.);
         String term = "";
         if(ans.getAutumn()==1){

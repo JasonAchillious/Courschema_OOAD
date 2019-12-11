@@ -323,11 +323,11 @@ public class CourschemasController {
 
                 label = new Label(1,5+i, course.getEnglishName());
                 ws.addCell(label);
-                label = new Label(2,5+i, course.getCode());
+                label = new Label(2,5+i, course.getBianHao());
                 ws.addCell(label);
                 label = new Label(3,5+i, String.valueOf(course.getCredit()));
                 ws.addCell(label);
-                year = course.getYear();
+                year = course.getNian();
                 if(course.getAutumn()==1){
                     time = "year " + year + " autumn";
                     if(course.getSpring()==1){
@@ -391,11 +391,11 @@ public class CourschemasController {
 
                 label = new Label(1,8+len1+i, course.getEnglishName());
                 ws.addCell(label);
-                label = new Label(2,8+len1+i, course.getCode());
+                label = new Label(2,8+len1+i, course.getBianHao());
                 ws.addCell(label);
                 label = new Label(3,8+len1+i, String.valueOf(course.getCredit()));
                 ws.addCell(label);
-                year = course.getYear();
+                year = course.getNian();
                 if(course.getAutumn()==1){
                     time = "year " + year + " autumn";
                     if(course.getSpring()==1){
@@ -459,11 +459,11 @@ public class CourschemasController {
 
                 label = new Label(1,11+len1+len2+i, course.getEnglishName());
                 ws.addCell(label);
-                label = new Label(2,11+len1+len2+i, course.getCode());
+                label = new Label(2,11+len1+len2+i, course.getBianHao());
                 ws.addCell(label);
                 label = new Label(3,11+len1+len2+i, String.valueOf(course.getCredit()));
                 ws.addCell(label);
-                year = course.getYear();
+                year = course.getNian();
                 if(course.getAutumn()==1){
                     time = "year " + year + " autumn";
                     if(course.getSpring()==1){

@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name = "Course", schema = "mydb", catalog = "")
 public class Course {
     private int idCourse;
-    private String code;
+    private String BianHao;
     private String chineseName;
     private String intro;
     private double credit;
@@ -15,8 +15,9 @@ public class Course {
     private byte autumn;
     private byte summer;
     private String englishName;
-    private int year;
+    private int nian;
     private int department;
+    private String yuyan;
 
     @Id
     @Column(name = "id_course")
@@ -28,14 +29,22 @@ public class Course {
         this.idCourse = idCourse;
     }
 
-    @Basic
-    @Column(name = "Code")
-    public String getCode() {
-        return code;
+
+    public void setYuyan(String y){
+        this.yuyan = y;
+    }
+    public String getYuyan(){
+        return this.yuyan;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    @Basic
+    @Column(name = "BianHao")
+    public String getBianHao() {
+        return BianHao;
+    }
+
+    public void setBianHao(String bianHao) {
+        this.BianHao = bianHao;
     }
 
     @Basic
@@ -109,13 +118,13 @@ public class Course {
     }
 
     @Basic
-    @Column(name = "year")
-    public int getYear() {
-        return year;
+    @Column(name = "nian")
+    public int getNian() {
+        return nian;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setNian(int n) {
+        this.nian = n;
     }
 
     @Basic
@@ -137,16 +146,17 @@ public class Course {
                 spring == that.spring &&
                 autumn == that.autumn &&
                 summer == that.summer &&
-                Objects.equals(code, that.code) &&
+                Objects.equals(BianHao, that.BianHao) &&
                 Objects.equals(chineseName, that.chineseName) &&
                 Objects.equals(intro, that.intro) &&
                 Objects.equals(credit, that.credit) &&
                 Objects.equals(englishName, that.englishName) &&
-                Objects.equals(year, that.year);
+                Objects.equals(nian, that.nian);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCourse, code, chineseName, intro, credit, spring, autumn, summer, englishName, year);
+        return Objects.hash(idCourse, BianHao, chineseName, intro, credit, spring, autumn, summer, englishName, nian);
+
     }
 }

@@ -7,9 +7,8 @@ public class SchemaEdit {
     private List<Integer> ruxi;
     private List<Integer> bixiu;
     private List<Integer> xuanxiu;
-    private int xuanxiu_credit;
-    private int renwen_credit;
-    private int sheke_credit;
+    private List<Integer> political;
+
 
     public List<Integer> getBixiu() {
         return bixiu;
@@ -27,18 +26,9 @@ public class SchemaEdit {
         return tongshi;
     }
 
-    public int getRenwen_credit() {
-        return renwen_credit;
-    }
+    public List<Integer> getPolitical(){ return political;}
 
-    public int getSheke_credit() {
-        return sheke_credit;
-    }
-
-    public int getXuanxiu_credit() {
-        return xuanxiu_credit;
-    }
-
+    public void setPolitical(List<Integer> p){ this.political = p;}
     public void setBixiu(List<Integer> bixiu) {
         this.bixiu = bixiu;
     }
@@ -55,15 +45,4 @@ public class SchemaEdit {
         this.xuanxiu = xuanxiu;
     }
 
-    public void setRenwen_credit(int renwen_credit) {
-        this.renwen_credit = renwen_credit;
-    }
-
-    public void setSheke_credit(int sheke_credit) {
-        this.sheke_credit = sheke_credit;
-    }
-
-    public void setXuanxiu_credit(int xuan){
-        this.xuanxiu_credit = xuan;
-    }
 }
