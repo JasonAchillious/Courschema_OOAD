@@ -51,8 +51,6 @@ public class CourschemasController {
              tmp.put("Foreign", now.getWaiGuo());
              tmp.put("one_plus3", now.getOne_plus3());
              tmp.put("major_elec_alt", now.getMajor_elec_alt());
-//             tmp.put("altered_course1", now.getAltered_course1());
-//             tmp.put("altered_course2", now.getAltered_course2());
              tmp.put("coursechema", now.getCourschema());
              int m = now.getMajor();
              Major major = majorService.findMajorById(m);
@@ -64,8 +62,9 @@ public class CourschemasController {
              tmp.put("HU_elec", now.getHU_elec());
              tmp.put("SS_elec", now.getSS_elec());
              tmp.put("AR_elec", now.getAR_elec());
-             tmp.put("political", now.getPolitical());
+            //tmp.put("political", now.getPolitical());
              tmp.put("ChineseName", now.getChineseName());
+             tmp.put("intro", now.getIntro());
              reply.add(tmp);
          }
         return reply;
@@ -91,8 +90,10 @@ public class CourschemasController {
         return ans;
     }
 
-    @GetMapping("/allCourschemas")
-    public List<Object> findCourschemasName(){
+
+    @PostMapping("/allCourschemas")
+    @ResponseBody
+    public List<Object> findCourschemas(){
         List<Object> result = new ArrayList<Object>();
         List<courschemas> all = courschemasService.findAll();
         for(int i = 0;i < all.size();i ++) {
@@ -110,6 +111,22 @@ public class CourschemasController {
 
         return result;
     }
+
+//    @PostMapping("/oneCourschemas")
+//    @ResponseBody
+//    public Map<String, Object> findOneCourschemas(){
+//       Map<String,Object> ele = new HashMap<>();
+//
+//       ele.put("chineseName",c.getChineseName());
+//       int dep_id = c.getDepartment();
+//       System.out.println(dep_id);
+//       Department d = departmentService.findDepartmentById(dep_id);
+//       ele.put("department",d.getChineseName());
+//       ele.put("courschema",c.getCourschema());
+//
+//
+//        return ele;
+//    }
 
 
 //    @PostMapping("/recordCourschemas")
@@ -186,7 +203,7 @@ public class CourschemasController {
         c.setMajor_elec((int)map.get("major_elec"));
         c.setOne_plus3((int)map.get("one_plus3"));
         c.setSS_elec((int)map.get("SS_elec"));
-        c.setNian((int)map.get("y"));
+        c.setNian((int)map.get("year"));
         c.setIntro((String)map.get("intro"));
 
         return courschemasService.save(c);
