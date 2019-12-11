@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class question {
-    @NotNull
     private String qContent;
     private int createrid;
     @Id

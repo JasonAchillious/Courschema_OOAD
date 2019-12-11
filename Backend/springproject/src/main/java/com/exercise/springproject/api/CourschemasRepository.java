@@ -17,7 +17,7 @@ public interface CourschemasRepository extends JpaRepository<courschemas, Intege
     @Query("select p from courschemas p where p.Major=?1")
     public List<courschemas> findcourschemasBymajor(int major);
 
-    @Query("select p from courschemas p where p.Year=?1")
+    @Query("select p from courschemas p where p.nian=?1")
     public courschemas findcourschemasByYear(int year);
 
     @Query("select p from courschemas p where p.Department=?1")

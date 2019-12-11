@@ -26,13 +26,17 @@ public class QuestionController {
         return questionService.save(question);
     }
 
-    @PutMapping("/record")
-    public question update(@RequestParam String q_content,
-            @RequestParam int createrId,
-            @RequestParam int questionId){
+    @PostMapping("/update")
+    @ResponseBody
+    public question update(@RequestBody String content,
+            @RequestBody int createrId,
+            @RequestBody int questionId){
+        System.out.println(content);
+        System.out.println(createrId);
+        System.out.println(questionId);
         question question = new question();
         question.setCreaterid(createrId);
-        question.setqContent(q_content);
+        question.setqContent(content);
         question.setQuestionid(questionId);
         return questionService.save(question);
     }

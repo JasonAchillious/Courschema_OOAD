@@ -27,8 +27,8 @@ public class AnswerController {
     }
 
     @PutMapping("/record")
-    public answer update(@RequestParam String content,
-                           @RequestParam int stuId,
+    public answer update(  @RequestParam int stuId,
+                           @RequestParam String content,
                            @RequestParam int questionId,
                          @RequestParam boolean identity,
                          @RequestParam int adminId,
