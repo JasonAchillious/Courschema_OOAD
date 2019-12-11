@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,7 +48,7 @@ public class CourschemasController {
          List<Map> reply = new LinkedList<>();
          for(courschemas now: search) {
              Map<String, Object> tmp = new HashMap<String, Object>();
-             tmp.put("Foreign", now.getForeign());
+             tmp.put("Foreign", now.getWaiGuo());
              tmp.put("one_plus3", now.getOne_plus3());
              tmp.put("major_elec_alt", now.getMajor_elec_alt());
 //             tmp.put("altered_course1", now.getAltered_course1());
@@ -59,7 +57,7 @@ public class CourschemasController {
              int m = now.getMajor();
              Major major = majorService.findMajorById(m);
              tmp.put("Major", major.getChineseName());
-             tmp.put("year", now.getYear());
+             tmp.put("year", now.getNian());
              Department department = departmentService.findDepartmentById(now.getDepartment());
              tmp.put("Department", department.getChineseName());
              tmp.put("major_elec", now.getMajor_elec());
@@ -86,7 +84,7 @@ public class CourschemasController {
         List<courschemas> first = courschemasService.findcourschemasBymajor(majorId);
         List<courschemas> ans = null;
         for(courschemas now:first){
-            if(now.getYear()==year){
+            if(now.getNian()==year){
                 ans.add(now);
             }
         }
@@ -143,7 +141,7 @@ public class CourschemasController {
         courschemas.setAR_elec(AR_elec);
         courschemas.setChineseName(ChineseName);
         courschemas.setDepartment(Department);
-        courschemas.setForeign(Foreign);
+        courschemas.setWaiGuo(Foreign);
         courschemas.setHU_elec(HU_elec);
         courschemas.setMajor(Major);
         courschemas.setMajor_elec(major_elec);
@@ -151,7 +149,7 @@ public class CourschemasController {
         courschemas.setOne_plus3(one_plus3);
         courschemas.setPolitical(political);
         courschemas.setSS_elec(SS_elec);
-        courschemas.setYear(Year);
+        courschemas.setNian(Year);
         return courschemasService.save(courschemas);
     }
 
@@ -162,9 +160,10 @@ public class CourschemasController {
 
     @PostMapping(value="/saveCou")
     @ResponseBody
-    public Map saveSchema(@RequestBody Map<String, Object> map){
-        courschemas courschemas = new courschemas();
-        System.out.println(courschemas);
+    public courschemas saveSchema(@RequestBody Map<String, Object> map){
+        courschemas c = new courschemas();
+        System.out.println(c);
+        System.out.println(c.getCourschema());
         System.out.println(map.get("department"));
         System.out.println(map.get("AR_elec"));
         System.out.println(map.get("schema_name"));
@@ -174,23 +173,27 @@ public class CourschemasController {
         System.out.println(map.get("major"));
         System.out.println(map.get("one_plus3"));
 
-        courschemas.setAR_elec((int)map.get("AR_elec"));
-        courschemas.setChineseName((String) map.get("schema_name"));
+        c.setAR_elec((int)map.get("AR_elec"));
+        c.setChineseName((String) map.get("schema_name"));
         //String depart = (String) map.get("department");
-        //courschemas.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
-        courschemas.setForeign((int) map.get("foreign"));
-        courschemas.setHU_elec((int)map.get("HU_elec"));
+        String depart = "计算机科学与工程系";
+        c.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
+        c.setWaiGuo((int) map.get("foreign"));
+        c.setHU_elec((int)map.get("HU_elec"));
         //String major = (String) map.get("major");
-       // courschemas.setMajor(majorService.findMajorByCname(major).getIdMajor());
-        courschemas.setMajor_elec((int)map.get("major_elec"));
-        courschemas.setOne_plus3((int)map.get("one_plus3"));
-        courschemas.setSS_elec((int)map.get("SS_elec"));
-        courschemas.setYear((int)map.get("year"));
-        courschemas.setIntro((String)map.get("intro"));
-        Map <String,Object> reply = new HashMap<String,Object>();
-        //return courschemasService.save(courschemas);
-        return reply;
+        String major = "计算机科学与技术";
+        c.setMajor(majorService.findMajorByCname(major).getIdMajor());
+        c.setMajor_elec((int)map.get("major_elec"));
+        c.setOne_plus3((int)map.get("one_plus3"));
+        c.setSS_elec((int)map.get("SS_elec"));
+        c.setNian((int)map.get("y"));
+        c.setIntro((String)map.get("intro"));
+
+        return courschemasService.save(c);
+        //return reply;
     }
+
+
 
     @DeleteMapping("recordCourschemas/{courschema}")
     public void deleteCourschema(@PathVariable int courschema){

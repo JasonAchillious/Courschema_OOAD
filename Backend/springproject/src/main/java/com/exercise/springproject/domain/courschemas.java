@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class courschemas {
-    private int Foreign;
+    private int WaiGuo;
     private int one_plus3;
     private int major_elec_alt;
     //private int altered_course1;
@@ -15,7 +15,7 @@ public class courschemas {
     private int courschema;
     @NotNull
     private int Major;//
-    private int Year;
+    private int nian;
     private int Department;
     private int major_elec;
     private int HU_elec;
@@ -24,7 +24,6 @@ public class courschemas {
     private int political;
     private String ChineseName;
     private String Intro;
-
     public String getIntro() {
         return Intro;
     }
@@ -33,12 +32,12 @@ public class courschemas {
         Intro = intro;
     }
 
-    public int getForeign() {
-        return Foreign;
+    public int getWaiGuo() {
+        return WaiGuo;
     }
 
-    public void setForeign(int foreign) {
-        Foreign = foreign;
+    public void setWaiGuo(int waiGuo) {
+        WaiGuo = waiGuo;
     }
 
     public int getOne_plus3() {
@@ -77,9 +76,9 @@ public class courschemas {
         return courschema;
     }
 
-    public void setCourschema(int courschema) {
-        this.courschema = courschema;
-    }
+   // public void setCourschema(int courschema) {
+   //     this.courschema = courschema;
+   // }
 
     public int getMajor() {
         return Major;
@@ -89,12 +88,12 @@ public class courschemas {
         Major = major;
     }
 
-    public int getYear() {
-        return Year;
+    public int getNian() {
+        return nian;
     }
 
-    public void setYear(int year) {
-        Year = year;
+    public void setNian(int nian) {
+        this.nian = nian;
     }
 
     public int getDepartment() {
