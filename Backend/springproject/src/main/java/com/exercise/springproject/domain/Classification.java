@@ -12,7 +12,16 @@ public class Classification {
     private Byte compulsory;
     private Byte ru_xi;
     private Byte tongshi;
+    private Byte political;
 
+    @Id
+    @Column(name="political")
+    public Byte getPolitical(){
+        return political;
+    }
+    public void setPolitical(Byte p){
+        this.political = p;
+    }
     @Id
     @Column(name = "id_course")
     public int getIdCourse() {

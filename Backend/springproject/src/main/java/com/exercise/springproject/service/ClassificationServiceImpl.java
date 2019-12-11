@@ -55,4 +55,9 @@ public class ClassificationServiceImpl implements ClassificationService{
     public List<Integer> findTypeXuanXiuCourse(int courschema) {
         return classificationRepository.findTypeXuanXiuCourse(courschema);
     }
+
+    @Override
+    public List<Integer> findPoliticalCourse(int courschema) {
+        return classificationRepository.findPoliticalCourse(courschema);
+    }
 }

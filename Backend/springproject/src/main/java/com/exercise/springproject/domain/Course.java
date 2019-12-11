@@ -38,7 +38,7 @@ public class Course {
     }
 
     @Basic
-    @Column(name = "BianHao")
+    @Column(name = "bian_hao")
     public String getBianHao() {
         return BianHao;
     }

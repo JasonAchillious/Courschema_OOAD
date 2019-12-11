@@ -28,4 +28,7 @@ public interface ClassificationRepository extends JpaRepository<Classification, 
 
     @Query("select p.idCourse from Classification p where p.courschema=?1 and p.tongshi=0 and p.compulsory=0 and p.ru_xi=0")
     public List<Integer> findTypeXuanXiuCourse(int courschema);
+
+    @Query("select p from Classification  p where p.political=1")
+    public List<Integer> findPoliticalCourse(int courschema);
 }

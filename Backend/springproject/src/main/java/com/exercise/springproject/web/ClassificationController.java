@@ -77,6 +77,10 @@ public class ClassificationController {
         return classificationService.findTypeXuanXiuCourse(courschema);
     }
 
+    @PostMapping("findPoliticalCourse")
+    public List<Integer> findPoliticalCourse(@RequestParam int courschema){
+        return classificationService.findPoliticalCourse(courschema);
+    }
 
     @PostMapping(value = "/showClassification")
     @ResponseBody
@@ -86,6 +90,8 @@ public class ClassificationController {
         reply.setRuxi(findRuxiCourse(schema_id));
         reply.setBixiu(findComCourse(schema_id));
         reply.setXuanxiu(findXuanXiuCourse(schema_id));
+        reply.setId(schema_id);
+        reply.setPolitical(findPoliticalCourse(schema_id));
         courschemas schema = courschemasService.findCourschema(schema_id);
         reply.setXuanxiu(null);
         return reply;
