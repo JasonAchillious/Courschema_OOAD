@@ -9,10 +9,15 @@
     <script src="../static/js/newschema.js"></script>
     <script src="../static/js/jquery-3.4.1.js"></script>
     <script type="application/javascript" src="../static/js/bootstrap.js"></script>
+    <script src="http://www.itxst.com/package/bootstrap-table-1.14.1/jquery-3.3.1/jquery.js"></script>
+    <link href="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.css" rel="stylesheet" />
+    <script src="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.js"></script>
+    <script type="application/javascript" src="../static/js/AllSchema_JS.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
-    <a class="navbar-brand" href="#">SUStech Courschema</a>
+    <a class="navbar-brand" href="#">SUSTech Courschema</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,30 +51,77 @@
         </li>
     </ul>
 </nav>
+<div class="container-fluid" style="min-height: 650px" >
+<div class="row">
+    <div class="col-2">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Courschema</h3>
+            </div>
+            <div id="majorList">
+                <ul class="list-unstyled components">
+                    <p>院系专业</p>
 
-<div class="wrapper">
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Courschema</h3>
-        </div>
-        <div id="majorList">
-            <ul class="list-unstyled components">
-                <p>院系专业</p>
+                </ul>
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="#" class="download">编辑</a>
+                    </li>
+                    <li>
+                        <a href="#" class="article" data-toggle="modal" data-target="#myModal">新建</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="col-10">
+        <table class="table table-hover" id="schematable" style="width: 100%;">
 
-            </ul>
+        </table>
+    </div>
 
-            <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="#" class="download">编辑</a>
-                </li>
-                <li>
-                    <a href="#" class="article" data-toggle="modal" data-target="#myModal">新建</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+</div>
 </div>
 
+<footer class="ft_ct">
+    <div class="ft_wrap">
+
+        <div class="ft_logo">
+            <img src="../static/img/ft_logo.png">
+        </div>
+        <div class="ft_rt">
+            <div class="ft_adr">
+                <ul>
+                    <li>广东省深圳市南山区</li>
+                    <li>学苑大道1088号</li>
+                    <li>+86-755-8801 0000 </li>
+                    <li>518055</li>
+                </ul>
+            </div>
+            <div class="ft_iocn">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
+                        <div class="tc_wx vc_icon_element vc_icon_element-outer inline-iocn vc_icon_element-align-left">
+                            <div
+                                    class="vc_icon_element-inner vc_icon_element-color-white vc_icon_element-size-md vc_icon_element-style- vc_icon_element-background-color-grey">
+                                <span class="vc_icon_element-icon fa fa-weixin"></span>
+                            </div>
+                            <div class="wx_hide">
+                                <img src="../static/img/wx_img.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="ft_copy">
+        © 2019 All Rights Reserved.
+        <!--a href="https://www.unisonmedia.cn/" target="_blank">技术</a><a href="https://www.unisonbrand.cn/" target="_blank">支持</a-->
+    </div>
+
+</footer><!-- #colophon -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 600px;">
         <div class="modal-content">

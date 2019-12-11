@@ -50,11 +50,12 @@ function newschema() {
         //async: false,
         url: '/saveCou',
         success: function (reply) {
-            alert("success")
-
+            alert("success");
+            location.reload();
         },
         error: function (response) {
             alert("Error")
         }
     });
+
 }

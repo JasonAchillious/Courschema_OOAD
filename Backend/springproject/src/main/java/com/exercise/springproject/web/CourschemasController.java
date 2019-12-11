@@ -41,34 +41,46 @@ public class CourschemasController {
         return courschemasService.findAll();
     }
 
-    @PostMapping(value = "allschema")
+    @GetMapping(value = "allschema")
     @ResponseBody
     public List<Map>  allschema(){
          List<courschemas>  search = courschemasService.findAll();
          List<Map> reply = new LinkedList<>();
          for(courschemas now: search) {
              Map<String, Object> tmp = new HashMap<String, Object>();
-             tmp.put("Foreign", now.getWaiGuo());
-             tmp.put("one_plus3", now.getOne_plus3());
-             tmp.put("major_elec_alt", now.getMajor_elec_alt());
-             tmp.put("coursechema", now.getCourschema());
+             tmp.put("name", now.getChineseName());//name
+             tmp.put("year", now.getNian());//year
+             Department department = departmentService.findDepartmentById(now.getDepartment());
+             tmp.put("dept", department.getChineseName());//dept
              int m = now.getMajor();
              Major major = majorService.findMajorById(m);
-             tmp.put("Major", major.getChineseName());
-             tmp.put("year", now.getNian());
-             Department department = departmentService.findDepartmentById(now.getDepartment());
-             tmp.put("Department", department.getChineseName());
-             tmp.put("major_elec", now.getMajor_elec());
-             tmp.put("HU_elec", now.getHU_elec());
-             tmp.put("SS_elec", now.getSS_elec());
-             tmp.put("AR_elec", now.getAR_elec());
-            //tmp.put("political", now.getPolitical());
-             tmp.put("ChineseName", now.getChineseName());
-             tmp.put("intro", now.getIntro());
+             tmp.put("major", major.getChineseName());//major
+             String foreign = now.getWaiGuo() == 0?"否":"是";//foreign
+             tmp.put("foreign", foreign);
+             String one_plus3 = now.getOne_plus3() == 0?"2+2培养":"1+3培养";
+             tmp.put("type", one_plus3);//type
+
+             //todo put intro
+
+//             tmp.put("major_elec_alt", now.getMajor_elec_alt());
+////             tmp.put("altered_course1", now.getAltered_course1());
+////             tmp.put("altered_course2", now.getAltered_course2());
+//             tmp.put("coursechema", now.getCourschema());
+//
+//
+//
+//
+//             tmp.put("major_elec", now.getMajor_elec());
+//             tmp.put("HU_elec", now.getHU_elec());
+//             tmp.put("SS_elec", now.getSS_elec());
+//             tmp.put("AR_elec", now.getAR_elec());
+//             tmp.put("political", now.getPolitical());
+
              reply.add(tmp);
          }
         return reply;
     }
+
 
     @PostMapping(value = "schemabyMajor")
     @ResponseBody

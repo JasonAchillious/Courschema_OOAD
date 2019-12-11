@@ -38,3 +38,9 @@
     height: 600px;
     overflow: auto;
 }
+
+.sidebar{
+    background: #7386D5;
+    color: #fff;
+    min-height: 600px;
+}
