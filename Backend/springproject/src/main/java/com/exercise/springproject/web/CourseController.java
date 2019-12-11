@@ -41,11 +41,30 @@ public class CourseController {
             int de = now.getDepartment();
             Department department = departmentService.findDepartmentById(de);
             temp.put("department", department.getChineseName());
-
             reply.add(temp);
-
         }
         return reply;
+    }
+
+    @PostMapping("/saveCourse")
+    @ResponseBody
+    public Course savecourse(Map<String, Object> json_map){
+            Course newcourse = new Course();
+            newcourse.setChineseName((String) json_map.get("chineseName"));
+            newcourse.setCode((String) json_map.get("code"));
+            newcourse.setIntro((String) json_map.get("intro"));
+            newcourse.setCredit((Double) json_map.get("credit"));
+            newcourse.setSummer((Byte) json_map.get("summer"));
+            newcourse.setSpring((Byte) json_map.get("spring"));
+            newcourse.setAutumn((Byte) json_map.get("autumn"));
+            newcourse.setEnglishName((String) json_map.get("englishName"));
+            newcourse.setYear((Integer) json_map.get("year"));
+           // temp.put("idCourse", now.getIdCourse());
+            String depart = (String) json_map.get("department");
+            Department de = departmentService.findDepartmentByName(depart);
+            newcourse.setDepartment(de.getIdDepartment());
+
+            return courseService.save(newcourse);
     }
 
 //    @PostMapping(value="/saveCourschemas")

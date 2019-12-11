@@ -48,6 +48,11 @@ public class CourschemasServiceImpl implements CourschemasService {
     }
 
     @Override
+    public courschemas findcourschemasById(int id) {
+        return courschemasRepository.findcourschemasById(id);
+    }
+
+    @Override
     public void deleteCourschema(int courschema) {
         courschemasRepository.deleteCourschema(courschema);
     }
