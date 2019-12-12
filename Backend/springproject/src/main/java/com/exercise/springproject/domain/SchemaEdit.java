@@ -1,54 +1,55 @@
 package com.exercise.springproject.domain;
 
 import java.util.List;
+import java.util.Map;
 
 public class SchemaEdit {
-    private int id;
-    private List<Integer> tongshi;
-    private List<Integer> ruxi;
-    private List<Integer> bixiu;
-    private List<Integer> xuanxiu;
-    private List<Integer> political;
+    private Map idMap;
+    private List<Map> tongshi;
+    private List<Map> ruxi;
+    private List<Map> bixiu;
+    private List<Map> xuanxiu;
+    private List<Map> political;
 
-    public int getId(){
-        return id;
+    public Map getIdMap(){
+        return idMap;
     }
-    public List<Integer> getBixiu() {
+    public List<Map> getBixiu() {
         return bixiu;
     }
 
-    public List<Integer> getRuxi() {
+    public List<Map> getRuxi() {
         return ruxi;
     }
 
-    public List<Integer> getXuanxiu() {
+    public List<Map> getXuanxiu() {
         return xuanxiu;
     }
 
-    public List<Integer> getTongshi() {
+    public List<Map> getTongshi() {
         return tongshi;
     }
 
-    public List<Integer> getPolitical(){ return political;}
+    public List<Map> getPolitical(){ return political;}
 
-    public void setPolitical(List<Integer> p){ this.political = p;}
+    public void setPolitical(List<Map> p){ this.political = p;}
 
-    public void setId(int i){
-        this.id = i;
+    public void setIdMap(Map i){
+        this.idMap = i;
     }
-    public void setBixiu(List<Integer> bixiu) {
+    public void setBixiu(List<Map> bixiu) {
         this.bixiu = bixiu;
     }
 
-    public void setRuxi(List<Integer> ruxi) {
+    public void setRuxi(List<Map> ruxi) {
         this.ruxi = ruxi;
     }
 
-    public void setTongshi(List<Integer> tongshi) {
+    public void setTongshi(List<Map> tongshi) {
         this.tongshi = tongshi;
     }
 
-    public void setXuanxiu(List<Integer> xuanxiu) {
+    public void setXuanxiu(List<Map> xuanxiu) {
         this.xuanxiu = xuanxiu;
     }
 

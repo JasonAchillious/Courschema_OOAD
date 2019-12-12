@@ -1,13 +1,17 @@
 package com.exercise.springproject.web;
 
-import com.exercise.springproject.domain.Classification;
-import com.exercise.springproject.domain.SchemaEdit;
-import com.exercise.springproject.domain.courschemas;
+import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.ClassificationService;
 import com.exercise.springproject.service.CourschemasService;
+import com.exercise.springproject.service.CourseService;
+import com.exercise.springproject.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cla")
@@ -16,6 +20,10 @@ public class ClassificationController {
     private ClassificationService classificationService;
     @Autowired
     private CourschemasService courschemasService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @GetMapping("/recordClassification")
     public List<Classification> findAllClassification(){
@@ -84,14 +92,121 @@ public class ClassificationController {
 
     @PostMapping(value = "/showClassification")
     @ResponseBody
-    public SchemaEdit handle(@RequestBody int schema_id){
+    public SchemaEdit handle(@RequestBody Integer schema_id){
         SchemaEdit reply = new SchemaEdit();
-        reply.setTongshi(findTonCourse(schema_id));
-        reply.setRuxi(findRuxiCourse(schema_id));
-        reply.setBixiu(findComCourse(schema_id));
-        reply.setXuanxiu(findXuanXiuCourse(schema_id));
-        reply.setId(schema_id);
-        reply.setPolitical(findPoliticalCourse(schema_id));
+        List<Map> tongshi = new ArrayList<Map>();
+        List<Integer> t = findTonCourse(schema_id);
+        for(int tmp: t){
+            Map<String, Object> temp = new HashMap<>();
+            Course now = courseService.findCourseById(tmp);
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("BianHao", now.getBianHao());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getNian());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+            tongshi.add(temp);
+        }
+        reply.setTongshi(tongshi);
+
+        List<Map> Ruxi = new ArrayList<Map>();
+        List<Integer> r = findTonCourse(schema_id);
+        for(int tmp: r){
+            Map<String, Object> temp = new HashMap<>();
+            Course now = courseService.findCourseById(tmp);
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("BianHao", now.getBianHao());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getNian());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+            Ruxi.add(temp);
+        }
+        reply.setRuxi(Ruxi);
+
+        List<Map> Bixiu = new ArrayList<Map>();
+        List<Integer> b = findTonCourse(schema_id);
+        for(int tmp: b){
+            Map<String, Object> temp = new HashMap<>();
+            Course now = courseService.findCourseById(tmp);
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("BianHao", now.getBianHao());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getNian());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+            Bixiu.add(temp);
+        }
+        reply.setBixiu(Bixiu);
+
+        List<Map> Xuanxiu = new ArrayList<Map>();
+        List<Integer> x = findTonCourse(schema_id);
+        for(int tmp: x){
+            Map<String, Object> temp = new HashMap<>();
+            Course now = courseService.findCourseById(tmp);
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("BianHao", now.getBianHao());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getNian());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+            Xuanxiu.add(temp);
+        }
+        reply.setXuanxiu(Xuanxiu);
+        Map<String, Object> idmap = new HashMap<>();
+        idmap.put("id", schema_id);
+        reply.setIdMap(idmap);
+
+        List<Map> political = new ArrayList<Map>();
+        List<Integer> p = findTonCourse(schema_id);
+        for(int tmp: p){
+            Map<String, Object> temp = new HashMap<>();
+            Course now = courseService.findCourseById(tmp);
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("BianHao", now.getBianHao());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getNian());
+            int de = now.getDepartment();
+            Department department = departmentService.findDepartmentById(de);
+            temp.put("department", department.getChineseName());
+            political.add(temp);
+        }
+        reply.setPolitical(political);
+
         return reply;
     }
 
@@ -100,69 +215,68 @@ public class ClassificationController {
     public void handleedit(@RequestBody SchemaEdit newEdit){
         //save newEdit to database
         //maybe first delete from database, then add
-        courschemas editting = courschemasService.findCourschema(newEdit.getId());
-        System.out.println(newEdit.getId());
-        for(int now: findComCourse(newEdit.getId())){
+        int schemaId = (int) newEdit.getIdMap().get("id");
+        for(int now: findComCourse(schemaId)){
             //old compulsorys
-            classificationService.deleteCourseClass(now, newEdit.getId());
+            classificationService.deleteCourseClass(now, schemaId);
         }
-        for(int now: newEdit.getBixiu()){
+        for(Map c: newEdit.getBixiu()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)1);
-            cla.setCourschema(newEdit.getId());
-            cla.setIdCourse(now);
+            cla.setCourschema(schemaId);
+            cla.setIdCourse((Integer) c.get("idCourse"));
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)0);
             classificationService.save(cla);
         }
-        for(int now: findRuxiCourse(newEdit.getId())){
+        for(int now: findRuxiCourse(schemaId)){
             //old ruxi
-            classificationService.deleteCourseClass(now, newEdit.getId());
+            classificationService.deleteCourseClass(now, schemaId);
         }
-        for(int now: newEdit.getRuxi()){
+        for(Map m: newEdit.getRuxi()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(newEdit.getId());
-            cla.setIdCourse(now);
+            cla.setCourschema(schemaId);
+            cla.setIdCourse((Integer) m.get("idCourse"));
             cla.setRu_xi((byte)1);
             cla.setTongshi((byte)0);
             classificationService.save(cla);
         }
-        for(int now: findTonCourse(newEdit.getId())){
+        for(int now: findTonCourse(schemaId)){
             //old tongshi
-            classificationService.deleteCourseClass(now, newEdit.getId());
+            classificationService.deleteCourseClass(now, schemaId);
         }
-        for(int now: newEdit.getTongshi()){
+        for(Map m: newEdit.getTongshi()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(newEdit.getId());
-            cla.setIdCourse(now);
+            cla.setCourschema(schemaId);
+            cla.setIdCourse((Integer) m.get("idCourse"));
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)1);
             classificationService.save(cla);
         }
-        for(int now: findXuanXiuCourse(newEdit.getId())){
+        for(int now: findXuanXiuCourse(schemaId)){
             //old xuanxiu
-            classificationService.deleteCourseClass(now, newEdit.getId());
+            classificationService.deleteCourseClass(now, schemaId);
         }
-        for(int now: newEdit.getXuanxiu()){
+        for(Map m: newEdit.getXuanxiu()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(newEdit.getId());
-            cla.setIdCourse(now);
+            cla.setCourschema(schemaId);
+            cla.setIdCourse((Integer) m.get("idCourse"));
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)1);
             classificationService.save(cla);
         }
-        for(int now: findPoliticalCourse(newEdit.getId())){
+        for(int now: findPoliticalCourse(schemaId)){
             //old xuanxiu
-            classificationService.deleteCourseClass(now, newEdit.getId());
+            classificationService.deleteCourseClass(now, schemaId);
         }
-        for(int now: newEdit.getPolitical()){
+        for(Map m: newEdit.getPolitical()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(newEdit.getId());
-            cla.setIdCourse(now);
+            cla.setCourschema(schemaId);
+            cla.setIdCourse((Integer) m.get("idCourse"));
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)1);
             classificationService.save(cla);
