@@ -92,65 +92,75 @@ public class ClassificationController {
         reply.setXuanxiu(findXuanXiuCourse(schema_id));
         reply.setId(schema_id);
         reply.setPolitical(findPoliticalCourse(schema_id));
-        courschemas schema = courschemasService.findCourschema(schema_id);
-        reply.setXuanxiu(null);
         return reply;
     }
 
     @PostMapping(value = "/editClassification")
     @ResponseBody
-    public void handleedit(@RequestBody Integer schema_id,
-                           @RequestBody SchemaEdit newEdit){
+    public void handleedit(@RequestBody SchemaEdit newEdit){
         //save newEdit to database
         //maybe first delete from database, then add
-        courschemas editting = courschemasService.findCourschema(schema_id);
-        for(int now: findComCourse(schema_id)){
+        courschemas editting = courschemasService.findCourschema(newEdit.getId());
+        for(int now: findComCourse(newEdit.getId())){
             //old compulsorys
-            classificationService.deleteCourseClass(now, schema_id);
+            classificationService.deleteCourseClass(now, newEdit.getId());
         }
         for(int now: newEdit.getBixiu()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)1);
-            cla.setCourschema(schema_id);
+            cla.setCourschema(newEdit.getId());
             cla.setIdCourse(now);
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)0);
             classificationService.save(cla);
         }
-        for(int now: findRuxiCourse(schema_id)){
+        for(int now: findRuxiCourse(newEdit.getId())){
             //old ruxi
-            classificationService.deleteCourseClass(now, schema_id);
+            classificationService.deleteCourseClass(now, newEdit.getId());
         }
         for(int now: newEdit.getRuxi()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(schema_id);
+            cla.setCourschema(newEdit.getId());
             cla.setIdCourse(now);
             cla.setRu_xi((byte)1);
             cla.setTongshi((byte)0);
             classificationService.save(cla);
         }
-        for(int now: findTonCourse(schema_id)){
+        for(int now: findTonCourse(newEdit.getId())){
             //old tongshi
-            classificationService.deleteCourseClass(now, schema_id);
+            classificationService.deleteCourseClass(now, newEdit.getId());
         }
         for(int now: newEdit.getTongshi()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(schema_id);
+            cla.setCourschema(newEdit.getId());
             cla.setIdCourse(now);
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)1);
             classificationService.save(cla);
         }
-        for(int now: findXuanXiuCourse(schema_id)){
+        for(int now: findXuanXiuCourse(newEdit.getId())){
             //old xuanxiu
-            classificationService.deleteCourseClass(now, schema_id);
+            classificationService.deleteCourseClass(now, newEdit.getId());
         }
         for(int now: newEdit.getXuanxiu()){
             Classification cla = new Classification();
             cla.setCompulsory((byte)0);
-            cla.setCourschema(schema_id);
+            cla.setCourschema(newEdit.getId());
+            cla.setIdCourse(now);
+            cla.setRu_xi((byte)0);
+            cla.setTongshi((byte)1);
+            classificationService.save(cla);
+        }
+        for(int now: findPoliticalCourse(newEdit.getId())){
+            //old xuanxiu
+            classificationService.deleteCourseClass(now, newEdit.getId());
+        }
+        for(int now: newEdit.getPolitical()){
+            Classification cla = new Classification();
+            cla.setCompulsory((byte)0);
+            cla.setCourschema(newEdit.getId());
             cla.setIdCourse(now);
             cla.setRu_xi((byte)0);
             cla.setTongshi((byte)1);

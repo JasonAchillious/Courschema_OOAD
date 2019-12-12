@@ -224,12 +224,12 @@ public class CourschemasController {
         c.setAR_elec((int)map.get("AR_elec"));
         c.setChineseName((String) map.get("schema_name"));
         //String depart = (String) map.get("department");
-        String depart = "计算机科学与工程系";
+        String depart = (String) map.get("department");
         c.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
         c.setWaiGuo((int) map.get("foreign"));
         c.setHU_elec((int)map.get("HU_elec"));
         //String major = (String) map.get("major");
-        String major = "计算机科学与技术";
+        String major = (String) map.get("major");
         c.setMajor(majorService.findMajorByCname(major).getIdMajor());
         c.setMajor_elec((int)map.get("major_elec"));
         c.setOne_plus3((int)map.get("one_plus3"));
@@ -239,6 +239,29 @@ public class CourschemasController {
 
         return courschemasService.save(c);
         //return reply;
+    }
+
+    @PostMapping(value="/showCou")
+    @ResponseBody
+    public Map<String, Object> showSchema(@RequestBody int schema_id){
+        courschemas search = findCourschema(schema_id);
+        Map<String, Object> reply = new HashMap<>();
+        int de = search.getDepartment();
+        Department d = departmentService.findDepartmentById(de);
+        reply.put("department", d.getChineseName());
+        reply.put("AR_elec", search.getAR_elec());
+        reply.put("schema_name", search.getChineseName());
+        reply.put("major_elec", search.getMajor_elec());
+        reply.put("HU_elec", search.getHU_elec());
+        reply.put("foreign", search.getWaiGuo());
+        Major m = majorService.findMajorById(search.getMajor());
+        reply.put("major", m.getChineseName());
+        reply.put("one_plus3", search.getOne_plus3());
+        reply.put("SS_elec", search.getSS_elec());
+        reply.put("year", search.getNian());
+        reply.put("intro", search.getIntro());
+
+        return reply;
     }
 
 
