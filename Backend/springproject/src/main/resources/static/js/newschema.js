@@ -40,7 +40,7 @@ function newschema() {
 
     var json = JSON.stringify(c_schema);
     console.log('c_schema : ',json);
-    console.log('data: ',JSON.stringify(data))
+    console.log('data: ',JSON.stringify(data));
 
     $.ajax({
         type: 'POST',

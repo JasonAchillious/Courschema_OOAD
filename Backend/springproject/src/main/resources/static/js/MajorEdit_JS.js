@@ -1,5 +1,6 @@
 
 courseMap = new Map();
+hasAdded = new Map();
 // idCourse:course
 
 var schemaedit = {
@@ -7,10 +8,26 @@ var schemaedit = {
     ruxi: [],//同理
     bixiu: [],
     xuanxiu: [],
-    xuanxiu_credit: 0,//默认为0
-    renwen_credit: 0,
-    sheke_credit: 0
+    political:[],
+    id:0
 };
+
+function schema(data) {
+
+    this.schema_name = data.schema_name;//string
+    this.major = data.major;//string
+    this.department = data.department;//string
+    this.major_elec = Number(data.major_elec);//int
+    this.HU_elec = Number(data.HU_elec);//int
+    this.SS_elec = Number(data.SS_elec);//int
+    this.AR_elec = Number(data.AR_elec);//int
+    this.year = Number(data.year);//int
+    this.intro = data.intro;//string
+    this.foreign = 0;//default 0 int
+    this.one_plus3 = 0;//default 2+2 int
+
+
+}
 
 
 var dragFrame = {
@@ -33,11 +50,18 @@ var dragFrame = {
                     var id = Number(ui.draggable.prop('id'));
                     var course = courseMap.get(id);
 
-                    //找到课程加入的是哪个表
-                    var type = $(this).prop('id');
-                    dragFrame.store_course(type,course);
-                    //todo 检查重复
-                    $(this).find("tbody").append(dragFrame.course_html(course,type));
+
+
+                    //检查重复
+                    if(hasAdded.has(course))
+                        alert("此课程已被加入");
+                    else {
+                        //找到课程加入的是哪个表
+                        var type = $(this).prop('id');
+                        dragFrame.store_course(type,course);
+                        $(this).find("tbody").append(dragFrame.course_html(course,type));
+                        hasAdded.set(course,type);
+                    }
                     return false;
                 }
             });
@@ -45,7 +69,6 @@ var dragFrame = {
 
     store_course: function(type,course)
     {
-        alert(type);
         switch (type) {
             case "ruxi":
                 schemaedit.ruxi.push(course);
@@ -59,6 +82,8 @@ var dragFrame = {
             case "xuanxiu":
                 schemaedit.xuanxiu.push(course);
                 break;
+            case "political":
+                schemaedit.political.push(course);
         }
     },
 
@@ -179,7 +204,34 @@ var loadcourse = {
 function upload()
 {
     // 按钮按下，上传更新后的培养方案
+    var data = {};
+    var value = $('#data').serializeArray();
+    $.each(value, function (index, item) {
+        data[item.name] = item.value;
+    });
+    var c_schema = new schema(data);
+
+
     console.log(JSON.stringify(schemaedit));
+    console.log(JSON.stringify(c_schema));
+
+
+
+    $.ajax(
+        {
+            type: 'POST',
+            data: JSON.stringify(schemaedit),
+            contentType: 'application/json',
+            dataType: 'json',
+            url: '/cla/editClassification',
+            success:function (reply) {
+                alert("保存成功");
+            },
+            error: function () {
+                alert("error");
+            }
+        }
+    )
     
 }
 
@@ -218,7 +270,6 @@ function transmitInfo()
 function deleteCourse(type,course) {
     switch (type) {
         case "ruxi":
-            alert('index: '+schemaedit.ruxi.indexOf(course));
             schemaedit.ruxi.splice(schemaedit.ruxi.indexOf(course),1);
             break;
         case "tongshi":
@@ -230,20 +281,28 @@ function deleteCourse(type,course) {
         case "xuanxiu":
             schemaedit.xuanxiu.splice(schemaedit.xuanxiu.indexOf(course),1);
             break;
+        case "political":
+            schemaedit.political.splice(schemaedit.political.indexOf(course),1);
     }
 }
 
 function del(id,type)
 {
-    alert(type.toString());
     $('.'+id).remove();
 
     var course = courseMap.get(id);
-    alert(JSON.stringify(course));
     deleteCourse(type.toString(),course);
 
 }
 
+function initCourse()
+{
+    var id = getUrlParam('id');
+    schemaedit.id = id;
+    //
+}
 
+
+$(document).ready(initCourse);
 $(document).ready(loadcourse.load);
 $(document).ready(dragFrame.ready);

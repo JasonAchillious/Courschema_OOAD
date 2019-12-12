@@ -84,7 +84,7 @@ public class ClassificationController {
 
     @PostMapping(value = "/showClassification")
     @ResponseBody
-    public SchemaEdit handle(@RequestBody Integer schema_id){
+    public SchemaEdit handle(@RequestBody int schema_id){
         SchemaEdit reply = new SchemaEdit();
         reply.setTongshi(findTonCourse(schema_id));
         reply.setRuxi(findRuxiCourse(schema_id));
@@ -101,6 +101,7 @@ public class ClassificationController {
         //save newEdit to database
         //maybe first delete from database, then add
         courschemas editting = courschemasService.findCourschema(newEdit.getId());
+        System.out.println(newEdit.getId());
         for(int now: findComCourse(newEdit.getId())){
             //old compulsorys
             classificationService.deleteCourseClass(now, newEdit.getId());

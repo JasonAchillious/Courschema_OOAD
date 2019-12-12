@@ -13,6 +13,7 @@
     <script type="application/javascript" src="../static/js/bootstrap.js"></script>
     <script src="../static/js/MajorEdit_JS.js"></script>
     <script src="../static/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="../static/js/util.js"></script>
     <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1/jquery-ui.theme.min.css">
 
 
@@ -66,7 +67,7 @@
                 <li><a href="#tongshi_part" data-toggle="tab">通识必修课</a></li>
                 <li><a href="#bixiu_part" data-toggle="tab">专业必修课</a></li>
                 <li><a href="#xuanxiu_part" data-toggle="tab">专业选修课</a></li>
-
+                <li><a href="#political_part" data-toggle="tab">思想政治课</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade in active" id="jiben_part">
@@ -213,6 +214,30 @@
                     <div class="card text-white bg-secondary mb-3 course-board" >
                         <div class="card-header">将课程拖入选择栏</div>
                         <div class="card-body droppable " id="xuanxiu">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">课程编号</th>
+                                    <th scope="col">课程名称</th>
+                                    <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
+                                    <th scope="col">编辑操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id = "political_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
+                        <div class="card-header">将课程拖入选择栏</div>
+                        <div class="card-body droppable " id="political">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
