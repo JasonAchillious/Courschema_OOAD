@@ -215,8 +215,12 @@ function upload()
     console.log(JSON.stringify(schemaedit));
     console.log(JSON.stringify(c_schema));
 
+    transmitList();
+    // transmitInfo();
+}
 
-
+function transmitList()
+{
     $.ajax(
         {
             type: 'POST',
@@ -229,25 +233,6 @@ function upload()
             },
             error: function () {
                 alert("error");
-            }
-        }
-    )
-    
-}
-
-function transmitList()
-{
-    $.ajax(
-        {
-            type: 'POST',
-            data: data,//json
-            contentType: 'application/json',
-            dataType: 'json',
-            // async: false,
-            url: '/allcourse',
-            
-            success: function () {
-                
             }
         }
     )
@@ -298,8 +283,43 @@ function del(id,type)
 function initCourse()
 {
     var id = getUrlParam('id');
-    schemaedit.id = id;
-    //
+    schemaedit.id = Number(id);
+    //发id 接收所有的course 和 info
+    var data = {id:schemaedit.id};
+
+    $.ajax(
+        {
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'json',
+            url: '/cla/showClassification',
+            success:function (reply) {
+                //reply 是 schemaedit 对象
+                console.log(JSON.stringify(reply));
+
+                schemaedit = reply;
+                initShow(reply.tongshi,"tongshi");
+                initShow(reply.ruxi,"ruxi");
+                initShow(reply.bixiu,"bixiu");
+                initShow(reply.xuanxiu,"xuanxiu");
+                initShow(reply.political,"political");
+            },
+            error: function () {
+                alert("error");
+            }
+        }
+    )
+}
+
+function initShow(list,type)
+{
+    //type 代表插入到哪个表
+    for(i = 0;i < list.length;i ++)
+    {
+        var course = list[i];
+        $('#'+type).find("tbody").append(dragFrame.course_html(course,type));
+    }
 }
 
 

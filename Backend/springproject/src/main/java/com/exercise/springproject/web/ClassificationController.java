@@ -92,7 +92,9 @@ public class ClassificationController {
 
     @PostMapping(value = "/showClassification")
     @ResponseBody
-    public SchemaEdit handle(@RequestBody Integer schema_id){
+    public SchemaEdit handle(@RequestBody Map<String,Integer> mapid){
+        int schema_id = mapid.get("id");
+
         SchemaEdit reply = new SchemaEdit();
         List<Map> tongshi = new ArrayList<Map>();
         List<Integer> t = findTonCourse(schema_id);
@@ -117,7 +119,7 @@ public class ClassificationController {
         reply.setTongshi(tongshi);
 
         List<Map> Ruxi = new ArrayList<Map>();
-        List<Integer> r = findTonCourse(schema_id);
+        List<Integer> r = findRuxiCourse(schema_id);
         for(int tmp: r){
             Map<String, Object> temp = new HashMap<>();
             Course now = courseService.findCourseById(tmp);
@@ -139,7 +141,7 @@ public class ClassificationController {
         reply.setRuxi(Ruxi);
 
         List<Map> Bixiu = new ArrayList<Map>();
-        List<Integer> b = findTonCourse(schema_id);
+        List<Integer> b = findComCourse(schema_id);
         for(int tmp: b){
             Map<String, Object> temp = new HashMap<>();
             Course now = courseService.findCourseById(tmp);
@@ -161,7 +163,7 @@ public class ClassificationController {
         reply.setBixiu(Bixiu);
 
         List<Map> Xuanxiu = new ArrayList<Map>();
-        List<Integer> x = findTonCourse(schema_id);
+        List<Integer> x = findXuanXiuCourse(schema_id);
         for(int tmp: x){
             Map<String, Object> temp = new HashMap<>();
             Course now = courseService.findCourseById(tmp);
@@ -180,13 +182,13 @@ public class ClassificationController {
             temp.put("department", department.getChineseName());
             Xuanxiu.add(temp);
         }
+
         reply.setXuanxiu(Xuanxiu);
-        Map<String, Object> idmap = new HashMap<>();
-        idmap.put("id", schema_id);
-        reply.setIdMap(idmap);
+
+        reply.setId(schema_id);
 
         List<Map> political = new ArrayList<Map>();
-        List<Integer> p = findTonCourse(schema_id);
+        List<Integer> p = findPoliticalCourse(schema_id);
         for(int tmp: p){
             Map<String, Object> temp = new HashMap<>();
             Course now = courseService.findCourseById(tmp);
@@ -212,10 +214,10 @@ public class ClassificationController {
 
     @PostMapping(value = "/editClassification")
     @ResponseBody
-    public void handleedit(@RequestBody SchemaEdit newEdit){
+    public String handleedit(@RequestBody SchemaEdit newEdit){
         //save newEdit to database
         //maybe first delete from database, then add
-        int schemaId = (int) newEdit.getIdMap().get("id");
+        int schemaId = newEdit.getId();
         for(int now: findComCourse(schemaId)){
             //old compulsorys
             classificationService.deleteCourseClass(now, schemaId);
@@ -278,10 +280,11 @@ public class ClassificationController {
             cla.setCourschema(schemaId);
             cla.setIdCourse((Integer) m.get("idCourse"));
             cla.setRu_xi((byte)0);
-            cla.setTongshi((byte)1);
+            cla.setTongshi((byte)0);
+            cla.setPolitical((byte)1);
             classificationService.save(cla);
         }
 
-
+        return "success";
     }
 }
