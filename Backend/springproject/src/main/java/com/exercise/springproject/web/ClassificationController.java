@@ -233,6 +233,7 @@ public class ClassificationController {
         }
         for(int now: findRuxiCourse(schemaId)){
             //old ruxi
+            System.out.println(now);
             classificationService.deleteCourseClass(now, schemaId);
         }
         for(Map m: newEdit.getRuxi()){

@@ -21,7 +21,7 @@ public class CourseController {
         return courseService.findAll();
     }
 
-    @GetMapping("/allcourse")
+    @PostMapping("/allcourse")
     @ResponseBody
     public List<Map> allcourse(){
         List<Course> tmp =  courseService.findAll();
