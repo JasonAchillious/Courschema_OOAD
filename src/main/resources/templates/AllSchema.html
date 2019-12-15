@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AllSchema</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/AEPP.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" >
+
+    <script src="../static/js/newschema.js"></script>
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <script type="application/javascript" src="../static/js/bootstrap.js"></script>
+    <script src="http://www.itxst.com/package/bootstrap-table-1.14.1/jquery-3.3.1/jquery.js"></script>
+    <link href="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.css" rel="stylesheet" />
+    <script src="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.js"></script>
+    <script type="application/javascript" src="../static/js/AllSchema_JS.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
+    <a class="navbar-brand" href="#">SUSTech Courschema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">自定义</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">全部培养方案<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">全部课程</a>
+            </li>
+        </ul>
+    </div>
+    <ul class="mr-auto navbar-nav">
+        <li>
+            <a class="nav-link" href="#">设置</a>
+        </li>
+        <li>
+            <a class="nav-link" href="#">帮助</a>
+        </li>
+        <li>
+            <a class="nav-link" href="#">注销</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid" style="min-height: 650px" >
+<div class="row">
+    <div class="col-2">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Courschema</h3>
+            </div>
+            <div id="majorList">
+                <ul class="list-unstyled components">
+                    <p>院系专业</p>
+
+                </ul>
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="#" class="download">编辑</a>
+                    </li>
+                    <li>
+                        <a href="#" class="article" data-toggle="modal" data-target="#myModal">新建</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="col-10">
+        <table class="table table-hover" id="schematable" style="width: 100%;">
+
+        </table>
+    </div>
+
+</div>
+</div>
+
+<footer class="ft_ct">
+    <div class="ft_wrap">
+
+        <div class="ft_logo">
+            <img src="../static/img/ft_logo.png">
+        </div>
+        <div class="ft_rt">
+            <div class="ft_adr">
+                <ul>
+                    <li>广东省深圳市南山区</li>
+                    <li>学苑大道1088号</li>
+                    <li>+86-755-8801 0000 </li>
+                    <li>518055</li>
+                </ul>
+            </div>
+            <div class="ft_iocn">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
+                        <div class="tc_wx vc_icon_element vc_icon_element-outer inline-iocn vc_icon_element-align-left">
+                            <div
+                                    class="vc_icon_element-inner vc_icon_element-color-white vc_icon_element-size-md vc_icon_element-style- vc_icon_element-background-color-grey">
+                                <span class="vc_icon_element-icon fa fa-weixin"></span>
+                            </div>
+                            <div class="wx_hide">
+                                <img src="../static/img/wx_img.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="ft_copy">
+        © 2019 All Rights Reserved.
+        <!--a href="https://www.unisonmedia.cn/" target="_blank">技术</a><a href="https://www.unisonbrand.cn/" target="_blank">支持</a-->
+    </div>
+
+</footer><!-- #colophon -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">培养方案基本信息</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+            </div>
+            <div class="modal-body" >
+                <form id="data">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="schemaname">培养方案名称</label>
+                            <input class="form-control form-control-lg"name="schema_name" type="text" placeholder="培养方案名称" id="schemaname">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="year">培养方案年份</label>
+                            <input class="form-control" id="year" type="number" name="year" placeholder="输入培养方案年份">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="department">所属院系</label>
+                            <input class="form-control" id="department" type="text" name="department" placeholder="计算机科学与工程系" readonly="" value="计算机科学与工程系">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="major">所属专业</label>
+                            <input class="form-control" id="major" type="text" name="major" placeholder="输入所属专业">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="renwencredit">人文学分要求</label>
+                            <input type="number"name="HU_elec" class="form-control" placeholder="输入数字" id="renwencredit">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="shekecredit">社科学分要求</label>
+                            <input type="number"name="SS_elec" class="form-control" placeholder="输入数字" id="shekecredit">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="AR_elec">艺术学分要求</label>
+                            <input type="number"name="AR_elec" class="form-control" placeholder="输入数字" id="AR_elec">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label" for="major_elec">专业选修学分要求</label>
+                            <input type="number"name="major_elec" class="form-control" placeholder="输入数字" id="major_elec">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="foreign">留学生培养方案</label>
+                            <select class="form-control"name="foreign" id="foreign">
+                                <option>是</option>
+                                <option>否</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="one_plus3">培养方案类型</label>
+                            <select class="form-control"name="one_plus3" id="one_plus3">
+                                <option>1+3培养</option>
+                                <option>2+2培养</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="intro">培养方案介绍</label>
+                        <textarea class="form-control"name="intro" id="intro" rows="5"></textarea>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="newschema()" data-dismiss="modal">新建培养方案</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+</html>
