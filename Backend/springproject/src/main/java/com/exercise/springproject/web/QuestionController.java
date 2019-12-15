@@ -60,7 +60,6 @@ public class QuestionController {
             else{
                 now.put("hasAnswer", false);
             }
-
             reply.add(now);
         }
         return reply;
@@ -127,11 +126,45 @@ public class QuestionController {
         return reply;
     }
 
-//    @GetMapping("/QandA_getInfo")
-//    @ResponseBody
-//    public Map getinfo(){
-//
-//    }
+    @GetMapping("/QandA_getInfo")
+    @ResponseBody
+    public Map getinfo(@RequestBody Map<String, Object> json){
+        Map<String,Object> ans = new HashMap<>();
+        int id = (int) json.get("userId");
+        ans.put("userId", id);
+        List<Map> reply = new ArrayList<Map>();
+        List<question> search = questionService.findAll();
+        for(question q : search){
+            Map<String, Object> now = new HashMap<>();
+            int questionUserID = q.getCreaterid();
+            //默认是student
+            student s = studentService.findStudentByid_student(questionUserID);
+            now.put("questionUserId", questionUserID);
+            now.put("questionUserName", s.getName());
+            now.put("releaseDate", q.getReleaseTime());
+            now.put("questionId", q.getQuestionid());
+            now.put("questionContent", q.getqContent());
+            if(q.getHasAnswer()==(byte)1) {
+                now.put("hasAnswer", true);
+                int ansId = q.getAnswerId();
+                answer a = answerService.findAnswerByAnswerId(ansId);
+                now.put("answerUserId",a.getAdminid());
+                //默认是管理员
+                System.out.println(a.getAdminid());
+                Admin admin = adminService.findAdminByIdAdmin(a.getAdminid());
+                now.put("answerUserName",admin.getName());
+                now.put("answerDate", a.getAnswerDate());
+                now.put("answerContent", a.getContent());
+            }
+            else{
+                now.put("hasAnswer", false);
+            }
+            reply.add(now);
+        }
+        ans.put("questions", reply);
+        return ans;
+
+    }
 
     @PostMapping("/QandA_admin/updateQuestions")
     @ResponseBody
