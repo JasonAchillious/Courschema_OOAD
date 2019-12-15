@@ -31,4 +31,9 @@ public class QuestionServiceImpl implements QuestionService{
     public List<question> findQuestionByCreater(int creater) {
         return questionRepository.findQuestionByCreater(creater);
     }
+
+    @Override
+    public question findQuestionById(int id) {
+        return questionRepository.findQuestionById(id);
+    }
 }

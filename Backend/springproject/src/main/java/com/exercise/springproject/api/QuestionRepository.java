@@ -9,4 +9,6 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<question, Integer> {
     @Query("select p from question p where p.createrid=?1")
     List<question> findQuestionByCreater(int creater);
+    @Query(value = "select p from question p where p.questionid=?1")
+    question findQuestionById(int id);
 }

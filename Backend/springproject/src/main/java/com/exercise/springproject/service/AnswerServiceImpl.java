@@ -32,7 +32,7 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<answer> findAnswerByStuid(int stuId) {
-        return answerRepository.findAnswerByStuid(stuId);
+    public answer findAnswerByAnswerId(int id) {
+        return answerRepository.findAnswerByAnswerId(id);
     }
 }

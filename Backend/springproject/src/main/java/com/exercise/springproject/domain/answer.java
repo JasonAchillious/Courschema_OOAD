@@ -11,10 +11,17 @@ public class answer {
     private int ansid;
     @NotNull
     private String content;
-    private boolean identity;
     private int questionid;
-    private int stuid;
     private int adminid;
+    private String answerDate;
+
+    public String getAnswerDate() {
+        return answerDate;
+    }
+
+    public void setAnswerDate(String answerDate) {
+        this.answerDate = answerDate;
+    }
 
     public int getQuestionid() {
         return questionid;
@@ -32,14 +39,6 @@ public class answer {
         this.adminid = adminid;
     }
 
-    public void setIdentity(boolean identity) {
-        this.identity = identity;
-    }
-
-    public boolean isIdentity() {
-        return identity;
-    }
-
     public String getContent() {
         return content;
     }
@@ -48,13 +47,6 @@ public class answer {
         this.content = content;
     }
 
-    public int getStuid() {
-        return stuid;
-    }
-
-    public void setStuid(int stuid) {
-        this.stuid = stuid;
-    }
 
     public void setAnsid(int ansid) {
         this.ansid = ansid;

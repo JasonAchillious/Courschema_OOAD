@@ -11,4 +11,5 @@ public interface QuestionService {
     public question save(question question);
     public void deleteById(int id);
     public List<question> findQuestionByCreater(int creater);
+    public question findQuestionById(int id);
 }

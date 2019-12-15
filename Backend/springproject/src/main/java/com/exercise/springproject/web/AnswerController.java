@@ -30,14 +30,12 @@ public class AnswerController {
     public answer update(  @RequestParam int stuId,
                            @RequestParam String content,
                            @RequestParam int questionId,
-                         @RequestParam boolean identity,
-                         @RequestParam int adminId,
-                         @RequestParam int ansId){
+                           @RequestParam boolean identity,
+                           @RequestParam int adminId,
+                           @RequestParam int ansId){
         answer answer = new answer();
         answer.setAdminid(adminId);
         answer.setContent(content);
-        answer.setIdentity(identity);
-        answer.setStuid(stuId);
         answer.setAnsid(ansId);
         answer.setQuestionid(questionId);
         return answerService.save(answer);
@@ -54,9 +52,5 @@ public class AnswerController {
         return answerService.findAnswerByQuestionid(questionId);
     }
 
-    @PostMapping("findAnswerByStuId")
-    public List<answer> findAnswerByStuid(@RequestParam int stuId){
-        return answerService.findAnswerByStuid(stuId);
-    }
 
 }

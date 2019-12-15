@@ -11,5 +11,5 @@ public interface AnswerService {
     public answer save(answer question);
     public void deleteById(int id);
     public List<answer> findAnswerByQuestionid(int questionId);
-    public List<answer> findAnswerByStuid(int stuId);
+    public answer findAnswerByAnswerId(int id);
 }

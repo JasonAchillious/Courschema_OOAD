@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AnswerRepository extends JpaRepository<answer, Integer> {
-    @Query("select p from answer p where p.questionid=?1")
+    @Query(value = "select p from answer p where p.questionid=?1")
     public List<answer> findAnswerByQuestionid(int id);
 
-    @Query("select p from answer p where p.stuid=?1")
-    public List<answer> findAnswerByStuid(int id);
+    @Query(value = "select p from answer p where p.ansid=?1")
+    public answer findAnswerByAnswerId(int id);
 }
