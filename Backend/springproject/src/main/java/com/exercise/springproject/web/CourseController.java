@@ -3,9 +3,12 @@ package com.exercise.springproject.web;
 import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.CourseService;
 import com.exercise.springproject.service.DepartmentService;
+import com.exercise.springproject.service.GraduateService;
+import com.exercise.springproject.service.XianxiuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.tags.Param;
 
 import java.util.*;
 
@@ -15,6 +18,10 @@ public class CourseController {
     private CourseService courseService;
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private XianxiuService xianxiuService;
+    @Autowired
+    private GraduateService graduateService;
 
     @GetMapping("/recordCourse")
     public List<Course> findAllCourse(){
@@ -46,23 +53,105 @@ public class CourseController {
 
     @PostMapping("/saveCourse")
     @ResponseBody
-    public Course savecourse(Map<String, Object> json_map){
+    public String saveCourse(Map<String, Object> json_map){
             Course newcourse = new Course();
-            newcourse.setChineseName((String) json_map.get("chineseName"));
+            newcourse.setChineseName((String) json_map.get("chinese_name"));
             newcourse.setBianHao((String) json_map.get("code"));
             newcourse.setIntro((String) json_map.get("intro"));
             newcourse.setCredit((Double) json_map.get("credit"));
             newcourse.setSummer((Byte) json_map.get("summer"));
             newcourse.setSpring((Byte) json_map.get("spring"));
             newcourse.setAutumn((Byte) json_map.get("autumn"));
-            newcourse.setEnglishName((String) json_map.get("englishName"));
-            newcourse.setNian((int) json_map.get("year"));
+            newcourse.setEnglishName((String) json_map.get("english_name"));
+            String nian = (String) json_map.get("year");
+            if(nian.equals("大一")){
+                newcourse.setNian(1);
+            }else if(nian.equals("大二")){
+                newcourse.setNian(2);
+            }else if(nian.equals("大三")){
+                newcourse.setNian(3);
+            }else{
+                newcourse.setNian(4);
+            }
            // temp.put("idCourse", now.getIdCourse());
             String depart = (String) json_map.get("department");
             Department de = departmentService.findDepartmentByName(depart);
             newcourse.setDepartment(de.getIdDepartment());
+            try{
+                courseService.save(newcourse);
+                return "success";
+            }catch(Exception e){
+                return "fail";
+            }
+    }
 
-            return courseService.save(newcourse);
+    @PostMapping("/editCourse")
+    @ResponseBody
+    public String editcourse(@RequestBody Map<String, Object> json_map){
+        int id = (Integer) json_map.get("course_id");
+        Course search = courseService.findCourseById(id);
+        courseService.deleteCourseById(id);
+        search.setChineseName((String) json_map.get("chinese_name"));
+        search.setBianHao((String) json_map.get("code"));
+        search.setIntro((String) json_map.get("intro"));
+        search.setCredit((Double) json_map.get("credit"));
+        search.setSummer((Byte) json_map.get("summer"));
+        search.setSpring((Byte) json_map.get("spring"));
+        search.setAutumn((Byte) json_map.get("autumn"));
+        search.setEnglishName((String) json_map.get("english_name"));
+        String nian = (String) json_map.get("year");
+        if(nian.equals("大一")){
+            search.setNian(1);
+        }else if(nian.equals("大二")){
+            search.setNian(2);
+        }else if(nian.equals("大三")){
+            search.setNian(3);
+        }else{
+            search.setNian(4);
+        }
+        // temp.put("idCourse", now.getIdCourse());
+        String depart = (String) json_map.get("department");
+        Department de = departmentService.findDepartmentByName(depart);
+        search.setDepartment(de.getIdDepartment());
+
+        try{
+            courseService.save(search);
+            return "success";
+        }catch(Exception e){
+            return "fail";
+        }
+    }
+
+    @PostMapping("editXianxiu")
+    @ResponseBody
+    public Map<String, Object> editXianxiu(@RequestBody Map<String, Object> json){
+        int course_id = (int) json.get("course_id");
+        String pre_course = (String) json.get("pre_course");
+        String replace = (String) json.get("replace_course");
+        int schema_id = (int) json.get("schema_id");
+        try{
+            xianxiuService.deleteXianxiuCondition(course_id, schema_id);
+            graduateService.deletegraduate_condition(course_id, schema_id);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        Xianxiu_condition newxianxiu = new Xianxiu_condition();
+        newxianxiu.setConditionString(pre_course);
+        newxianxiu.setIdCourse(course_id);
+        newxianxiu.setCourschema(schema_id);
+        graduate_condition newgra = new graduate_condition();
+        newgra.setIdCourse(course_id);
+        newgra.setConditionString(replace);
+        newgra.setCourschema(schema_id);
+        Map<String, Object> reply = new HashMap<>();
+        try {
+            xianxiuService.save(newxianxiu);
+            graduateService.save(newgra);
+            reply.put("state", "success");
+        }catch(Exception e){
+            reply.put("state", "fail");
+        }
+        return reply;
     }
 
 //    @PostMapping(value="/saveCourschemas")
