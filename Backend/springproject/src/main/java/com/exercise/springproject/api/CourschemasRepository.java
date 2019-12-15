@@ -2,8 +2,10 @@ package com.exercise.springproject.api;
 
 import com.exercise.springproject.domain.courschemas;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -23,6 +25,8 @@ public interface CourschemasRepository extends JpaRepository<courschemas, Intege
     @Query("select p from courschemas p where p.Department=?1")
     public courschemas findcourschemasByDepartment(int de);
 
+    @Modifying
+    @Transactional
     @Query("delete from courschemas where courschema=?1")
     public void deleteCourschema(int courschema);
 

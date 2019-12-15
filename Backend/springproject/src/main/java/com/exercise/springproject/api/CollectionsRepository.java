@@ -2,8 +2,10 @@ package com.exercise.springproject.api;
 
 import com.exercise.springproject.domain.collections;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CollectionsRepository extends JpaRepository<collections, Integer> {
@@ -14,6 +16,8 @@ public interface CollectionsRepository extends JpaRepository<collections, Intege
     @Query("select p from collections p")
     public List<collections> findAll();
 
+    @Modifying
+    @Transactional
     @Query("delete from collections where id=?1 and courschema=?2")
     void deleteById(int id, int courschema);
 }

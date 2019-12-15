@@ -2,7 +2,10 @@ package com.exercise.springproject.api;
 
 import com.exercise.springproject.domain.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Integer>{
@@ -17,6 +20,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer>{
     public List<Course> findAll();
      */
 
+    @Modifying
+    @Transactional
     @Query("delete from Course p where p.idCourse=?1")
     public void deleteCourseById(int idCourse);
 
