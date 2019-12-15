@@ -70,6 +70,9 @@ public class StudentController{
     @GetMapping("/AllSchema")
     public String allschema(){return "AllSchema";}
 
+    @GetMapping("/testNewCourse")
+    public String testNewCourse(){return "NewCourse";}
+
     @GetMapping("/Edit")
     public String edit(){return "Edit";}
 

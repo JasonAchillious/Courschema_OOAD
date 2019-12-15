@@ -6,6 +6,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "Course", schema = "mydb", catalog = "")
 public class Course {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idCourse;
     private String BianHao;
     private String chineseName;

@@ -51,17 +51,22 @@ public class CourseController {
         return reply;
     }
 
-    @PostMapping("/saveCourse")
+    @PostMapping("/newCourse")
     @ResponseBody
-    public String saveCourse(Map<String, Object> json_map){
+    public String saveCourse(@RequestBody Map<String, Object> json_map){
             Course newcourse = new Course();
             newcourse.setChineseName((String) json_map.get("chinese_name"));
+            System.out.println(json_map.get("code"));
             newcourse.setBianHao((String) json_map.get("code"));
             newcourse.setIntro((String) json_map.get("intro"));
-            newcourse.setCredit((Double) json_map.get("credit"));
-            newcourse.setSummer((Byte) json_map.get("summer"));
-            newcourse.setSpring((Byte) json_map.get("spring"));
-            newcourse.setAutumn((Byte) json_map.get("autumn"));
+            System.out.println(newcourse.getIntro());
+            newcourse.setCredit((int) json_map.get("credit"));
+            int s = (int) json_map.get("summer");
+            newcourse.setSummer((byte) s);
+            int sp = (int) json_map.get("spring");
+            newcourse.setSpring((byte) sp);
+            int a  = (int) json_map.get("autumn");
+            newcourse.setAutumn((byte) a);
             newcourse.setEnglishName((String) json_map.get("english_name"));
             String nian = (String) json_map.get("year");
             if(nian.equals("大一")){
