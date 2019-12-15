@@ -83,10 +83,10 @@ public class QuestionController {
         Map<String, Object> reply = new HashMap<>();
         try {
             questionService.save(now);
-            reply.put("status","success");
+            reply.put("state","success");
         }
         catch (Exception e){
-            reply.put("status","fail");
+            reply.put("state","fail");
         }
         List<Map> array = new ArrayList<>();
         List<question> search = questionService.findAll();
@@ -146,10 +146,10 @@ public class QuestionController {
         Map<String, Object> reply = new HashMap<>();
         try{
             answerService.save(now);
-            reply.put("status", "success");
+            reply.put("state", "success");
         }
         catch (Exception e){
-            reply.put("status", "fail");
+            reply.put("state", "fail");
         }
 
         List<question> question = questionService.findAll();
@@ -193,9 +193,9 @@ public class QuestionController {
         Map<String, Object> reply = new HashMap<>();
         try {
             questionService.deleteById(qId);
-            reply.put("status", "success");
+            reply.put("state", "success");
         }catch(Exception e){
-            reply.put("status", "fail");
+            reply.put("state", "fail");
         }
         List<question> question = questionService.findAll();
         List<Map> array = new ArrayList();
@@ -241,9 +241,9 @@ public class QuestionController {
             q.setHasAnswer((byte)0);
             questionService.deleteById(qId);
             questionService.save(q);
-            reply.put("status", "success");
+            reply.put("state", "success");
         }catch(Exception e){
-            reply.put("status", "fail");
+            reply.put("state", "fail");
         }
         List<question> question = questionService.findAll();
         List<Map> array = new ArrayList();
