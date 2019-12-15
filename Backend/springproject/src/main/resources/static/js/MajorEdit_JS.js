@@ -1,4 +1,3 @@
-
 courseMap = new Map();
 hasAdded = new Map();
 // idCourse:course
