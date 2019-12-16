@@ -21,19 +21,21 @@ function newCourse() {
     s_course = new course(data);
     json = JSON.stringify(s_course);
 
-    $.ajax({
-        type: 'POST',
-        data: json,//json
-        contentType: 'application/json',
-        dataType: 'json',
-        //async: false,
-        url: '/saveCourse',
-        success: function (reply) {
-            alert("success");
-            location.reload();
-        },
-        error: function (response) {
-            alert("Error")
-        }
-    });
+    alert(json)
+
+    // $.ajax({
+    //     type: 'POST',
+    //     data: json,//json
+    //     contentType: 'application/json',
+    //     dataType: 'json',
+    //     //async: false,
+    //     url: '/saveCourse',
+    //     success: function (reply) {
+    //         alert("success");
+    //         location.reload();
+    //     },
+    //     error: function (response) {
+    //         alert("Error")
+    //     }
+    // });
 }

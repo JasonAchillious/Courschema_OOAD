@@ -1,5 +1,6 @@
-courseMap = new Map();
+courseMap = new Map();// 保存 idCourse:course键值对
 hasAdded = new Map();
+schema_id = 0;
 // idCourse:course
 
 var schemaedit = {
@@ -96,9 +97,10 @@ var dragFrame = {
         var department = course.department;
         var english_name = course.englishName;
         var season = dragFrame.set_season(course);
-        var id = course.idCourse;
+        var course_id = course.idCourse;
 
-        var del = "<button onclick='del("+id+",\""+ type + "\")'>删除</button>";
+        var del = "<button onclick='del("+course_id+",\""+ type + "\")'>删除</button>";
+        var edit = "<button onclick='edit("+course_id+",\""+ schema_id + "\")'>编辑详情</button>";
 
         //make html
 
@@ -110,6 +112,7 @@ var dragFrame = {
             "          <td>"+year+"</td>\n" +
             "          <td>"+department+"</td>\n" +
             "          <td>"+del+"</td>"+
+            "          <td>"+edit+"</td>"+
             "       </tr>";
 
         return html;
@@ -279,10 +282,15 @@ function del(id,type)
 
 }
 
+function edit(c_id,s_id) {
+    window.location.href = "/CourseEdit?"+c_id+"&"+s_id;
+}
+
 function initCourse()
 {
-    var id = getUrlParam('id');
-    schemaedit.id = Number(id);
+    schema_id = getUrlParam('id');
+
+    schemaedit.id = Number(schema_id);
     //发id 接收所有的course 和 info
     var data = {id:schemaedit.id};
 

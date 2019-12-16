@@ -1,5 +1,3 @@
-
-
 function getData()
 {
     var data = [];
