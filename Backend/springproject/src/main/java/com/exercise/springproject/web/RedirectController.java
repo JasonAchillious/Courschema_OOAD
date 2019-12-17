@@ -2,13 +2,12 @@ package com.exercise.springproject.web;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -31,6 +30,11 @@ public class RedirectController {
         attributes.addAttribute(param);
         System.out.println(redirectTarget);
         return redirectTarget;
+    }
+
+    @RequestMapping("/foo")
+    void handleFoo(HttpServletResponse response) throws IOException {
+        response.sendRedirect("some-url");
     }
 
 }

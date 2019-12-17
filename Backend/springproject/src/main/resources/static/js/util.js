@@ -48,8 +48,8 @@ var util = {
 
         var id = Number(getUrlParam(param));
         var url = re_url+'?param='+id;
-        alert(url);
-        window.location.replace("http://www.baidu.com");
-        alert(window.location);
+        // alert(url);
+        $(location).attr('href',url);
+        // alert(window.location);
     }
 };

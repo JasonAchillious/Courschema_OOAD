@@ -123,7 +123,7 @@ function makeForm(data) {
     form.schema_name = data.schema_name;
     form.major = data.major;
     form.department = data.department;
-    form.major_elec =
+    // form.major_elec =
 }
 function setSeason(course) {
     var season_str = '';
