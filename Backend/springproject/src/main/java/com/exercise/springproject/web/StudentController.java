@@ -40,6 +40,9 @@ public class StudentController{
     @Autowired
     private AdminService adminService;
     
+    @Autowired
+    private Login_userService login_userService;
+    
     Calendar cal =Calendar.getInstance();
 
     @GetMapping("/")
