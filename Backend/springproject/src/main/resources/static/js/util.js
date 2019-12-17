@@ -44,25 +44,12 @@ var util = {
         if(null == data || "" == data) return true;
         else return false;
     },
-    redirect: function (url,param,receiveURL) {
-        var data = {};
-        data.url = url;
-        data.param = param;
-        ajax(
-            {
-                type: 'POST',
-                data: JSON.stringify(data),//json
-                contentType: 'application/json',
-                dataType: 'json',
-                //async: false,
-                url: receiveURL,
-                success: function (reply) {
-                    alert("success");
-                },
-                error: function (response) {
-                    alert("Error")
-                }
-            }
-        )
+    redirect: function (re_url,param) {
+
+        var id = Number(getUrlParam(param));
+        var url = re_url+'?param='+id;
+        alert(url);
+        window.location.replace("http://www.baidu.com");
+        alert(window.location);
     }
 };
