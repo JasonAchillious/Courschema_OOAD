@@ -38,6 +38,8 @@ public class StudentController{
 
     @Autowired
     private AdminService adminService;
+    
+    Calendar cal =Calendar.getInstance();
 
     @GetMapping("/")
     public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String account, Model model) {
@@ -272,6 +274,7 @@ public class StudentController{
             }else {
                 if (search.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
+                    student_login(search);
                     return "redirect:/AllSchema";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
@@ -288,6 +291,7 @@ public class StudentController{
             }else {
                 if (secr.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
+                    secretary_login(secr);
                     return "redirect:/sechome";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
@@ -304,6 +308,7 @@ public class StudentController{
             }else {
                 if (adm.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
+                    admin_login(adm);
                     return "redirect:/adminhome";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
@@ -315,6 +320,46 @@ public class StudentController{
 
 
     }
+    
+    private void student_login(student search) {
+        int time = 0;
+        Login_user login_user = new Login_user();
+        time += (cal.get(Calendar.YEAR)-2000)*100000000;
+        time += cal.get(Calendar.MONTH)*1000000;
+        time += cal.get(Calendar.DATE)*10000;
+        time += cal.get(Calendar.HOUR_OF_DAY)*100;
+        time += cal.get(Calendar.MINUTE);
+        login_user.setId(search.getId());
+        login_user.setTime(time);
+        login_userService.save(login_user);
+    }
+
+    private void secretary_login(secretary secr) {
+        int time = 0;
+        Login_user login_user = new Login_user();
+        time += (cal.get(Calendar.YEAR)-2000)*100000000;
+        time += cal.get(Calendar.MONTH)*1000000;
+        time += cal.get(Calendar.DATE)*10000;
+        time += cal.get(Calendar.HOUR_OF_DAY)*100;
+        time += cal.get(Calendar.MINUTE);
+        login_user.setId(secr.getId());
+        login_user.setTime(time);
+        login_userService.save(login_user);
+    }
+
+    private void admin_login(Admin adm) {
+        int time = 0;
+        Login_user login_user = new Login_user();
+        time += (cal.get(Calendar.YEAR)-2000)*100000000;
+        time += cal.get(Calendar.MONTH)*1000000;
+        time += cal.get(Calendar.DATE)*10000;
+        time += cal.get(Calendar.HOUR_OF_DAY)*100;
+        time += cal.get(Calendar.MINUTE);
+        login_user.setId(adm.getIdAdmin());
+        login_user.setTime(time);
+        login_userService.save(login_user);
+    }
+
 
 
 }
