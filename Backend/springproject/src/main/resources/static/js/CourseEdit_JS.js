@@ -79,7 +79,7 @@ function transmitInfo(s_course) {
     json = JSON.stringify(s_course);
     $.ajax({
         type: 'POST',
-        data: json,//json
+        data: JSON.stringify(s_course),//json
         contentType: 'application/json',
         dataType: 'json',
         //async: false,
@@ -97,7 +97,7 @@ function transmitInfo(s_course) {
 function transmitRelation(relation) {
     $.ajax({
         type: 'POST',
-        data: json,//json
+        data: JSON.stringify(relation),//json
         contentType: 'application/json',
         dataType: 'json',
         //async: false,
@@ -114,9 +114,12 @@ function transmitRelation(relation) {
 
 function initInfo()
 {
-    //todo init information
+    //todo test get param
+    course_id = getUrlParam('course_id');
+    schema_id = getUrlParam('schema_id');
     //test
-    data = {};
+    //todo init information
+    var data = {};
     data.chinese_name = "test";
     data.english_name = "daoisjd";
     data.code = "EE212";
@@ -130,6 +133,12 @@ function initInfo()
     util.fillFormData("#data",data);
 
     //todo init relationship
+    //test
+    var r_data = {};
+    r_data.pre_course = 'pre testkkkk';
+    r_data.replace_course = 'aiodsj';
+
+    util.fillFormData("#relationData",r_data);
 }
 
 $(document).ready(initInfo);
