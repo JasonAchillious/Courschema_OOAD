@@ -62,12 +62,12 @@ var load = {
 
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             // data: data,//json
             contentType: 'application/json',
             dataType: 'json',
             async: false,
-            url: '/exer/allCourschemas',
+            url: '/allCourschemas',
             success: function (reply) {
 
                 console.log(JSON.stringify(reply));

@@ -39,10 +39,10 @@ public class StudentController{
 
     @Autowired
     private AdminService adminService;
-    
+
     @Autowired
     private Login_userService login_userService;
-    
+
     Calendar cal =Calendar.getInstance();
 
     @GetMapping("/")
@@ -278,8 +278,8 @@ public class StudentController{
             }else {
                 if (search.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-                    student_login(search);
-                    return "redirect:/AllSchema";
+
+                    return "redirect:/userhome";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
                     return "redirect:/login";
@@ -324,7 +324,7 @@ public class StudentController{
 
 
     }
-    
+
     private void student_login(student search) {
         int time = 0;
         Login_user login_user = new Login_user();
