@@ -134,7 +134,7 @@ public class CourschemasController {
 
     @PostMapping("/oneCourschemas")
     @ResponseBody
-    public Map<String, Object> findOneCourschemas(@RequestParam int id){
+    public Map<String, Object> findOneCourschemas(@RequestBody int id){
         courschemas c = courschemasService.findcourschemasById(id);
         Map<String,Object> ele = new HashMap<>();
         ele.put("chineseName",c.getChineseName());

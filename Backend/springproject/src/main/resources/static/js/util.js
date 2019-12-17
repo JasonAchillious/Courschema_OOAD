@@ -43,5 +43,26 @@ var util = {
     empty: function(data) {
         if(null == data || "" == data) return true;
         else return false;
+    },
+    redirect: function (url,param,receiveURL) {
+        var data = {};
+        data.url = url;
+        data.param = param;
+        ajax(
+            {
+                type: 'POST',
+                data: JSON.stringify(data),//json
+                contentType: 'application/json',
+                dataType: 'json',
+                //async: false,
+                url: receiveURL,
+                success: function (reply) {
+                    alert("success");
+                },
+                error: function (response) {
+                    alert("Error")
+                }
+            }
+        )
     }
 };

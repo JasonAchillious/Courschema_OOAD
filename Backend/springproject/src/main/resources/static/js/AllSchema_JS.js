@@ -38,7 +38,7 @@ function getData()
                 for(i = 0;i < reply.length;i ++) {
                     var ele = reply[i];
                     var temp = new item(ele.name,ele.year,ele.dept,ele.major,ele.foreign,ele.type,ele.id);
-                    temp.check = editURL(ele.id,WATCH);
+                    temp.check = editURL(ele.id,EDIT);
                     data.push(temp);
                 }
             },
@@ -94,18 +94,20 @@ generateTable: function (data) {
         paginationDetailHAlign:"right"
         //******前端分页设置****
     });
+
 }
 
 };
 
 function editPress(){
-    alert("编辑");
     for (var i = 0;i < data.length;i ++)
     {
         data[i].check = editURL(data[i].id,EDIT);
     }
     console.log(data);
     loadtable.generateTable(data);
+    // $('#schematable').bootstrapTable('refresh');
+    $('#schematable').bootstrapTable('getOptions');
 }
 
 $(document).ready(loadtable.load);

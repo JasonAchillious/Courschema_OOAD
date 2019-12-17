@@ -12,7 +12,7 @@ var schemaedit = {
     id:0
 };
 
-function schema(data) {
+function Schema(data) {
 
     this.schema_name = data.schema_name;//string
     this.major = data.major;//string
@@ -107,6 +107,24 @@ function del(id,type) {
     deleteCourse(type.toString(),course);
 
 }
+function makeForm(data) {
+    // this.schema_name = data.schema_name;//string
+    // this.major = data.major;//string
+    // this.department = data.department;//string
+    // this.major_elec = Number(data.major_elec);//int
+    // this.HU_elec = Number(data.HU_elec);//int
+    // this.SS_elec = Number(data.SS_elec);//int
+    // this.AR_elec = Number(data.AR_elec);//int
+    // this.year = Number(data.year);//int
+    // this.intro = data.intro;//string
+    // this.foreign = 0;//default 0 int
+    // this.one_plus3 = 0;//default 2+2 int
+    var form = {};
+    form.schema_name = data.schema_name;
+    form.major = data.major;
+    form.department = data.department;
+    form.major_elec =
+}
 function setSeason(course) {
     var season_str = '';
     if(course.spring == 1)
@@ -131,7 +149,7 @@ function upload() {
     $.each(value, function (index, item) {
         data[item.name] = item.value;
     });
-    var c_schema = new schema(data);
+    var c_schema = new Schema(data);
 
 
     console.log(JSON.stringify(schemaedit));
@@ -200,25 +218,30 @@ function initCourse() {
             }
         }
     );
-    // $.ajax(
-    //     {
-    //         type: 'POST',
-    //         data: JSON.stringify(id_data),
-    //         contentType: 'application/json',
-    //         dataType: 'json',
-    //         url: '/cla/showClassification',
-    //         success:function (reply) {
-    //             //reply 是 schemaedit 对象
-    //             console.log(JSON.stringify(reply));
-    //         },
-    //         error: function () {
-    //             alert("error");
-    //         }
-    //     }
-    // )
-    //todo get info from database
+    loadInfo();
+}
+
+function loadInfo() {
+    $.ajax(
+        {
+            type: 'POST',
+            data: JSON.stringify(schemaedit.id),
+            contentType: 'application/json',
+            dataType: 'json',
+            url: '/oneCourschemas',
+            success:function (reply) {
+                //reply 是 schemaedit 对象
+                console.log(JSON.stringify(reply));
+
+            },
+            error: function () {
+                alert("load info error");
+            }
+        }
+    )
 
 }
+
 function initShow(list,type) {
     //type 代表插入到哪个表
     for(i = 0;i < list.length;i ++)
