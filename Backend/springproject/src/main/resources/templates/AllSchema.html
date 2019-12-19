@@ -9,10 +9,13 @@
     <script src="../static/js/newschema.js"></script>
     <script src="../static/js/jquery-3.4.1.js"></script>
     <script type="application/javascript" src="../static/js/bootstrap.js"></script>
-    <script src="http://www.itxst.com/package/bootstrap-table-1.14.1/jquery-3.3.1/jquery.js"></script>
-    <link href="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.css" rel="stylesheet" />
-    <script src="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.js"></script>
+    <!--<script src="http://www.itxst.com/package/bootstrap-table-1.14.1/jquery-3.3.1/jquery.js"></script>-->
+    <!--<link href="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.css" rel="stylesheet" />-->
+    <!--<script src="http://www.itxst.com/package/bootstrap-table-1.14.1/bootstrap-table-1.14.1/bootstrap-table.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-table.css">
+    <script type="application/javascript" src="../static/js/bootstrap-table.js"></script>
     <script type="application/javascript" src="../static/js/AllSchema_JS.js"></script>
+    <script type="application/javascript" src="../static/js/util.js"></script>
 
 </head>
 <body>
@@ -26,13 +29,13 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">主页</a>
+                <a class="nav-link" href="#" onclick="util.redirect('/userhome','param')">主页</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">自定义</a>
+                <a class="nav-link" href="#" onclick="util.redirect('/Edit','param')">自定义</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">全部培养方案<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#" onclick="util.redirect('/AllSchema','param')">全部培养方案<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">全部课程</a>
@@ -65,7 +68,7 @@
                 </ul>
                 <ul class="list-unstyled CTAs">
                     <li>
-                        <a href="#" class="download">编辑</a>
+                        <a href="#" class="download" onclick="editPress()">编辑</a>
                     </li>
                     <li>
                         <a href="#" class="article" data-toggle="modal" data-target="#myModal">新建</a>

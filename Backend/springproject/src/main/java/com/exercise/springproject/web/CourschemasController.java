@@ -33,6 +33,9 @@ public class CourschemasController {
 
     @Autowired
     private MajorService majorService;
+    
+    @Autowired
+    private XianxiuService xianxiuService;
 
 
 
@@ -134,7 +137,7 @@ public class CourschemasController {
 
     @PostMapping("/oneCourschemas")
     @ResponseBody
-    public Map<String, Object> findOneCourschemas(@RequestParam int id){
+    public Map<String, Object> findOneCourschemas(@RequestBody int id){
         courschemas c = courschemasService.findcourschemasById(id);
         Map<String,Object> ele = new HashMap<>();
         ele.put("chineseName",c.getChineseName());
@@ -288,13 +291,13 @@ public class CourschemasController {
         writeExcel(os, courschema, idCourschema);
 
     }
-
+    
     public void writeExcel(OutputStream os, courschemas courschema, int idCourschema)
     {
         try
         {
             WritableWorkbook wwb = Workbook.createWorkbook(os);
-
+            Xianxiu_condition xianxiu;
             WritableSheet ws = wwb.createSheet("Test Sheet 1",0);
             int year = 1;
             String semester = "autumn";
@@ -312,7 +315,7 @@ public class CourschemasController {
             ws.addCell(label);
             label = new Label(1,2, String.valueOf(courschema.getMajor()));
             ws.addCell(label);
-            label = new Label(0,1, String.valueOf(courschema.getDepartment()));
+            label = new Label(0,1, String.valueOf(courschema.getDepartment_name()));
             ws.addCell(label);
 
             label = new Label(0,3, "通识理工基础课");
@@ -327,21 +330,19 @@ public class CourschemasController {
             ws.addCell(label);
             label = new Label(4,4, "Suggested Time");
             ws.addCell(label);
+            label = new Label(5,4, "Pre-request Course");
+            ws.addCell(label);
             List<Integer> idCourses = this.classificationService.findTypeTonCourse(idCourschema);
-            //System.out.println(idCourses);
             List<Course> courses = new LinkedList<Course>();
             courses.clear();
             for(int id: idCourses){
                 courses.add(courseService.findCourseById(id));
             }
             int len1 = courses.size();
-            //System.out.println(courses);
-            //System.out.println("len1: "+len1);
             for(int i=0; i<len1; i++){
                 course = courses.get(i);
                 label = new Label(0,5+i, course.getChineseName());
                 ws.addCell(label);
-                //System.out.println(course.getChineseName());
 
                 label = new Label(1,5+i, course.getEnglishName());
                 ws.addCell(label);
@@ -382,6 +383,9 @@ public class CourschemasController {
                 }
                 label = new Label(4,5+i, time);
                 ws.addCell(label);
+
+                xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
+                label = new Label(5, 5+i, xianxiu.getConditionString());
 
 
             }
@@ -450,6 +454,8 @@ public class CourschemasController {
                 }
                 label = new Label(4,8+len1+i, time);
                 ws.addCell(label);
+                xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
+                label = new Label(5, 8+len1+i, xianxiu.getConditionString());
 
 
             }
@@ -518,7 +524,8 @@ public class CourschemasController {
                 }
                 label = new Label(4,11+len1+len2+i, time);
                 ws.addCell(label);
-
+                xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
+                label = new Label(5, 11+len1+len2+i, xianxiu.getConditionString());
 
             }
             //System.out.println("3st: "+String.valueOf(5+len1+len2+len3));
