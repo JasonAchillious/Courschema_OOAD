@@ -46,9 +46,37 @@ public class CourseController {
             temp.put("englishName", now.getEnglishName());
             temp.put("year", now.getNian());
             temp.put("department", now.getDepartment_name());
+            Xianxiu_condition xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse()).get(0);
+            temp.put("xianxiu", xianxiu.getConditionString());
+//            graduate_condition gra = graduateService.findgraduate_conditionByIdCourse(now.getIdCourse()).get(0);
+//            temp.put("tihuan", gra.getConditionString());
             reply.add(temp);
         }
         return reply;
+    }
+
+    @PostMapping("/onecourse")
+    @ResponseBody
+    public Map onecourse(@RequestBody Map json){
+        int id = (int) json.get("id");
+        Map<String, Object> temp = new HashMap<>();
+        Course now = courseService.findCourseById(id);
+            temp.put("chineseName",now.getChineseName());
+            temp.put("idCourse", now.getIdCourse());
+            temp.put("BianHao", now.getBianHao());
+            temp.put("intro",now.getIntro());
+            temp.put("credit", now.getCredit());
+            temp.put("spring", now.getSpring());
+            temp.put("autumn", now.getAutumn());
+            temp.put("summer", now.getSummer());
+            temp.put("englishName", now.getEnglishName());
+            temp.put("year", now.getNian());
+            temp.put("department", now.getDepartment_name());
+            Xianxiu_condition xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse()).get(0);
+            temp.put("xianxiu", xianxiu.getConditionString());
+//            graduate_condition gra = graduateService.findgraduate_conditionByIdCourse(now.getIdCourse()).get(0);
+//            temp.put("tihuan", gra.getConditionString());
+        return temp;
     }
 
     @PostMapping("/newCourse")
