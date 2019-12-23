@@ -21,6 +21,7 @@ public class Course {
     private int department;
     private String yuyan;
     private String department_name;
+    private String xianxiu;
 
     @Id
     @Column(name = "id_course")
@@ -148,6 +149,16 @@ public class Course {
 
     public void setDepartment_name(String department_name) {
         this.department_name = department_name;
+    }
+
+    @Basic
+    @Column(name = "xianxiu")
+    public String getXianxiu() {
+        return xianxiu;
+    }
+
+    public void setXianxiu(String xianxiu) {
+        this.department_name = xianxiu;
     }
 
     @Override

@@ -46,8 +46,17 @@ public class CourseController {
             temp.put("englishName", now.getEnglishName());
             temp.put("year", now.getNian());
             temp.put("department", now.getDepartment_name());
-            Xianxiu_condition xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse()).get(0);
-            temp.put("xianxiu", xianxiu.getConditionString());
+            /*
+            List<Xianxiu_condition> xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse());
+            if(xianxiu.size()>0){
+                temp.put("xianxiu", xianxiu.get(0).getConditionString());
+            }
+            else{
+                temp.put("xianxiu", "无");
+            }
+
+             */
+            temp.put("xianxiu", now.getXianxiu());
 //            graduate_condition gra = graduateService.findgraduate_conditionByIdCourse(now.getIdCourse()).get(0);
 //            temp.put("tihuan", gra.getConditionString());
             reply.add(temp);
@@ -72,8 +81,18 @@ public class CourseController {
             temp.put("englishName", now.getEnglishName());
             temp.put("year", now.getNian());
             temp.put("department", now.getDepartment_name());
-            Xianxiu_condition xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse()).get(0);
-            temp.put("xianxiu", xianxiu.getConditionString());
+            //List<Xianxiu_condition> xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse());
+            /*
+            if(xianxiu.size()>0){
+                temp.put("xianxiu", xianxiu.get(0).getConditionString());
+            }
+            else{
+                temp.put("xianxiu", "无");
+            }
+
+             */
+            temp.put("xianxiu", now.getXianxiu());
+
 //            graduate_condition gra = graduateService.findgraduate_conditionByIdCourse(now.getIdCourse()).get(0);
 //            temp.put("tihuan", gra.getConditionString());
         return temp;
