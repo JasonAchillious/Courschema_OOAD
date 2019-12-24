@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<style>
+    p{
+
+        margin-left:10px;
+        margin-top:10px;
+    }
+</style>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#dota" data-toggle="tab">
+            DotA
+        </a>
+    </li>
+    <li><a href="#lol" data-toggle="tab">英雄联盟</a></li>
+    <li class="dropdown">
+        <a href="#" id="myTabDrop1" class="dropdown-toggle"
+           data-toggle="dropdown">其他类似游戏
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+            <li><a href="#storm" tabindex="-1" data-toggle="tab">风暴英雄</a></li>
+            <li><a href="#h300" tabindex="-1" data-toggle="tab">300英雄</a></li>
+        </ul>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="dota">
+        <p>《DotA》（Defense of the Ancients），可以译作守护古树、守护遗迹、远古遗迹守卫， 是由暴雪公司出品即时战略游戏《魔兽争霸3》的一款多人即时对战、自定义地图，可支持10个人同时连线游戏，是暴雪公司官方认可的魔兽争霸的RPG地图。</p>
+    </div>
+    <div class="tab-pane fade" id="lol">
+        <p>《英雄联盟》（简称lol）是由美国Riot Games开发，中国大陆地区由腾讯游戏运营的网络游戏。</p>
+    </div>
+    <div class="tab-pane fade" id="storm">
+        <p>
+            《风暴英雄》 是由暴雪娱乐公司开发的一款运行在Windows和Mac OS上的在线多人竞技PC游戏。</p>
+        <p> 游戏中的英雄角色主要来自于暴雪三大经典游戏系列：《魔兽世界》、《暗黑破坏神》和《星际争霸》。它是一款道具收费的游戏，与《星际争霸Ⅱ》基于同一引擎开发。
+        </p>
+    </div>
+    <div class="tab-pane fade" id="h300">
+        <p>《300英雄》是由上海跳跃网络科技有限公司自主研发，深圳中青宝互动网络股份有限公司运营的一款类DOTA网游。游戏以7v7组队对抗玩法为主，提供永恒战场和永恒竞技场两种经典模式任由玩家选择，并创新性地加入勇者斗恶龙、克隆战争等多种休闲娱乐玩法。
+        </p>
+    </div>
+</div>
+</body>
+</html>
