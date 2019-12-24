@@ -1,12 +1,15 @@
 package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.Department;
+import com.exercise.springproject.domain.Major;
 import com.exercise.springproject.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
+
 
 @Controller
 @RestController
@@ -35,6 +38,8 @@ public class DepartmentController {
         department.setIdDepartment(idDepartment);
         return departmentService.save(department);
     }
+
+
 
     @PostMapping("findDepartmentById")
     public Department findDepartmentById(@RequestParam int id){

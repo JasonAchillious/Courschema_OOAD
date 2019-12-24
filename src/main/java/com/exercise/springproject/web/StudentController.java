@@ -44,7 +44,14 @@ public class StudentController{
         model.addAttribute("name", account);
         return "index";
     }
+    @GetMapping("/course_student")
+    public String coursePageStudent(){return "course_student";}
 
+    @GetMapping("/QandA_student")
+    public String QandAstudent(){return "QandA_student";}
+
+    @GetMapping("/QandA_admin")
+    public String QandAadmin(){return  "QandA_admin";}
 
     @GetMapping("/home")
     public String homepage(){return "home";}
@@ -69,9 +76,6 @@ public class StudentController{
 
     @GetMapping("/AllSchema")
     public String allschema(){return "AllSchema";}
-
-    @GetMapping("QandA_student")
-    public String stu(){return "/QandA_student";}
 
     @GetMapping("/Edit")
     public String edit(){return "Edit";}

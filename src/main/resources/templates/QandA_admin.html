@@ -5,138 +5,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>提问与答疑(管理员)</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/QandA.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/QandA.css"/>
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
-        <a class="navbar-brand" href="#">SUStech Courschema</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
+    <a class="navbar-brand" href="#">SUStech Courschema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">主页</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">自定义</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">全部培养方案</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">全部课程</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">提问与答疑<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
-        <ul class="mr-auto navbar-nav">
-            <li>
-                <a class="nav-link" href="#">设置</a>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">主页</a>
             </li>
-            <li>
-                <a class="nav-link" href="#">帮助</a>
+            <li class="nav-item">
+                <a class="nav-link" href="#">自定义</a>
             </li>
-            <li>
-                <a class="nav-link" href="#">登录</a>
+            <li class="nav-item">
+                <a class="nav-link" href="#">全部培养方案</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">全部课程</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">提问与答疑<span class="sr-only">(current)</span></a>
             </li>
         </ul>
-    </nav>
+    </div>
+    <ul class="mr-auto navbar-nav">
+        <li>
+            <a class="nav-link" href="#">设置</a>
+        </li>
+        <li>
+            <a class="nav-link" href="#">帮助</a>
+        </li>
+        <li>
+            <a class="nav-link" href="#">登录</a>
+        </li>
+    </ul>
+</nav>
 
 
+<div class="container" id="questionBrief">
 
-    <div class="container" id="questionBrief">
+    <div v-if="loading">Loading...</div>
 
-        <div>
+    <div v-else>
+        <template v-for="index in  computeIndex">
 
-            <template v-for="index in  computeIndex">
-                <hr class="my-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">提问: {{questions[index].questionUserName}}</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">{{questions[index].releaseDate}}</h6>
-                        <p class="card-text">{{questions[index].questionContent}}</p>
-                        <div v-if="questions[index].hasAnswer">
+            <hr class="my-4">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">提问: {{questions[index].questionUserName}}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{questions[index].releaseDate}}</h6>
+                    <p class="card-text">{{questions[index].questionContent}}</p>
+
+                    <div v-if="questions[index].hasAnswer">
+                        <table>
+                            <tr>
+                                <th>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                            @click="showAnswer(index)">查看回答
+                                    </button>
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                            @click="deleteQuestionModal(questions[index].questionId, index)">删除问题
+                                    </button>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div v-else>
+                        <table>
+
                             <button type="button" class="btn btn-primary btn-sm"
-                                v-on:click="showAnswer(index)">查看回答</button>
-                        </div>
-                        <div v-else>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#addModal" @click="setAnswerQuestionId(questions[index].questionId)">回答</button>
-                        </div>
+                                    @click="addModal(questions[index].questionId)"> 回答
+                            </button>
+
+                        </table>
                     </div>
+
                 </div>
-                <div class="card border-success mb-3" :id="generateAnswerId(index)" v-if="questions[index].hasAnswer"
-                    style="display: none;">
-                    <div class="card-body">
-                        <h4 class="card-title">回答: {{questions[index].answerUserName}}</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">{{questions[index].answerDate}}</h6>
-                        <p class="card-text">{{questions[index].answerContent}}</p>
-                        
-                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                data-target="#updateModal" @click="setAnswerQuestionId(questions[index].questionId)">修改回答</button>
-                            
-                            <!--<button type="button" class="btn btn-success btn-sm" style="float: right"
-                                v-on:click="hideAnswer(index)">关闭</button> -->
-                        
-                    </div>
+            </div>
+
+            <div class="card border-success mb-3" :id="generateAnswerId(index)" v-if="questions[index].hasAnswer"
+                 style="display: none;">
+                <div class="card-body">
+                    <h4 class="card-title">回答: {{questions[index].answerUserName}}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{questions[index].answerDate}}</h6>
+                    <p class="card-text">{{questions[index].answerContent}}</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm"
+                                        @click="updateModal(questions[index].questionId, index)">修改回答
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm"
+                                        @click="deleteAnswerModal(questions[index].questionId, index)">删除回答
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
+            </div>
+
+        </template>
+    </div>
+
+    <hr class="my-4">
+
+    <div>
+        <ul class="pagination" style="float: right;">
+            <template>
+                <li class='page-item disabled' v-if="currentPage == 1 && totalPages > 1">
+                    <a class="page-link" href="#" @click="prevOrNext(-1)">&laquo;</a>
+                </li>
+                <li class='page-item' v-else-if="currentPage > 1 && totalPages > 1">
+                    <a class="page-link" href="#" @click="prevOrNext(-1)">&laquo;</a>
+                </li>
             </template>
-
-        </div>
-
-        <hr class="my-4">
-
-        <div>
-            <ul class="pagination" style="float: right;">
-                <template>
-                    <li class='page-item disabled' v-if="currentPage == 1 && totalPages > 1">
-                        <a class="page-link" href="#" @click="prevOrNext(-1)">&laquo;</a>
-                    </li>
-                    <li class='page-item' v-else-if="currentPage > 1 && totalPages > 1">
-                        <a class="page-link" href="#" @click="prevOrNext(-1)">&laquo;</a>
-                    </li>
-                </template>
-                <template v-for="item in pages">
-                    <li class="page-item active" v-if="currentPage == item">
-                        <a class="page-link" href="#" @click="select(item)">{{item}}</a>
-                    </li>
-                    <li class="page-item" v-else>
-                        <a class="page-link" href="#" @click="select(item)">{{item}}</a>
-                    </li>
-                </template>
-                <template>
-                    <li class='page-item disabled' v-if="currentPage == totalPages && totalPages > 1 ">
-                        <a class="page-link" href="#" @click="prevOrNext(1)">&raquo;</a>
-                    </li>
-                    <li class='page-item' v-else-if="totalPages > 1">
-                        <a class="page-link" href="#" @click="prevOrNext(1)">&raquo;</a>
-                    </li>
-                </template>
-            </ul>
-        </div>
+            <template v-for="item in pages">
+                <li class="page-item active" v-if="currentPage == item">
+                    <a class="page-link" href="#" @click="select(item)">{{item}}</a>
+                </li>
+                <li class="page-item" v-else>
+                    <a class="page-link" href="#" @click="select(item)">{{item}}</a>
+                </li>
+            </template>
+            <template>
+                <li class='page-item disabled' v-if="currentPage == totalPages && totalPages > 1 ">
+                    <a class="page-link" href="#" @click="prevOrNext(1)">&raquo;</a>
+                </li>
+                <li class='page-item' v-else-if="totalPages > 1">
+                    <a class="page-link" href="#" @click="prevOrNext(1)">&raquo;</a>
+                </li>
+            </template>
+        </ul>
+    </div>
 
 
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document" id="#updateModal">
-                <div class="modal-content">
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div v-if="isDeleteQuestion">
                     <div class="modal-header">
-                        <h5 class="modal-title">修改回答</h5>
+                        <h5 class="modal-title">提醒</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="false">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>请在下方输入您想要修改的回答</p>
+                        <p>{{modalBody}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @click="deleteQuestion()">确定删除</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+
+                <div v-else-if="isDeleteAnswer">
+                    <div class="modal-header">
+                        <h5 class="modal-title">提醒</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="false">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{modalBody}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @click="deleteAnswer()">确定删除</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+
+                <div v-else>
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{modalTitle}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="false">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{modalBody}}</p>
+
                         <div class="form-group">
-                            <label for="updateTextarea">修改内容:</label>
-                            <textarea class="form-control" id="updateTextarea" rows="3" spellcheck="false" v-model="answerContent"></textarea>
+                            <label for="exampleTextarea">{{modalText}}</label>
+                            <textarea class="form-control" id="exampleTextarea" rows="3" spellcheck="false"
+                                      v-model="answerContent"></textarea>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" @click="updateAnswer()">提交修改</button>
@@ -145,43 +214,17 @@
                 </div>
             </div>
         </div>
-
-        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document" id="#addModal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">回答</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="false">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>请在下方输入您的回答</p>
-                        <div class="form-group">
-                            <label for="addTextarea">回答内容:</label>
-                            <textarea class="form-control" id="addTextarea" rows="3" spellcheck="false" v-model="answerContent"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">提交回答</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
 
-</body>
-
+</div>
 
 
 <script src="../static/js/jquery-3.4.1.js"></script>
-<script src="bootstrap.js"></script>
+<script src="../static/js/bootstrap.js"></script>
 <script src="../static/js/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../static/js/axios.js"></script>
 <script src="../static/js/QandA_admin.js"></script>
 
+</body>
 </html>
