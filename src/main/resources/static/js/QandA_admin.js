@@ -1,12 +1,22 @@
 new Vue({
     el: "#questionBrief",
     data: {
-        AdminId: "admin123",
-        questions: null,
+        AdminId: 61711335,
+        questions: [],
         currentPage: 1,
-        answerQuestionId: null,
-        answerContent: null,
+        answerQuestionId: -1,
+        answerQuestionIndex: -1,
+        answerContent: ' ',
+        loading: true,
+        totalPages: 0,
+        questionsNum: 0,
+        modalTitle: " ",
+        modalBody: ' ',
+        modalText: ' ',
+        isDeleteQuestion: false,
+        isDeleteAnswer: false
     },
+
     methods: {
         showAnswer: function(index) {
             $("#answer_" + index).toggle();
@@ -45,20 +55,22 @@ new Vue({
         },
 
         updateAnswer: function() {
-            if (adminId == null) {
+            this.loading = true;
+            if (this.adminId === -1) {
                 alert("非管理员请勿操作")
-            } else if (answerContent != null &&
-                answerContent != 0 &&
-                answerContent.replace(/(^s*)|(s*$)/g, "").length == 0 &&
-                this.isNull(updateAnswer)) {
+            } else if (this.answerContent != null &&
+                this.answerContent != 0 &&
+                this.answerContent.replace(/(^s*)|(s*$)/g, "").length !== 0 &&
+                !(this.isNull(this.answerContent))) {
                 axios
-                    .post('/updateAnswer', {
+                    .post('QandA_admin/updateAnswer', {
                         adminId: this.adminId,
                         questionId: this.answerQuestionId,
                         answerContent: this.answerContent
                     })
-                    .then(function(response) {
+                    .then(response => {
                         console.log(response);
+
                         if (response != null) {
                             if (response.data.state == "suceess") {
                                 this.data.questions = response.questions;
@@ -74,24 +86,81 @@ new Vue({
                     .catch(function(error) {
                         console.log(error);
                         alert("未知错误， 请联系相关负责人员")
-                    });
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    })
             } else {
                 alert("未知错误， 请联系相关负责人员")
             }
+
         },
 
-        setAnswerQuestionId: function(id) {
+        updateModal: function(id, index) {
             this.answerQuestionId = id;
+            this.answerQuestionIndex = index;
+            this.modalTitle = "修改回答";
+            this.modalBody = "请在下方输入您想要修改的回答";
+            this.modalText = "修改内容:";
+            $('#updateModal').modal('show')
+
+        },
+
+        addModal: function (id, index) {
+            this.answerQuestionId = id;
+            this.answerQuestionIndex = index;
+            this.modalTitle = "添加回答";
+            this.modalBody= "请在下方输入您的回答";
+            this.modalText = "您的回答:";
+            $('#updateModal').modal('show')
+
+        },
+
+        deleteAnswerModal: function(id, index){
+            this.answerQuestionId = id;
+            this.answerQuestionIndex = index;
+            this.modalBody = "您确定删除该回答吗？";
+            this.isDeleteAnswer = true;
+            this.isDeleteQuestion = false
+            $('#updateModal').modal('show')
+        },
+
+        deleteQuestionModal: function(id, index){
+            this.answerQuestionId = id;
+            this.answerQuestionIndex = index;
+            this.modalBody = "您确定删除该问题吗？";
+            this.isDeleteQuestion = true;
+            this.isDeleteAnswer = false;
+            $('#updateModal').modal('show')
+        },
+
+        deleteAnswer: function () {
+            id = this.answerQuestionId;
+            index = this.answerQuestionIndex;
+            this.answerQuestionId = -1;
+            this.answerQuestionIndex = -1;
+
+
+            this.isDeleteAnswer = false;
+        },
+
+        deleteQuestion: function (questionId, index) {
+            id = this.answerQuestionId;
+            index = this.answerQuestionIndex;
+            this.answerQuestionId = -1;
+            this.answerQuestionIndex = -1;
+
+
+            this.isDeleteQuestion = false;
+        },
+
+        clearIndexAndId: function () {
+
         }
 
     },
-    computed: {
 
-        totalPages: {
-            get: function() {
-                return Math.ceil(this.questions.length / 10)
-            }
-        },
+    computed: {
 
         pages() {
             const c = this.currentPage
@@ -124,19 +193,45 @@ new Vue({
             }
 
             return foo
-        },
-        mounted() {
-            axios
-                .post('/QandA_student/getInfo')
-            then(function(response) {
-                    this.questions = response.data.questions
-                    this.userId = response.data.userId
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
         }
+    },
 
-    }
+    watch: {
+        questions: function (newQusetions, oldQuestions) {
+
+            if (this.questions == null) {
+                this.questionsNum = 0;
+            } else {
+                console.log(this.questions.length)
+                this.questionsNum = this.questions.length;
+            }
+            console.log(this.questionsNum);
+            if (this.questionsNum == 0) {
+                this.totalPages = 1;
+            } else {
+                this.totalPages = Math.ceil(this.questionsNum / 10);
+            }
+            console.log(this.totalPages)
+        },
+        immediate: true,
+        deep: true
+    },
+
+    mounted: function () {
+        axios
+            .post('/QandA_getInfo', {userId: 11711335})
+            .then(response => {
+                this.questions = response.data.questions
+                this.userId = response.data.userId
+            })
+            .catch(error => {
+                console.log(error)
+                alert("未知错误， 请联系相关负责人员")
+            })
+            .finally(() => {
+                this.loading = false;
+                console.log(this.loading)
+            })
+    },
 
 })

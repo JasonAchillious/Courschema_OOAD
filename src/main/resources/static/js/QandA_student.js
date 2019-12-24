@@ -1,71 +1,86 @@
+
+
+
 new Vue({
     el: "#questionBrief",
-    data: {
-        questions: null,
-        currentPage: 1,
-        userId: null,
-        questionInput: null
-
+    data() {
+        return {
+            questions: [],
+            userId: 11711335,
+            currentPage: 1,
+            questionInput: '',
+            loading: true,
+            totalPages: 0,
+            questionsNum: 0,
+        }
     },
     methods: {
-        showAnswer: function(index) {
+        showAnswer: function (index) {
             $("#answer_" + index).toggle();
         },
 
-        hideAnswer: function(index) {
+        hideAnswer: function (index) {
             $("#answer_" + index).hide();
         },
 
-        generateAnswerId: function(index) {
+        generateAnswerId: function (index) {
             return "answer_" + index
         },
 
-        select: function(n) {
+        select: function (n) {
             if (n === this.currentPage) return
             if (typeof n === 'string') return
             this.currentPage = n
         },
 
-        prevOrNext: function(n) {
+        prevOrNext: function (n) {
             this.currentPage += n
             this.currentPage < 1 ?
                 this.currentPage = 1 :
-                this.currentPage > Math.ceil(this.questions.length / 10) ?
-                this.currentPage = Math.ceil(this.questions.length / 10) :
-                null
+                this.currentPage > this.totalPages ?
+                    this.currentPage = this.totalPages :
+                    null
         },
 
-        raiseQuestion: function() {
-
-            if (userId == null) {
-                // 强制跳转至登录界面
-            } else if (questionInput != null &&
-                questionInput.length != 0 &&
-                questionInput.replace(/(^s*)|(s*$)/g, "").length == 0 &&
-                this.isNull(questionInput)) {
+        raiseQuestion: function () {
+            var t = this
+            t.loading = true;
+            console.log(t.userId)
+            if (this.userId === '') {
+                // force it to jump to login page
+            } else if (t.questionInput != null &&
+                t.questionInput.length !== 0 &&
+                t.questionInput.replace(/(^s*)|(s*$)/g, "").length !== 0 &&
+                !(t.isNull(t.questionInput)) ) {
                 axios
-                    .post('/askQuestion', {
-                        studentId: this.userId,
-                        questionAsk: this.questionInput
+                    .post('QandA_student/askQuestion', {
+                        studentId: t.userId,
+                        questionAsk: t.questionInput
                     })
-                    .then(function(response) {
-                        console.log(response);
-                        if (response != null) {
-                            if (response.data.state == "suceess") {
-                                alert("发表成功")
-                                this.data.questions = response.questions;
-                            } else if (response.state == "fail") {
-                                alert("发表失败")
-                            } else {
-                                alert("后端的锅: There must be something wrong in backend.")
-                            }
+                    .then(response => {
+                        if (response.data.question != null) {
+                            t.questions.unshift(response.data.question)
+                        }
+                        if (response.data.state == "success") {
+                            alert("发表成功")
+                            this.questions = response.questions;
+                        } else if (response.state == "fail") {
+                            alert("发表失败")
+                        } else {
+                            alert("后端的锅: There must be something wrong in backend.")
                         }
                     })
-                    .catch(function(error) {
+                    .catch(error => {
                         console.log(error);
                         alert("未知错误， 请联系相关负责人员")
-                    });
+                    })
+                    .finally(() => {
+                        t.loading = false;
+                    })
+            } else {
+                alert("未知错误， 请联系相关负责人员");
             }
+
         },
 
         isNull(str) {
@@ -78,16 +93,29 @@ new Vue({
         }
 
     },
-    computed: {
-        totalPages: {
-            get: function() {
-                return Math.ceil(this.questions.length / 10)
-            }
-        },
 
-        pages() {
-            const c = this.currentPage
-            const t = Math.ceil(this.questions.length / 10)
+    mounted: function () {
+        axios
+            .post('/QandA_getInfo', {userId: 11711335})
+            .then(response => {
+                this.questions = response.data.questions
+                this.userId = response.data.userId
+            })
+            .catch(error => {
+                console.log(error)
+                alert("未知错误， 请联系相关负责人员")
+            })
+            .finally(() => {
+                this.loading = false;
+                console.log(this.loading)
+            })
+    },
+
+    computed: {
+        pages: function () {
+            const c = this.currentPage;
+            const t = this.totalPages;
+            console.log(t)
             if (t <= 10) {
                 var foo = [];
                 for (var i = 1; i <= t; i++) {
@@ -104,33 +132,41 @@ new Vue({
         },
 
         computeIndex() {
-            const c = this.currentPage
+            const c = this.currentPage;
+            const n = this.questionsNum;
+            console.log(n);
             var s = (c - 1) * 10;
             var e = (c - 1) * 10 + 9;
-            if (e > this.questions.length - 1) {
-                e = this.questions.length - 1;
+            if (e > n - 1) {
+                e = n - 1;
             }
             var foo = [];
             for (var i = s; i <= e; i++) {
                 foo.push(i);
             }
-
+            console.log(foo)
             return foo
         }
     },
-    mounted() {
-        axios
-            .get('/QandA_getInfo',{
-                userId: 11711335
-            })
-        then(function(response) {
-                this.questions = response.data.questions
-                this.userId = response.data.userId
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    }
 
+    watch: {
+        questions: function (val, oldVal) {
+            if (this.questions === null) {
+                this.questionsNum = 0;
+            } else {
+                console.log(this.questions.length)
+                this.questionsNum = this.questions.length;
+            }
+            console.log(this.questionsNum);
+            if (this.questionsNum === 0) {
+                this.totalPages = 1;
+            } else {
+                this.totalPages = Math.ceil(this.questionsNum / 10);
+            }
+            console.log(this.totalPages)
+        },
+        immediate: true,
+        deep: true
+    }
 
 })
