@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>培养方案</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/AEPP.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
+        <a class="navbar-brand" href="#">SUStech Courschema</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">主页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">自定义</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">全部培养方案<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">全部课程</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="mr-auto navbar-nav">
+            <li>
+                <a class="nav-link" href="#">设置</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#">帮助</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#">登录</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Courschema</h3>
+            </div>
+            <div id="majorList">
+                <ul class="list-unstyled components">
+                    <p>院系专业</p>
+                    <template v-for="college in colleges">
+                        <li>
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                                class="dropdown-toggle">{{college.name}}</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                                <li v-for="department in college.departments">
+                                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                                        class="dropdown-toggle">{{department.name}}</a>
+                                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                                        <li v-for="major in department.majors">
+                                            <a href="#">{{major.name}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </template>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="#" class="download">编辑</a>
+                    </li>
+                    <li>
+                        <a href="#" class="article">保存</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>院系专业</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">16级</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">17级</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">18级</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">19级</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="programText">
+            <template v-for="paragraph in paragraphs">
+                <h2>{{paragraph.title}}</h2>
+                <p>{{paragraph.text}}</p>
+            </template>
+            </div>
+
+
+            <div id="courseTable">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <template v-for="head in theader">
+                                <th>{{head}}</th>
+                            </template>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template v-for="course in tbody.courses">
+                            <template v-if="course.courseType === '专业先修课'">
+                                <tr class="table-primary">
+                                    <template v-for="info in course.courseInfo">
+                                        <td>{{info}}</td>
+                                    </template>
+                                </tr>
+                            </template>
+
+                            <template v-else-if="course.courseType === '专业基础课'">
+                                <tr class="table-success">
+                                    <template v-for="info in course.courseInfo">
+                                        <td>{{info}}</td>
+                                    </template>
+                                </tr>
+                            </template>
+
+                            <template v-else-if="course.courseType === '专业核心课'">
+                                <tr class="table-warning">
+                                    <template v-for="info in course.courseInfo">
+                                        <td>{{info}}</td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" v-on:click='update("/user/12345/permissions")'>Primary</button>
+            </div>
+
+            <div>
+                <ul class="pagination", id="pagi">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">&laquo;</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">4</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">5</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+<footer class="ft_ct" style="display: none;">
+    <div class="ft_wrap">
+
+        <div class="ft_logo">
+            <img src="../../../../../../../Downloads/EducationProgramPage/ft_logo.png">
+        </div>
+        <div class="ft_rt">
+            <div class="ft_adr">
+                <ul>
+                    <li>广东省深圳市南山区</li>
+                    <li>学苑大道1088号</li>
+                    <li>+86-755-8801 0000 </li>
+                    <li>518055</li>
+                </ul>
+            </div>
+            <div class="ft_iocn">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
+                        <div class="tc_wx vc_icon_element vc_icon_element-outer inline-iocn vc_icon_element-align-left">
+                            <div
+                                class="vc_icon_element-inner vc_icon_element-color-white vc_icon_element-size-md vc_icon_element-style- vc_icon_element-background-color-grey">
+                                <span class="vc_icon_element-icon fa fa-weixin"></span>
+                            </div>
+                            <div class="wx_hide">
+                                <img src="../../../../../../../Downloads/EducationProgramPage/wx_img.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="ft_copy">
+        © 2019 All Rights Reserved.
+        <!--a href="https://www.unisonmedia.cn/" target="_blank">技术</a><a href="https://www.unisonbrand.cn/" target="_blank">支持</a-->
+    </div>
+
+</footer><!-- #colophon -->
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="../../../../../../../Downloads/EducationProgramPage/bootstrap.js"></script>
+<script src="../../../../../../../Downloads/EducationProgramPage/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../../../../../../../Downloads/EducationProgramPage/educationCourses.js"></script>
+
+
+</html>

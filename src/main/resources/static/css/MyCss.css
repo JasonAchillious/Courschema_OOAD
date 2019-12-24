@@ -1,0 +1,51 @@
+@import "flatly.css";
+
+#All_Major {
+    height:600px;
+    overflow: auto;
+    background: #EEEEEE;
+}
+
+.major{
+    min-height: 180px;
+    max-height: 180px;
+}
+
+.droppable{
+    min-height: 180px;
+    /*float: left;*/
+    /*margin: 10px;*/
+}
+.grid{
+    border: #4e3206;
+    min-height: 500px;
+}
+#bottom
+{
+    height: 200px;
+    background-color: #0f7864;
+}
+.draggable{
+    max-width: 350px;
+}
+.editPlace
+{
+    max-height: 600px;
+    overflow: auto;
+}
+
+.course-board{
+    height: 600px;
+    overflow: auto;
+}
+
+.sidebar{
+    background: #7386D5;
+    color: #fff;
+    min-height: 600px;
+}
+
+#info_board{
+    height:600px;
+    background-color: ghostwhite;
+}

@@ -21,6 +21,8 @@ public class Course {
     private int department;
     private String yuyan;
     private String department_name;
+    private int experiment;
+    private int weektime;
     private String xianxiu;
 
     @Id
@@ -139,6 +141,26 @@ public class Course {
 
     public void setDepartment(int department) {
         this.department = department;
+    }
+
+    @Basic
+    @Column(name = "experiment")
+    public int getExperiment() {
+        return experiment;
+    }
+
+    public void setExperiment(int e) {
+        this.experiment = e;
+    }
+
+    @Basic
+    @Column(name = "week_time")
+    public int getWeektime() {
+        return weektime;
+    }
+
+    public void setWeektime(int w) {
+        this.weektime = w;
     }
 
     @Basic

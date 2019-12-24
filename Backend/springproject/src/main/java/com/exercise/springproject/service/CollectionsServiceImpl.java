@@ -27,7 +27,7 @@ public class CollectionsServiceImpl implements CollectionsService{
     }
 
     @Override
-    public void deleteCollectionsById(int id, int courschema) {
-        collectionsRepository.deleteById(id, courschema);
+    public void deleteCollectionsById(int id) {
+        collectionsRepository.deleteById(id);
     }
 }

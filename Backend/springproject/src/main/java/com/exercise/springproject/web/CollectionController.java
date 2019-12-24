@@ -1,15 +1,18 @@
 package com.exercise.springproject.web;
 
+import com.exercise.springproject.api.CourschemasRepository;
 import com.exercise.springproject.domain.collections;
 import com.exercise.springproject.domain.courschemas;
 import com.exercise.springproject.service.CollectionsService;
 import com.exercise.springproject.service.CourschemasService;
+import com.exercise.springproject.service.DepartmentService;
+import com.exercise.springproject.service.MajorService;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RestController
@@ -18,6 +21,40 @@ public class CollectionController {
 
     @Autowired
     private CollectionsService collectionsService;
+
+    @PostMapping("getCollect")
+    @ResponseBody
+    public List<Map> getCollections(@RequestBody Integer id){
+        List<Map> reply = new ArrayList<Map>();
+        List<Integer> temp = collectionsService.findCollectionsByid(id);
+        for(int i : temp){
+            Map<String, Object> now = new HashMap<>();
+            courschemas n = courschemasService.findcourschemasById(i);
+            now.put("name", n.getChineseName());
+            now.put("intro", n.getIntro());
+        }
+
+        return reply;
+    }
+
+
+    @PostMapping("saveCollect")
+    @ResponseBody
+    public String saveCollections(@RequestBody Map json){
+        int id = (int) json.get("id");
+        ArrayList<Integer> list = (ArrayList<Integer>) json.get("list");
+        collectionsService.deleteCollectionsById(id);
+        for(Integer tmp: list){
+            collections t = new collections();
+            t.setId(id);
+            t.setCourschema(tmp);
+            collectionsService.save(t);
+        }
+        return "success";
+    }
+
+
+
     @GetMapping("/recordCollections")
     public List<collections> findAllCollections(){
         //tested
@@ -37,12 +74,6 @@ public class CollectionController {
 
         return collectionsService.save(collections);
     }
-
-    @DeleteMapping("recordCollections/{id}")
-    public void deleteOneCollection(@PathVariable int id, int courschema){
-        collectionsService.deleteCollectionsById(id, courschema);
-    }
-
 
     @PostMapping("findCollections")
     public List<Integer> findCollectionsByid(@RequestParam int id){

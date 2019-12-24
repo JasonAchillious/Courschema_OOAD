@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SchemaRead</title>
+    <link rel="stylesheet" href="../static/css/MyCss.css">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <script type="application/javascript" src="../static/js/bootstrap.js"></script>
+    <script src="../static/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1/jquery-ui.theme.min.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
+    <a class="navbar-brand" href="#">SUSTech Courschema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarColor01">
+        <h4 class = "text-white">培养方案详情</h4>
+    </div>
+
+    <div class="collapse navbar-collapse offset-5">
+        <button type="button" class="btn btn-success col-lg-5" onclick="download()">下载</button>
+        <button type="button" class="btn btn-danger col-lg-5 offset-1" onclick="">返回</button>
+    </div>
+
+</nav>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-2 sidebar">
+
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#ruxi_part" data-toggle="tab">
+                        入系必修课
+                    </a>
+                </li>
+                <li><a href="#tongshi_part" data-toggle="tab">通识必修课</a></li>
+                <li><a href="#bixiu_part" data-toggle="tab">专业必修课</a></li>
+                <li><a href="#xuanxiu_part" data-toggle="tab">专业选修课</a></li>
+
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="ruxi_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
+                        <div class="card-header">将课程拖入选择栏</div>
+                        <div class="card-body droppable " id="ruxi">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">课程编号</th>
+                                    <th scope="col">课程名称</th>
+                                    <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tongshi_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
+                        <div class="card-header">将课程拖入选择栏</div>
+                        <div class="card-body droppable " id="tongshi">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">课程编号</th>
+                                    <th scope="col">课程名称</th>
+                                    <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="bixiu_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
+                        <div class="card-header">将课程拖入选择栏</div>
+                        <div class="card-body droppable " id="bixiu">
+                            <table class="table table-hover ">
+                                <thead>
+                                <tr>
+                                    <th scope="col">课程编号</th>
+                                    <th scope="col">课程名称</th>
+                                    <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id = "xuanxiu_part">
+                    <div class="card text-white bg-secondary mb-3 course-board" >
+                        <div class="card-header">将课程拖入选择栏</div>
+                        <div class="card-body droppable " id="xuanxiu">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">课程编号</th>
+                                    <th scope="col">课程名称</th>
+                                    <th scope="col">课程学分</th>
+                                    <th scope="col">开课学期</th>
+                                    <th scope="col">建议修读学年</th>
+                                    <th scope="col">开课院系</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-3 offset-9">
+                        <label class="col-form-label" for="inputDefault">选修学分要求</label>
+                        <input type="number" class="form-control" placeholder="Default input" id="inputDefault">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
