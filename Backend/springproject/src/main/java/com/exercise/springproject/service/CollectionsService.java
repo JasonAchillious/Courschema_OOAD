@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface CollectionsService {
     public collections save(collections collections);
-    public void deleteCollectionsById(int id, int courschema);
+    public void deleteCollectionsById(int id);
     public List<Integer> findCollectionsByid(int id);
     List<collections> findAll();
 }

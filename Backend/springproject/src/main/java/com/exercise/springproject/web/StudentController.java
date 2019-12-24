@@ -11,9 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Calendar;
+import java.util.*;
 
 /*
 这个是控制login的controller，会检测name（id）和密码是否正确，但是给前端传message还存在一点问题，
@@ -42,6 +40,12 @@ public class StudentController{
 
     @Autowired
     private Login_userService login_userService;
+
+    @Autowired
+    private CollectionsService collectionsService;
+
+    @Autowired
+    private CourschemasService courschemasService;
 
     Calendar cal =Calendar.getInstance();
 
@@ -105,6 +109,16 @@ public class StudentController{
         reply.put("name", s.getName());
         reply.put("beginyear", s.getBeginYear());
         reply.put("englishlevel", s.getEnglishLevel());
+        List<Integer> temp = collectionsService.findCollectionsByid((Integer) json_map.get("id"));
+        List<Map> l = new ArrayList<>();
+        for(int i : temp){
+            Map<String, Object> now = new HashMap<>();
+            courschemas n = courschemasService.findcourschemasById(i);
+            now.put("name", n.getChineseName());
+            now.put("intro", n.getIntro());
+            l.add(now);
+        }
+        reply.put("list", l);
         return reply;
     }
 
