@@ -45,7 +45,9 @@ public class CourseController {
             temp.put("summer", now.getSummer());
             temp.put("englishName", now.getEnglishName());
             temp.put("year", now.getNian());
-            temp.put("department", now.getDepartment_name());
+            int de = now.getDepartment();
+            Department dep = departmentService.findDepartmentById(de);
+            temp.put("department", dep.getChineseName());
             /*
             List<Xianxiu_condition> xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse());
             if(xianxiu.size()>0){
