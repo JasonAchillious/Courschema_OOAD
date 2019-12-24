@@ -116,6 +116,7 @@ public class StudentController{
             courschemas n = courschemasService.findcourschemasById(i);
             now.put("name", n.getChineseName());
             now.put("intro", n.getIntro());
+            now.put("cid", n.getCourschema());
             l.add(now);
         }
         reply.put("list", l);

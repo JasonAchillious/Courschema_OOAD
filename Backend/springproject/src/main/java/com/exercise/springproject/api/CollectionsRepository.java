@@ -19,5 +19,7 @@ public interface CollectionsRepository extends JpaRepository<collections, Intege
     @Modifying
     @Transactional
     @Query("delete from collections where id=?1")
-    void deleteById(int id, int courschema);
+    void deleteById(int id);
+
+
 }

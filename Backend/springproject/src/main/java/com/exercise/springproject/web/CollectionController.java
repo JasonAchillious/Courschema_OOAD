@@ -43,11 +43,17 @@ public class CollectionController {
     public String saveCollections(@RequestBody Map json){
         int id = (int) json.get("id");
         ArrayList<Integer> list = (ArrayList<Integer>) json.get("list");
+        System.out.println("gsdfethgd");
+        System.out.println(id);
+        System.out.println(list);
         collectionsService.deleteCollectionsById(id);
+        System.out.println("HERE");
         for(Integer tmp: list){
             collections t = new collections();
             t.setId(id);
             t.setCourschema(tmp);
+            System.out.println(t.getCourschema());
+            System.out.println(t.getId());
             collectionsService.save(t);
         }
         return "success";
