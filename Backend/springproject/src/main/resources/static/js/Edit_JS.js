@@ -1,3 +1,4 @@
+collect_schema = [];
 
 var dragFrame = {
 
@@ -27,6 +28,9 @@ var dragFrame = {
 
                 drop: function (event, ui) {
                     var name = ui.draggable.text();
+                    var id = Number(ui.draggable.prop('id'));
+                    collect_schema.push(Number(id));
+                    console.log(collect_schema);
                     $(this)
                         .removeClass()
                         .addClass("card border-info mb-3 droppable")
@@ -90,9 +94,9 @@ var load = {
 
     appendMajor: function (major) {
         var name = major.chineseName;
-        var courseid = major.courschema;
+        var major_id = major.courschema;
         var departmentID = load.departmentMap.get(major.department);
-        var major_html = "<a href=\"#\" class=\"list-group-item list-group-item-action draggable\" id = \""+courseid+"\">"+name+"</a>"
+        var major_html = "<a href=\"#\" class=\"list-group-item list-group-item-action draggable\" id = \""+major_id+"\">"+name+"</a>"
 
         $('div#'+departmentID).append(major_html);
     },
@@ -120,5 +124,29 @@ var load = {
 
     }
 };
+
+function save(){
+    //upload
+    var s_id = Number(getUrlParam('param'));
+    var data = {'id':s_id,
+            'list':collect_schema};
+    var j_data = JSON.stringify(data);
+    alert(j_data);
+    $.ajax({
+        type: 'POST',
+        data: j_data,//json
+        contentType: 'application/json',
+        dataType: 'json',
+        url: '/exex/saveCollect',
+        success: function (reply) {
+
+            console.log(JSON.stringify(reply));
+
+        },
+        error: function (response) {
+            alert("Error")
+        }
+    });
+}
 $(document).ready(load.ready);
 $(document).ready(dragFrame.ready);

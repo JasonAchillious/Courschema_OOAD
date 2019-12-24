@@ -33,5 +33,13 @@ var load = {
     }
 };
 
+function modifyCollect(list){
+    row = Math.ceil(list.length/3);
+    // for(var i = 0;i < row; i++)
+    // {
+    //
+    // }
+
+}
 $(document).ready(load.ready);
 // (window).onload = load.ready();

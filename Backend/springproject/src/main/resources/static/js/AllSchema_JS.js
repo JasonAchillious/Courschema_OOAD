@@ -1,6 +1,7 @@
 data = [];
 WATCH = 'watch';
 EDIT = 'edit';
+count = 0;
 function item(_name, _year, _dept, _major, _foreign, _type, _id,_check){
     this.name = _name;
     this.year = _year;
@@ -77,8 +78,10 @@ var loadtable = {
 
 load: function () {
         getData();
-        loadtable.generateTable(data);
-
+        if(count == 0) {
+            count ++;
+            loadtable.generateTable(data);
+        }
     },
 generateTable: function (data) {
     $('#schematable').bootstrapTable({
@@ -105,23 +108,26 @@ function editPress(){
         alert("编辑");
         for (var i = 0; i < data.length; i++) {
             data[i].check = editURL(data[i].id, EDIT);
+            console.log(data[i].check);
         }
-        console.log(data);
+        alert(data);
         loadtable.generateTable(data);
         // $('#schematable').bootstrapTable('refresh');
         $('#schematable').bootstrapTable('getOptions');
         $('.edit').text("查看")
+
     }
     else{
         alert("查看")
         for (var i = 0; i < data.length; i++) {
             data[i].check = editURL(data[i].id, WATCH);
         }
-        console.log(data);
+        alert(data);
         loadtable.generateTable(data);
         // $('#schematable').bootstrapTable('refresh');
         $('#schematable').bootstrapTable('getOptions');
         $('.edit').text("编辑")
+
     }
 
 }
