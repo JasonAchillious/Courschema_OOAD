@@ -38,7 +38,7 @@ function getData()
                 for(i = 0;i < reply.length;i ++) {
                     var ele = reply[i];
                     var temp = new item(ele.name,ele.year,ele.dept,ele.major,ele.foreign,ele.type,ele.id);
-                    temp.check = editURL(ele.id,EDIT);
+                    temp.check = editURL(ele.id,WATCH);
                     data.push(temp);
                 }
             },
@@ -100,14 +100,30 @@ generateTable: function (data) {
 };
 
 function editPress(){
-    for (var i = 0;i < data.length;i ++)
-    {
-        data[i].check = editURL(data[i].id,EDIT);
+    var text = $('.edit').text();
+    if(text == '编辑') {
+        alert("编辑");
+        for (var i = 0; i < data.length; i++) {
+            data[i].check = editURL(data[i].id, EDIT);
+        }
+        console.log(data);
+        loadtable.generateTable(data);
+        // $('#schematable').bootstrapTable('refresh');
+        $('#schematable').bootstrapTable('getOptions');
+        $('.edit').text("查看")
     }
-    console.log(data);
-    loadtable.generateTable(data);
-    // $('#schematable').bootstrapTable('refresh');
-    $('#schematable').bootstrapTable('getOptions');
+    else{
+        alert("查看")
+        for (var i = 0; i < data.length; i++) {
+            data[i].check = editURL(data[i].id, WATCH);
+        }
+        console.log(data);
+        loadtable.generateTable(data);
+        // $('#schematable').bootstrapTable('refresh');
+        $('#schematable').bootstrapTable('getOptions');
+        $('.edit').text("编辑")
+    }
+
 }
 
 $(document).ready(loadtable.load);

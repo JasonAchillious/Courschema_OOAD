@@ -107,6 +107,9 @@ function del(id,type) {
     deleteCourse(type.toString(),course);
 
 }
+
+
+
 function makeForm(data) {
     // this.schema_name = data.schema_name;//string
     // this.major = data.major;//string
@@ -123,7 +126,11 @@ function makeForm(data) {
     form.schema_name = data.schema_name;
     form.major = data.major;
     form.department = data.department;
-    // form.major_elec =
+    form.major_elec = data.major_elec;
+    form.HU_elec = data.HU_elec;
+    form.SS_elec = data.SS_elec;
+    form.AR_elec = data.AR_elec;
+
 }
 function setSeason(course) {
     var season_str = '';
