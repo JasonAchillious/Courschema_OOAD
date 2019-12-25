@@ -33,7 +33,7 @@ public class CourschemasController {
 
     @Autowired
     private MajorService majorService;
-    
+
     @Autowired
     private XianxiuService xianxiuService;
 
@@ -291,7 +291,7 @@ public class CourschemasController {
         writeExcel(os, courschema, idCourschema);
 
     }
-    
+
     public void writeExcel(OutputStream os, courschemas courschema, int idCourschema)
     {
         try
@@ -384,9 +384,13 @@ public class CourschemasController {
                 label = new Label(4,5+i, time);
                 ws.addCell(label);
 
-                xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
-                label = new Label(5, 5+i, xianxiu.getConditionString());
+                try{
+                    xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
+                    label = new Label(5, 5+i, xianxiu.getConditionString());
+                }
+                catch(NullPointerException n){
 
+                }
 
             }
             label = new Label(0,6+len1, "专业先修课");
@@ -454,8 +458,13 @@ public class CourschemasController {
                 }
                 label = new Label(4,8+len1+i, time);
                 ws.addCell(label);
-                xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
-                label = new Label(5, 8+len1+i, xianxiu.getConditionString());
+                try{
+                    xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
+                    label = new Label(5, 8+len1+i, xianxiu.getConditionString());
+                }
+                catch(NullPointerException n){
+
+                }
 
 
             }
@@ -524,8 +533,13 @@ public class CourschemasController {
                 }
                 label = new Label(4,11+len1+len2+i, time);
                 ws.addCell(label);
-                xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
-                label = new Label(5, 11+len1+len2+i, xianxiu.getConditionString());
+                try{
+                    xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
+                    label = new Label(5, 11+len1+len2+i, xianxiu.getConditionString());
+                }
+                catch(NullPointerException n){
+
+                }
 
             }
             //System.out.println("3st: "+String.valueOf(5+len1+len2+len3));
@@ -538,6 +552,5 @@ public class CourschemasController {
             e.printStackTrace();
         }
     }
-
 
 }
