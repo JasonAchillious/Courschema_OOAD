@@ -79,51 +79,37 @@ public class QuestionController {
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(sdf.format(date));
         now.setReleaseTime(sdf.format(date));
-        Map<String, Object> reply = new HashMap<>();
+        Map<String, Object> tmp = new HashMap<>();
         try {
             questionService.save(now);
-            reply.put("state","success");
+            tmp.put("state","success");
         }
         catch (Exception e){
-            reply.put("state","fail");
+            tmp.put("state","fail");
         }
-        List<Map> array = new ArrayList<>();
-        List<question> search = questionService.findAll();
-        for(question q : search){
-            Map<String, Object> tmp = new HashMap<>();
-            int questionUserID = q.getCreaterid();
-            //默认是student
-            student s = studentService.findStudentByid_student(questionUserID);
-            tmp.put("questionUserId", questionUserID);
-            tmp.put("questionUserName", s.getName());
-            tmp.put("releaseDate", q.getReleaseTime());
-            tmp.put("questionId", q.getQuestionid());
-            tmp.put("questionContent", q.getqContent());
-            if(q.getHasAnswer()==(byte)1) {
-                int ansId = q.getAnswerId();
-                answer a = answerService.findAnswerByAnswerId(ansId);
-                tmp.put("hasAnswer", true);
-                tmp.put("answerUserId",a.getAdminid());
-                //默认是管理员
-                Admin admin = adminService.findAdminByIdAdmin(a.getAdminid());
-                tmp.put("answerUserName",admin.getName());
-                tmp.put("answerdate", a.getAnswerDate());
-                tmp.put("answerContent", a.getContent());
-
-            }
-            else{
-                tmp.put("hasAnswer", false);
-            }
-            //int ansId = q.getAnswerId();
-//            answer a = answerService.findAnswerByAnswerId(ansId);
-//            tmp.put("answerUserName",a.getAdminid());
-//            tmp.put("answerdate", a.getAnswerDate());
-//            tmp.put("answerContent", a.getContent());
-//            tmp.put("questionId", q.getQuestionid());
-            array.add(tmp);
+        int questionUserID = now.getCreaterid();
+        //默认是student
+        student s = studentService.findStudentByid_student(questionUserID);
+        tmp.put("questionUserId", questionUserID);
+        tmp.put("questionUserName", s.getName());
+        tmp.put("releaseDate", now.getReleaseTime());
+        tmp.put("questionId", now.getQuestionid());
+        tmp.put("questionContent", now.getqContent());
+        if(now.getHasAnswer()==(byte)1) {
+            int ansId = now.getAnswerId();
+            answer a = answerService.findAnswerByAnswerId(ansId);
+            tmp.put("hasAnswer", true);
+            tmp.put("answerUserId",a.getAdminid());
+            //默认是管理员
+            Admin admin = adminService.findAdminByIdAdmin(a.getAdminid());
+            tmp.put("answerUserName",admin.getName());
+            tmp.put("answerdate", a.getAnswerDate());
+            tmp.put("answerContent", a.getContent());
         }
-        reply.put("questions", array);
-        return reply;
+        else{
+            tmp.put("hasAnswer", false);
+        }
+        return tmp;
     }
 
     @GetMapping("/QandA_getInfo")
