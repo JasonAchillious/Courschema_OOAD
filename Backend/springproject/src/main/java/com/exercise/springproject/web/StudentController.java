@@ -49,6 +49,27 @@ public class StudentController{
 
     Calendar cal =Calendar.getInstance();
 
+    /**
+     * written by Zhao zhixiang for test
+     */
+    @GetMapping("/course_student")
+    public String coursePageStudent(){return "course_student";}
+
+    @GetMapping("/QandA_student")
+    public String QandAstudent(){return "QandA_student";}
+
+    @GetMapping("/QandA_admin")
+    public String QandAadmin(){return  "QandA_admin";}
+
+    @GetMapping("/course_admin")
+    public String coursePageAdmin(){return "course_admin";}
+
+    /**
+     * written by Zhao zhixiang for test
+     */
+
+
+
     @GetMapping("/")
     public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String account, Model model) {
         model.addAttribute("name", account);

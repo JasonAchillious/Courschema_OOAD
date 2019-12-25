@@ -43,8 +43,9 @@ public class DepartmentController {
         return departmentService.save(department);
     }
 
-    @PostMapping("findAllDepartmentAndMajor")
+    @PostMapping("/findAllDepartmentAndMajor")
     @ResponseBody List<Map> findAllInfo(){
+
         List<Department> de = departmentService.findAll();
         List<Map> reply = new ArrayList<>();
         for(Department d: de){

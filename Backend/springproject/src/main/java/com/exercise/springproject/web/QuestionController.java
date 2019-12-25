@@ -126,7 +126,7 @@ public class QuestionController {
         return reply;
     }
 
-    @GetMapping("/QandA_getInfo")
+    @PostMapping("/QandA_getInfo")
     @ResponseBody
     public Map getinfo(@RequestBody Map<String, Object> json){
         Map<String,Object> ans = new HashMap<>();
