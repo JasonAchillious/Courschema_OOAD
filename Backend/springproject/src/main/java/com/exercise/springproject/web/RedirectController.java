@@ -39,5 +39,5 @@ public class RedirectController {
 
     @GetMapping("/courschemaWatch")
     public String watch(){return "Courschema_Watch";}
-    
+
 }
