@@ -3,7 +3,7 @@ new Vue({
     data() {
         return {
             questions: [],
-            userId: 11711335,
+            userId: Number(getUrlParam('param')),
             currentPage: 1,
             questionInput: '',
             loading: true,

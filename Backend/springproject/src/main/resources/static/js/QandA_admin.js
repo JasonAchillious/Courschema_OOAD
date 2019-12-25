@@ -1,7 +1,8 @@
+
 new Vue({
     el: "#questionBrief",
     data: {
-        adminId: 61711335,
+        adminId: Number(getUrlParam('param')),
         questions: [],
         currentPage: 1,
         answerQuestionId: -1,
