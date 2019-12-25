@@ -129,7 +129,6 @@ function initInfo()
     data.spring="是";
     data.summer="是";
     data.autumn="是";
-
     util.fillFormData("#data",data);
 
     //todo init relationship

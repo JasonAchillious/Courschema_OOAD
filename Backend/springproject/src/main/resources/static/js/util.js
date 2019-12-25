@@ -51,5 +51,5 @@ var util = {
         // alert(url);
         $(location).attr('href',url);
         // alert(window.location);
-    }
+    },
 };

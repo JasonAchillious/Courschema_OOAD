@@ -30,7 +30,8 @@ function Schema(data) {
 }
 
 function back() {
-
+    var uid = getUrlParam('uid');
+    location.href="/AllSchema?param="+uid;
 }
 
 function store_course(type,course) {
@@ -233,7 +234,7 @@ function initCourse() {
 
 
 function loadInfo() {
-    var info_data = {}
+    var info_data = {};
     $.ajax(
         {
             type: 'POST',
@@ -255,8 +256,7 @@ function loadInfo() {
                 info_data.foreign = reply.foreign==1?"是":"否";
                 info_data.one_plus3 = reply.one_plus3==1?"1+3培养":"2+2培养";
                 info_data.intro = reply.intro;
-
-                util.fillFormData("data",info_data)
+                util.fillFormData("#data",info_data)
             },
             error: function () {
                 alert("load info error");
@@ -378,9 +378,17 @@ var loadcourse = {
 
     }
 };
+function search(){
+    $('#search').on("keyup", function() {
+        var value = $(this).val();
+        $("#All_Major .draggable").filter(function() {
+            $(this).toggle($(this).text().indexOf(value) > -1)
+        });
+});
+};
 
-
-
+$(document).ready(search);
 $(document).ready(initCourse);
 $(document).ready(loadcourse.load);
 $(document).ready(dragFrame.ready);
+
