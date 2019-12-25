@@ -4,6 +4,8 @@ import jxl.write.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -16,6 +18,7 @@ public class question {
     private String qContent;
     private int createrid;
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int questionid;
     private byte hasAnswer;
     private int answerId;
@@ -44,9 +47,9 @@ public class question {
         this.createrid = c_id;
     }
 
-    public void setQuestionid(int questionid) {
-        this.questionid = questionid;
-    }
+//    public void setQuestionid(int questionid) {
+//        this.questionid = questionid;
+//    }
 
     public String getqContent(){
         return this.qContent;

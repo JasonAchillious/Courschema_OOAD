@@ -36,4 +36,9 @@ public class QuestionServiceImpl implements QuestionService{
     public question findQuestionById(int id) {
         return questionRepository.findQuestionById(id);
     }
+
+    @Override
+    public void update(int id, int adminid, String content, String time) {
+        questionRepository.update(id, adminid, content, time);
+    }
 }

@@ -26,20 +26,20 @@ public class AnswerController {
         return answerService.save(answer);
     }
 
-    @PutMapping("/record")
-    public answer update(  @RequestParam int stuId,
-                           @RequestParam String content,
-                           @RequestParam int questionId,
-                           @RequestParam boolean identity,
-                           @RequestParam int adminId,
-                           @RequestParam int ansId){
-        answer answer = new answer();
-        answer.setAdminid(adminId);
-        answer.setContent(content);
-        answer.setAnsid(ansId);
-        answer.setQuestionid(questionId);
-        return answerService.save(answer);
-    }
+//    @PutMapping("/record")
+//    public answer update(  @RequestParam int stuId,
+//                           @RequestParam String content,
+//                           @RequestParam int questionId,
+//                           @RequestParam boolean identity,
+//                           @RequestParam int adminId,
+//                           @RequestParam int ansId){
+//        answer answer = new answer();
+//        answer.setAdminid(adminId);
+//        answer.setContent(content);
+//        answer.setAnsid(ansId);
+//        answer.setQuestionid(questionId);
+//        return answerService.save(answer);
+//    }
 
     @DeleteMapping("record/{id}")
     public void deleteOneAnswer(int ansId){

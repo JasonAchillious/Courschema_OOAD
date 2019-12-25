@@ -12,4 +12,5 @@ public interface QuestionService {
     public void deleteById(int id);
     public List<question> findQuestionByCreater(int creater);
     public question findQuestionById(int id);
+    public void update(int id, int adminid, String content, String time);
 }

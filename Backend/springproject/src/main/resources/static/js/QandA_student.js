@@ -55,12 +55,12 @@ new Vue({
                         questionAsk: t.questionInput
                     })
                     .then(response => {
-                        if (response.data.question != null) {
-                            t.questions.unshift(response.data.question)
-                        }
+                        console.log(response)
+
                         if (response.data.state == "success") {
                             alert("发表成功")
-                            this.questions = response.questions;
+                            this.questions.unshift(response.data);
+                            console.log(this.questions)
                         } else if (response.state == "fail") {
                             alert("发表失败")
                         } else {
@@ -95,7 +95,7 @@ new Vue({
         axios
             .post('/QandA_getInfo', {userId: 11711335})
             .then(response => {
-                this.questions = response.data.questions
+                this.questions = response.data.questions;
                 this.userId = response.data.userId
             })
             .catch(error => {

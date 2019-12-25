@@ -112,7 +112,7 @@ public class QuestionController {
         return tmp;
     }
 
-    @GetMapping("/QandA_getInfo")
+    @PostMapping("/QandA_getInfo")
     @ResponseBody
     public Map getinfo(@RequestBody Map<String, Object> json){
         Map<String,Object> ans = new HashMap<>();
@@ -152,25 +152,89 @@ public class QuestionController {
 
     }
 
-    @PostMapping("/QandA_admin/updateQuestions")
+    @PostMapping("/QandA_admin/addAnswer")
+    @ResponseBody
+    public Map addQuestion(@RequestBody Map json) {
+        System.out.println(json.get("adminId"));
+        int id = (int) json.get("adminId");
+        int qId = (int) json.get("questionId");
+        String c = (String) json.get("answerContent");
+        answer now = new answer();
+        question qnow = questionService.findQuestionById(qId);
+        now.setQuestionid(qId);
+        now.setAdminid(id);
+        now.setContent(c);
+        System.out.println("ansid: ");
+        System.out.println(now.getAnsid());
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(sdf.format(date));
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        now.setAnswerDate(sdf.format(date));
+        answerService.save(now);
+        questionService.deleteById(qId);
+        qnow.setHasAnswer((byte)1);
+        qnow.setAnswerId(now.getAnsid());
+        questionService.save(qnow);
+        List<question> question = questionService.findAll();
+        List<Map> array = new ArrayList();
+        for(question q: question){
+            Map<String, Object> tmp = new HashMap<>();
+            int questionUserID = q.getCreaterid();
+            //默认是student
+            student s = studentService.findStudentByid_student(questionUserID);
+            tmp.put("questionUserId", questionUserID);
+            tmp.put("questionUserName", s.getName());
+            tmp.put("releaseDate", q.getReleaseTime());
+            tmp.put("questionId", q.getQuestionid());
+            tmp.put("questionContent", q.getqContent());
+            if(q.getHasAnswer()==(byte)1) {
+                tmp.put("hasAnswer", true);
+                int ansId = q.getAnswerId();
+                answer a = answerService.findAnswerByAnswerId(ansId);
+                tmp.put("answerUserId",a.getAdminid());
+                //默认是管理员
+                Admin admin = adminService.findAdminByIdAdmin(a.getAdminid());
+                tmp.put("answerUserName",admin.getName());
+                tmp.put("answerdate", a.getAnswerDate());
+                tmp.put("answerContent", a.getContent());
+            }
+            else{
+                tmp.put("hasAnswer", false);
+            }
+
+            array.add(tmp);
+        }
+        Map<String, Object> reply = new HashMap<>();
+        reply.put("state", "success");
+        reply.put("questions", array);
+        return reply;
+
+    }
+    @PostMapping("/QandA_admin/updateAnswer")
     @ResponseBody
     public Map updateQuestion(@RequestBody Map json){
         int id = (int) json.get("adminId");
         int qId = (int) json.get("questionId");
         String  c = (String) json.get("answerContent");
-        answer now = new answer();
-        now.setAdminid(id);
-        now.setContent(c);
-        now.setQuestionid(qId);
+        //question update: answer 的内容时间改掉
+        question qnow = questionService.findQuestionById(qId);
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        questionService.update(qnow.getAnswerId(), id, c, sdf.format(date));
+        System.out.println("debug");
+        System.out.println(qnow.getAnswerId());
+        System.out.println(id);
+        System.out.println(c);
+        System.out.println(sdf.format(date));
         Map<String, Object> reply = new HashMap<>();
         try{
-            answerService.save(now);
             reply.put("state", "success");
         }
         catch (Exception e){
             reply.put("state", "fail");
         }
-
         List<question> question = questionService.findAll();
         List<Map> array = new ArrayList();
         for(question q: question){
@@ -304,20 +368,20 @@ public class QuestionController {
     }
 
 
-    @PostMapping("/update")
-    @ResponseBody
-    public question update(@RequestParam String content,
-                           @RequestParam int createrId,
-                           @RequestParam int questionId){
-        System.out.println(content);
-        System.out.println(createrId);
-        System.out.println(questionId);
-        question question = new question();
-        question.setCreaterid(createrId);
-        question.setqContent(content);
-        question.setQuestionid(questionId);
-        return questionService.save(question);
-    }
+//    @PostMapping("/update")
+//    @ResponseBody
+//    public question update(@RequestParam String content,
+//                           @RequestParam int createrId,
+//                           @RequestParam int questionId){
+//        System.out.println(content);
+//        System.out.println(createrId);
+//        System.out.println(questionId);
+//        question question = new question();
+//        question.setCreaterid(createrId);
+//        question.setqContent(content);
+//        question.setQuestionid(questionId);
+//        return questionService.save(question);
+//    }
     //form data
 
     @DeleteMapping("record/{id}")

@@ -1,7 +1,7 @@
 new Vue({
     el: "#questionBrief",
     data: {
-        AdminId: 61711335,
+        adminId: 61711335,
         questions: [],
         currentPage: 1,
         answerQuestionId: -1,
@@ -14,7 +14,8 @@ new Vue({
         modalBody: ' ',
         modalText: ' ',
         isDeleteQuestion: false,
-        isDeleteAnswer: false
+        isDeleteAnswer: false,
+        isAdd: false
     },
 
     methods: {
@@ -56,14 +57,24 @@ new Vue({
 
         updateAnswer: function() {
             this.loading = true;
+            var url;
+            if (this.isAdd){
+                url = 'QandA_admin/addAnswer'
+            }else {
+                url = 'QandA_admin/updateAnswer'
+            }
             if (this.adminId === -1) {
                 alert("非管理员请勿操作")
             } else if (this.answerContent != null &&
                 this.answerContent != 0 &&
                 this.answerContent.replace(/(^s*)|(s*$)/g, "").length !== 0 &&
                 !(this.isNull(this.answerContent))) {
+                console.log(url)
+                console.log(this.adminId)
+                console.log(this.answerQuestionId)
+                console.log(this.answerContent)
                 axios
-                    .post('QandA_admin/updateAnswer', {
+                    .post(url, {
                         adminId: this.adminId,
                         questionId: this.answerQuestionId,
                         answerContent: this.answerContent
@@ -72,9 +83,10 @@ new Vue({
                         console.log(response);
 
                         if (response != null) {
-                            if (response.data.state == "suceess") {
-                                this.data.questions = response.questions;
+                            if (response.data.state == "success") {
+                                this.questions = response.data.questions;
                                 alert("提交成功")
+                                console.log(this.questions)
                             } else if (response.status == "fail") {
                                 alert("提交失败")
                             } else {
@@ -89,6 +101,8 @@ new Vue({
                     })
                     .finally(() => {
                         this.loading = false;
+                        $('#updateModal').modal('hide')
+
                     })
             } else {
                 alert("未知错误， 请联系相关负责人员")
@@ -97,6 +111,7 @@ new Vue({
         },
 
         updateModal: function(id, index) {
+            this.isAdd = false;
             this.answerQuestionId = id;
             this.answerQuestionIndex = index;
             this.modalTitle = "修改回答";
@@ -107,6 +122,7 @@ new Vue({
         },
 
         addModal: function (id, index) {
+            this.isAdd = true;
             this.answerQuestionId = id;
             this.answerQuestionIndex = index;
             this.modalTitle = "添加回答";
@@ -135,21 +151,59 @@ new Vue({
         },
 
         deleteAnswer: function () {
-            id = this.answerQuestionId;
-            index = this.answerQuestionIndex;
+            var id = this.answerQuestionId;
+            var index = this.answerQuestionIndex;
             this.answerQuestionId = -1;
             this.answerQuestionIndex = -1;
+            axios
+                .post('/QandA_admin/deleteAnswer',
+                    {userId: this.userId,
+                        questionId: id
+                    })
+                .then(response => {
+                    if (response.state === "success"){
 
+                    }else if (response.state === "fail"){
+
+                    }
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("未知错误， 请联系相关负责人员")
+                })
+                .finally(() => {
+                    this.loading = false;
+                    console.log(this.loading)
+                })
 
             this.isDeleteAnswer = false;
         },
 
         deleteQuestion: function (questionId, index) {
+            this.loading = true;
             id = this.answerQuestionId;
             index = this.answerQuestionIndex;
             this.answerQuestionId = -1;
             this.answerQuestionIndex = -1;
-
+            axios
+                .post('/QandA_student/deleteQuestions', {})
+                .then(response => {
+                    if (response.states === "success"){
+                        // put questions[index] as empty
+                    }else if (response.states === "fail"){
+                        alert("删除失败")
+                    }
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("未知错误， 请联系相关负责人员")
+                })
+                .finally(() => {
+                    this.loading = false;
+                    console.log(this.loading)
+                })
 
             this.isDeleteQuestion = false;
         },
@@ -163,8 +217,8 @@ new Vue({
     computed: {
 
         pages() {
-            const c = this.currentPage
-            const t = this.totalPages
+            const c = this.currentPage;
+            const t = this.totalPages;
             if (t <= 10) {
                 var foo = [];
                 for (var i = 1; i <= t; i++) {
@@ -184,8 +238,8 @@ new Vue({
             const c = this.currentPage
             var s = (c - 1) * 10;
             var e = (c - 1) * 10 + 9;
-            if (e > this.questions.length - 1) {
-                e = this.questions.length - 1;
+            if (e > this.questionsNum - 1) {
+                e = this.questionsNum - 1;
             }
             var foo = [];
             for (var i = s; i <= e; i++) {

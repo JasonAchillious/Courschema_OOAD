@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class answer {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int ansid;
     @NotNull
     private String content;
@@ -48,9 +49,9 @@ public class answer {
     }
 
 
-    public void setAnsid(int ansid) {
-        this.ansid = ansid;
-    }
+//    public void setAnsid(int ansid) {
+//        this.ansid = ansid;
+//    }
 
     public int getAnsid() {
         return ansid;
