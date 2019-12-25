@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Map;
 
 @Controller
-@RestController
 public class RedirectController {
 
 //    @PostMapping("/redirectFunction")
@@ -37,7 +36,17 @@ public class RedirectController {
 //        response.sendRedirect("some-url");
 //    }
 
-    @GetMapping("/courschemaWatch")
-    public String watch(){return "Courschema_Watch";}
+    @PostMapping("/courschemaWatch")
+    public String watch(RedirectAttributes attributes){
+        attributes.addAttribute("param", "sd");
+        return "redirect:/Courschema_Watch";}
+
+//    @PostMapping("/QandA_admin")
+//    public String adminQandA(RedirectAttributes attributes){return "redirect:/QandA_admin";}
+//
+//    @PostMapping("/QandA_student")
+//    public String studentQandA(RedirectAttributes attributes){
+//        return "redirect:/QandA_student";}
+
 
 }

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>提问与答疑</title>
+    <link href="../static/css/QandA.css" rel="stylesheet" type="text/css"/>
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-lg-12">
+    <a class="navbar-brand" href="#">SUStech Courschema</a>
+    <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarColor01" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">自定义</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">全部培养方案</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">全部课程</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">提问与答疑<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+    <ul class="mr-auto navbar-nav">
+        <li>
+            <a class="nav-link" href="#">设置</a>
+        </li>
+        <li>
+            <a class="nav-link" href="#">帮助</a>
+        </li>
+        <li>
+            <a class="nav-link" href="#">登录</a>
+        </li>
+    </ul>
+</nav>
+
+
+<div class="container" id="questionBrief">
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col-md-10">
+
+            <div class="form-group">
+                <label for="exampleTextarea"><h4>问题描述</h4></label>
+                <textarea class="form-control" id="exampleTextarea" rows="3" spellcheck="false"
+                          v-model="questionInput"></textarea>
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <hr class="my-4">
+            <button @click='raiseQuestion()' class="btn btn-primary btn-lg btn-block" type="button">发表提问</button>
+        </div>
+
+    </div>
+
+    <div class="questionList">
+
+        <div v-if="loading">Loading...</div>
+
+        <div v-else>
+            <template v-for="index in  computeIndex">
+                <hr class="my-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">提问: {{questions[index].questionUserName}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">{{questions[index].releaseDate}}</h6>
+                        <p class="card-text">{{questions[index].questionContent}}</p>
+                        <div v-if="questions[index].hasAnswer">
+                            <button class="btn btn-primary btn-sm" type="button"
+                                    v-on:click="showAnswer(index)">查看回答
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div :id="generateAnswerId(index)" class="card border-success mb-3"
+                     style="display: none;"
+                     v-if="questions[index].hasAnswer">
+                    <div class="card-body">
+                        <h4 class="card-title">回答:{{questions[index].answerUserName}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">{{questions[index].answerDate}}</h6>
+                        <p class="card-text">{{questions[index].answerContent}}</p>
+                        <button class="btn btn-primary btn-sm" type="button" v-on:click="hideAnswer(index)">关闭
+                        </button>
+                    </div>
+                </div>
+
+            </template>
+        </div>
+
+    </div>
+
+    <div>
+        <ul class="pagination" style="float: right;">
+            <template>
+                <li class='page-item disabled' v-if="currentPage == 1 && totalPages > 1">
+                    <a @click="prevOrNext(-1)" class="page-link" href="#">&laquo;</a>
+                </li>
+                <li class='page-item' v-else-if="currentPage > 1 && totalPages > 1">
+                    <a @click="prevOrNext(-1)" class="page-link" href="#">&laquo;</a>
+                </li>
+            </template>
+            <template v-for="item in pages">
+                <li class="page-item active" v-if="currentPage == item">
+                    <a @click="select(item)" class="page-link" href="#">{{item}}</a>
+                </li>
+                <li class="page-item" v-else>
+                    <a @click="select(item)" class="page-link" href="#">{{item}}</a>
+                </li>
+            </template>
+            <template>
+                <li class='page-item disabled' v-if="currentPage == totalPages && totalPages > 1 ">
+                    <a @click="prevOrNext(1)" class="page-link" href="#">&raquo;</a>
+                </li>
+                <li class='page-item' v-else-if="totalPages > 1">
+                    <a @click="prevOrNext(1)" class="page-link" href="#">&raquo;</a>
+                </li>
+            </template>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+
+
+<script src="../static/js/jquery-3.4.1.js"></script>
+<script src="../static/js/bootstrap.js"></script>
+<script src="../static/js/vue.js"></script>
+<script src="../static/js/axios.js"></script>
+<script src="../static/js/QandA_student.js"></script>
+
+</html>

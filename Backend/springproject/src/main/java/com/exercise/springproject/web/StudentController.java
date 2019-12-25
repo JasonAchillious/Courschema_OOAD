@@ -379,6 +379,24 @@ public class StudentController{
         login_userService.save(login_user);
     }
 
+//    @PostMapping(value = "/course_student")
+//    public String coursePageStudent(RedirectAttributes attributes){
+//        return "redirect:/course_student";}
+
+    @GetMapping(value = "/QandA_student")
+    public String QandAstudent(RedirectAttributes attributes){
+        attributes.addFlashAttribute("errorMsg","the ID is not correct");
+        return "QandA_student";
+    }
+
+    @GetMapping(value = "/QandA_admin")
+    public String QandAadmin(RedirectAttributes attributes){return  "QandA_admin";}
+
+//    @PostMapping(value = "/course_admin")
+//    public String coursePageAdmin(RedirectAttributes attributes){
+//        return "redirect:/course_admin";
+//    }
+
 
 
 }
