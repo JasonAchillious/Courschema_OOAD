@@ -3,9 +3,7 @@ package com.exercise.springproject.web;
 import com.exercise.springproject.domain.*;
 import com.exercise.springproject.service.*;
 import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
+import jxl.write.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -282,14 +280,22 @@ public class CourschemasController {
     }
 
     @PostMapping("downloadCourschemas")
-    public void downloadCourschema(@RequestParam String chinese_name, String path) throws IOException {
-        courschemas courschema = courschemasService.findCourschemaName(chinese_name);
-        int idCourschema = courschema.getCourschema();
+    public void downloadCourschema(@RequestParam int idCourschema) throws IOException {
+        courschemas  courschema= courschemasService.findcourschemasById(idCourschema);
+        String path = "D:/" + courschema.getChineseName() + ".xls";
+        WritableFont fontTitle = new WritableFont(WritableFont.createFont("宋体"), 12, WritableFont.NO_BOLD);
+        WritableCellFormat formatTitle = new WritableCellFormat(fontTitle);
+        try{
+            formatTitle.setWrap(true);
+        } catch (WriteException e) {
+            e.printStackTrace();
+        }
+
         File filewrite=new File(path);
         filewrite.createNewFile();
         OutputStream os=new FileOutputStream(filewrite);
         writeExcel(os, courschema, idCourschema);
-
+        os.close();
     }
 
     public void writeExcel(OutputStream os, courschemas courschema, int idCourschema)
@@ -297,8 +303,12 @@ public class CourschemasController {
         try
         {
             WritableWorkbook wwb = Workbook.createWorkbook(os);
-            Xianxiu_condition xianxiu;
             WritableSheet ws = wwb.createSheet("Test Sheet 1",0);
+            ws.setColumnView(0, 25);
+            ws.setColumnView(1, 30);
+            ws.setColumnView(1, 15);
+            ws.setColumnView(4, 25);
+
             int year = 1;
             String semester = "autumn";
             String time = "";
@@ -309,29 +319,84 @@ public class CourschemasController {
             ws.addCell(label);
             label = new Label(0,1, "院系");
             ws.addCell(label);
-            label = new Label(1,1, String.valueOf(courschema.getDepartment()));
-            ws.addCell(label);
-            label = new Label(0,2, "专业");
-            ws.addCell(label);
-            label = new Label(1,2, String.valueOf(courschema.getMajor()));
-            ws.addCell(label);
-            label = new Label(0,1, String.valueOf(courschema.getDepartment_name()));
+            label = new Label(1,1, courschema.getDepartment_name());
             ws.addCell(label);
 
-            label = new Label(0,3, "通识理工基础课");
+            label = new Label(0,2, "专业");
             ws.addCell(label);
-            label = new Label(0,4, "Chinese Name");
+            label = new Label(1,2, courschema.getMajor_name());
             ws.addCell(label);
-            label = new Label(1,4, "English Name");
+
+            label = new Label(0,3, "introduction");
             ws.addCell(label);
-            label = new Label(2,4, "Code");
+            label = new Label(1,3, courschema.getIntro());
             ws.addCell(label);
-            label = new Label(3,4, "Credit");
+
+            label = new Label(0,4, "type");
             ws.addCell(label);
-            label = new Label(4,4, "Suggested Time");
+            if(courschema.getOne_plus3()==1){
+                label = new Label(1,4, "1+3");
+            }
+            else{
+                label = new Label(1,4, "2+2");
+            }
             ws.addCell(label);
-            label = new Label(5,4, "Pre-request Course");
+
+            label = new Label(0,5, "专业选修学分");
             ws.addCell(label);
+            label = new Label(1,5, String.valueOf(courschema.getMajor_elec()));
+            ws.addCell(label);
+
+            label = new Label(0,6, "人文选修学分");
+            ws.addCell(label);
+            label = new Label(1,6, String.valueOf(courschema.getHU_elec()));
+            ws.addCell(label);
+
+            label = new Label(0,7, "社科选修学分");
+            ws.addCell(label);
+            label = new Label(1,7, String.valueOf(courschema.getSS_elec()));
+            ws.addCell(label);
+
+            label = new Label(0,8, "艺术选修学分");
+            ws.addCell(label);
+            label = new Label(1,8, String.valueOf(courschema.getAR_elec()));
+            ws.addCell(label);
+
+            label = new Label(0,9, "思政学分");
+            ws.addCell(label);
+            label = new Label(1,9, String.valueOf(courschema.getPolitical()));
+            ws.addCell(label);
+
+            label = new Label(0,10, "入学年份");
+            ws.addCell(label);
+            label = new Label(1,10, String.valueOf(courschema.getNian()));
+            ws.addCell(label);
+
+            label = new Label(0,11, "国际生培养方案");
+            ws.addCell(label);
+            if(courschema.getWaiGuo()==1){
+                label = new Label(1,11, "yes");
+            }
+            else{
+                label = new Label(1,111, "no");
+            }
+            ws.addCell(label);
+
+            label = new Label(0,12, "通识理工基础课");
+            ws.addCell(label);
+            label = new Label(0,13, "Chinese Name");
+            ws.addCell(label);
+            label = new Label(1,13, "English Name");
+            ws.addCell(label);
+            label = new Label(2,13, "Code");
+            ws.addCell(label);
+            label = new Label(3,13, "Credit");
+            ws.addCell(label);
+            label = new Label(4,13, "Suggested Time");
+            ws.addCell(label);
+            label = new Label(5,13, "Pre-request Course");
+            ws.addCell(label);
+
             List<Integer> idCourses = this.classificationService.findTypeTonCourse(idCourschema);
             List<Course> courses = new LinkedList<Course>();
             courses.clear();
@@ -341,14 +406,15 @@ public class CourschemasController {
             int len1 = courses.size();
             for(int i=0; i<len1; i++){
                 course = courses.get(i);
-                label = new Label(0,5+i, course.getChineseName());
+                label = new Label(0,14+i, course.getChineseName());
+
                 ws.addCell(label);
 
-                label = new Label(1,5+i, course.getEnglishName());
+                label = new Label(1,14+i, course.getEnglishName());
                 ws.addCell(label);
-                label = new Label(2,5+i, course.getBianHao());
+                label = new Label(2,14+i, course.getBianHao());
                 ws.addCell(label);
-                label = new Label(3,5+i, String.valueOf(course.getCredit()));
+                label = new Label(3,14+i, String.valueOf(course.getCredit()));
                 ws.addCell(label);
                 year = course.getNian();
                 if(course.getAutumn()==1){
@@ -381,30 +447,25 @@ public class CourschemasController {
                 else{
                     time = "year " + year;
                 }
-                label = new Label(4,5+i, time);
+                label = new Label(4,14+i, time);
                 ws.addCell(label);
 
-                try{
-                    xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
-                    label = new Label(5, 5+i, xianxiu.getConditionString());
-                }
-                catch(NullPointerException n){
-
-                }
-
+                label = new Label(5, 14+i, course.getXianxiu());
+                ws.addCell(label);
             }
-            label = new Label(0,6+len1, "专业先修课");
+
+            label = new Label(0,15+len1, "专业先修课");
             //System.out.println("1st: "+String.valueOf(4+len1));
             ws.addCell(label);
-            label = new Label(0,7+len1, "Chinese Name");
+            label = new Label(0,16+len1, "Chinese Name");
             ws.addCell(label);
-            label = new Label(1,7+len1, "English Name");
+            label = new Label(1,16+len1, "English Name");
             ws.addCell(label);
-            label = new Label(2,7+len1, "Code");
+            label = new Label(2,16+len1, "Code");
             ws.addCell(label);
-            label = new Label(3,7+len1, "Credit");
+            label = new Label(3,16+len1, "Credit");
             ws.addCell(label);
-            label = new Label(4,7+len1, "Suggested Time");
+            label = new Label(4,16+len1, "Suggested Time");
             ws.addCell(label);
             idCourses = this.classificationService.findTypeRuxiCourse(idCourschema);
             courses.clear();
@@ -415,15 +476,15 @@ public class CourschemasController {
             //System.out.println("len2: "+len2);
             for(int i=0; i<len2; i++){
                 course = courses.get(i);
-                label = new Label(0,8+len1+i, course.getChineseName());
+                label = new Label(0,17+len1+i, course.getChineseName());
                 ws.addCell(label);
                 //System.out.println(course.getChineseName());
 
-                label = new Label(1,8+len1+i, course.getEnglishName());
+                label = new Label(1,17+len1+i, course.getEnglishName());
                 ws.addCell(label);
-                label = new Label(2,8+len1+i, course.getBianHao());
+                label = new Label(2,17+len1+i, course.getBianHao());
                 ws.addCell(label);
-                label = new Label(3,8+len1+i, String.valueOf(course.getCredit()));
+                label = new Label(3,17+len1+i, String.valueOf(course.getCredit()));
                 ws.addCell(label);
                 year = course.getNian();
                 if(course.getAutumn()==1){
@@ -456,30 +517,26 @@ public class CourschemasController {
                 else{
                     time = "year " + year;
                 }
-                label = new Label(4,8+len1+i, time);
+                label = new Label(4,17+len1+i, time);
                 ws.addCell(label);
-                try{
-                    xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
-                    label = new Label(5, 8+len1+i, xianxiu.getConditionString());
-                }
-                catch(NullPointerException n){
 
-                }
+                label = new Label(5, 17+len1+i, course.getXianxiu());
+                ws.addCell(label);
 
 
             }
-            label = new Label(0,9+len1+len2, "专业核心课");
+            label = new Label(0,18+len1+len2, "专业核心课");
             //System.out.println("2st: "+String.valueOf(5+len1+len2));
             ws.addCell(label);
-            label = new Label(0,10+len1+len2, "Chinese Name");
+            label = new Label(0,19+len1+len2, "Chinese Name");
             ws.addCell(label);
-            label = new Label(1,10+len1+len2, "English Name");
+            label = new Label(1,19+len1+len2, "English Name");
             ws.addCell(label);
-            label = new Label(2,10+len1+len2, "Code");
+            label = new Label(2,19+len1+len2, "Code");
             ws.addCell(label);
-            label = new Label(3,10+len1+len2, "Credit");
+            label = new Label(3,19+len1+len2, "Credit");
             ws.addCell(label);
-            label = new Label(4,10+len1+len2, "Suggested Time");
+            label = new Label(4,19+len1+len2, "Suggested Time");
             ws.addCell(label);
             idCourses = this.classificationService.findTypeComCourse(idCourschema);
             courses.clear();
@@ -490,15 +547,15 @@ public class CourschemasController {
             //System.out.println("len3: "+len3);
             for(int i=0; i<len3; i++){
                 course = courses.get(i);
-                label = new Label(0,11+len1+len2+i, course.getChineseName());
+                label = new Label(0,20+len1+len2+i, course.getChineseName());
                 ws.addCell(label);
                 //System.out.println(course.getChineseName());
 
-                label = new Label(1,11+len1+len2+i, course.getEnglishName());
+                label = new Label(1,20+len1+len2+i, course.getEnglishName());
                 ws.addCell(label);
-                label = new Label(2,11+len1+len2+i, course.getBianHao());
+                label = new Label(2,20+len1+len2+i, course.getBianHao());
                 ws.addCell(label);
-                label = new Label(3,11+len1+len2+i, String.valueOf(course.getCredit()));
+                label = new Label(3,20+len1+len2+i, String.valueOf(course.getCredit()));
                 ws.addCell(label);
                 year = course.getNian();
                 if(course.getAutumn()==1){
@@ -531,18 +588,81 @@ public class CourschemasController {
                 else{
                     time = "year " + year;
                 }
-                label = new Label(4,11+len1+len2+i, time);
+                label = new Label(4,20+len1+len2+i, time);
                 ws.addCell(label);
-                try{
-                    xianxiu = xianxiuService.findXianxiu_conditionByIdCourseAndCourschema(course.getIdCourse(), idCourschema);
-                    label = new Label(5, 11+len1+len2+i, xianxiu.getConditionString());
-                }
-                catch(NullPointerException n){
-
-                }
-
+                label = new Label(5, 20+len1+len2+i, course.getXianxiu());
+                ws.addCell(label);
             }
             //System.out.println("3st: "+String.valueOf(5+len1+len2+len3));
+
+            label = new Label(0,21+len1+len2+len3, "思政课");
+            //System.out.println("2st: "+String.valueOf(5+len1+len2));
+            ws.addCell(label);
+            label = new Label(0,22+len1+len2+len3, "Chinese Name");
+            ws.addCell(label);
+            label = new Label(1,22+len1+len2+len3, "English Name");
+            ws.addCell(label);
+            label = new Label(2,22+len1+len2+len3, "Code");
+            ws.addCell(label);
+            label = new Label(3,22+len1+len2+len3, "Credit");
+            ws.addCell(label);
+            label = new Label(4,22+len1+len2+len3, "Suggested Time");
+            ws.addCell(label);
+            idCourses = this.classificationService.findPoliticalCourse(idCourschema);
+            courses.clear();
+            for(int id: idCourses){
+                courses.add(courseService.findCourseById(id));
+            }
+            int len4 = courses.size();
+            //System.out.println("len3: "+len3);
+            for(int i=0; i<len4; i++){
+                course = courses.get(i);
+                label = new Label(0,23+len1+len2+len3+i, course.getChineseName());
+                ws.addCell(label);
+                //System.out.println(course.getChineseName());
+
+                label = new Label(1,23+len1+len2+len3+i, course.getEnglishName());
+                ws.addCell(label);
+                label = new Label(2,23+len1+len2+len3+i, course.getBianHao());
+                ws.addCell(label);
+                label = new Label(3,23+len1+len2+len3+i, String.valueOf(course.getCredit()));
+                ws.addCell(label);
+                year = course.getNian();
+                if(course.getAutumn()==1){
+                    time = "year " + year + " autumn";
+                    if(course.getSpring()==1){
+                        time += " &spring";
+                    }
+                    if(course.getSummer()==1){
+                        time += " &summer";
+                    }
+                }
+                else if(course.getSpring()==1){
+                    time = "year " + year + " spring";
+                    if(course.getAutumn()==1){
+                        time += " &autumn";
+                    }
+                    if(course.getSummer()==1){
+                        time += " &summer";
+                    }
+                }
+                else if(course.getSummer()==1){
+                    time = "year " + year + " summer";
+                    if(course.getSpring()==1){
+                        time += " &spring";
+                    }
+                    if(course.getAutumn()==1){
+                        time += " &autumn";
+                    }
+                }
+                else{
+                    time = "year " + year;
+                }
+                label = new Label(4,23+len1+len2+len3+i, time);
+                ws.addCell(label);
+                label = new Label(5, 23+len1+len2+len3+i, course.getXianxiu());
+                ws.addCell(label);
+            }
 
             wwb.write();
             wwb.close();
