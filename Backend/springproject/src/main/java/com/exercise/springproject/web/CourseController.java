@@ -48,6 +48,7 @@ public class CourseController {
             int de = now.getDepartment();
             Department dep = departmentService.findDepartmentById(de);
             temp.put("department", dep.getChineseName());
+            temp.put("xianxiu", now.getXianxiu());
             /*
             List<Xianxiu_condition> xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse());
             if(xianxiu.size()>0){
@@ -58,7 +59,6 @@ public class CourseController {
             }
 
              */
-            temp.put("xianxiu", now.getXianxiu());
 //            graduate_condition gra = graduateService.findgraduate_conditionByIdCourse(now.getIdCourse()).get(0);
 //            temp.put("tihuan", gra.getConditionString());
             reply.add(temp);
@@ -83,6 +83,7 @@ public class CourseController {
             temp.put("englishName", now.getEnglishName());
             temp.put("year", now.getNian());
             temp.put("department", now.getDepartment_name());
+            temp.put("xianxiu", now.getXianxiu());
             //List<Xianxiu_condition> xianxiu = xianxiuService.findXianxiu_conditionByIdCourse(now.getIdCourse());
             /*
             if(xianxiu.size()>0){
@@ -93,14 +94,13 @@ public class CourseController {
             }
 
              */
-            temp.put("xianxiu", now.getXianxiu());
 
 //            graduate_condition gra = graduateService.findgraduate_conditionByIdCourse(now.getIdCourse()).get(0);
 //            temp.put("tihuan", gra.getConditionString());
         return temp;
     }
 
-    @PostMapping("/newCourse")
+    @PostMapping("/newcourse")
     @ResponseBody
     public String saveCourse(@RequestBody Map<String, Object> json_map){
             Course newcourse = new Course();
@@ -110,6 +110,7 @@ public class CourseController {
             newcourse.setIntro((String) json_map.get("intro"));
             System.out.println(newcourse.getIntro());
             newcourse.setCredit((int) json_map.get("credit"));
+            newcourse.setXianxiu((String) json_map.get("xianxiu"));
             int s = (int) json_map.get("summer");
             newcourse.setSummer((byte) s);
             int sp = (int) json_map.get("spring");
@@ -139,11 +140,13 @@ public class CourseController {
             }
     }
 
-    @PostMapping("/editCourse")
+    @PostMapping("/editcourse")
     @ResponseBody
     public String editcourse(@RequestBody Map<String, Object> json_map){
         int id = (Integer) json_map.get("course_id");
         Course search = courseService.findCourseById(id);
+        if(search == null)
+            return "fail";
         courseService.deleteCourseById(id);
         search.setChineseName((String) json_map.get("chinese_name"));
         search.setBianHao((String) json_map.get("code"));
@@ -152,6 +155,7 @@ public class CourseController {
         search.setSummer((Byte) json_map.get("summer"));
         search.setSpring((Byte) json_map.get("spring"));
         search.setAutumn((Byte) json_map.get("autumn"));
+        search.setXianxiu((String) json_map.get("xianxiu"));
         search.setEnglishName((String) json_map.get("english_name"));
         String nian = (String) json_map.get("year");
         if(nian.equals("大一")){
