@@ -112,6 +112,8 @@ new Vue({
 
         updateModal: function(id, index) {
             this.isAdd = false;
+            this.isDeleteAnswer = false;
+            this.isDeleteQuestion = false;
             this.answerQuestionId = id;
             this.answerQuestionIndex = index;
             this.modalTitle = "修改回答";
@@ -123,6 +125,8 @@ new Vue({
 
         addModal: function (id, index) {
             this.isAdd = true;
+            this.isDeleteAnswer = false;
+            this.isDeleteQuestion = false;
             this.answerQuestionId = id;
             this.answerQuestionIndex = index;
             this.modalTitle = "添加回答";
@@ -151,20 +155,21 @@ new Vue({
         },
 
         deleteAnswer: function () {
-            var id = this.answerQuestionId;
-            var index = this.answerQuestionIndex;
-            this.answerQuestionId = -1;
-            this.answerQuestionIndex = -1;
+            this.loading = true
             axios
                 .post('/QandA_admin/deleteAnswer',
-                    {userId: this.userId,
-                        questionId: id
+                    {
+                        userId: this.userId,
+                        questionID: this.answerQuestionId
                     })
                 .then(response => {
-                    if (response.state === "success"){
-
-                    }else if (response.state === "fail"){
-
+                    if (response.data.state === "success"){
+                        console.log(response)
+                        this.questions = response.data.questions
+                        console.log(this.questions)
+                        alert("删除回答成功")
+                    }else if (response.data.state === "fail"){
+                        alert("删除回答失败")
                     }
                     console.log(response)
                 })
@@ -174,24 +179,26 @@ new Vue({
                 })
                 .finally(() => {
                     this.loading = false;
-                    console.log(this.loading)
+                    $('#updateModal').modal('hide')
                 })
 
-            this.isDeleteAnswer = false;
+
         },
 
         deleteQuestion: function (questionId, index) {
             this.loading = true;
-            id = this.answerQuestionId;
-            index = this.answerQuestionIndex;
-            this.answerQuestionId = -1;
-            this.answerQuestionIndex = -1;
+
             axios
-                .post('/QandA_student/deleteQuestion', {})
+                .post('/QandA_student/deleteQuestion',
+                    {
+                        userId: this.userId,
+                        questionID: this.answerQuestionId
+                    })
                 .then(response => {
-                    if (response.states === "success"){
+                    if (response.data.state === "success"){
                         // put questions[index] as empty
-                    }else if (response.states === "fail"){
+                        this.questions = response.data.questions
+                    }else if (response.data.states === "fail"){
                         alert("删除失败")
                     }
                     console.log(response)
@@ -202,10 +209,10 @@ new Vue({
                 })
                 .finally(() => {
                     this.loading = false;
-                    console.log(this.loading)
+                    $('#updateModal').modal('hide')
                 })
 
-            this.isDeleteQuestion = false;
+
         },
 
         clearIndexAndId: function () {

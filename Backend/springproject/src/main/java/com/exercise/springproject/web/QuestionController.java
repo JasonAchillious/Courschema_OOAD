@@ -323,6 +323,7 @@ public class QuestionController {
         //有此answer的question先改
         //再删除answer
         int qId = (int) json.get("questionID");
+        System.out.println((int) json.get("questionID"));
         int aId = questionService.findQuestionById(qId).getAnswerId();
         Map<String, Object> reply = new HashMap<>();
         try {

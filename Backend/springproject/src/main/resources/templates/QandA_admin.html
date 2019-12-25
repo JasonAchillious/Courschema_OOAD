@@ -84,11 +84,18 @@
 
                     <div v-else>
                         <table>
-
+                            <tr>
+                                <th>
                             <button @click="addModal(questions[index].questionId)" class="btn btn-primary btn-sm"
                                     type="button"> 回答
                             </button>
 
+                            <th>
+                                <button @click="deleteQuestionModal(questions[index].questionId, index)" class="btn btn-primary btn-sm"
+                                        type="button">删除问题
+                                </button>
+                            </th>
+                            </tr>
                         </table>
                     </div>
 
