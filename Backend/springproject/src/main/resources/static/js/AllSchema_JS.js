@@ -1,7 +1,6 @@
 data = [];
 WATCH = 'watch';
 EDIT = 'edit';
-count = 0;
 function item(_name, _year, _dept, _major, _foreign, _type, _id,_check){
     this.name = _name;
     this.year = _year;
@@ -13,13 +12,39 @@ function item(_name, _year, _dept, _major, _foreign, _type, _id,_check){
     this.id = _id;
 }
 function editURL(id,type) {
+    var u_id = getUrlParam('param');
     var url = '';
     if(type == WATCH)
-        url = '<a href="/courschemaEdit?id='+id+'&edit=false">查看</a>';
+        url = '<a href="/courschemaWatch?id='+id+'&uid='+u_id+'">查看</a>';
     else if(type == EDIT)
-        url = '<a href="/courschemaEdit?id='+id+'&edit=true">编辑</a>';
+        url = '<a href="/courschemaEdit?id='+id+'&uid='+u_id+'">编辑</a>';
 
     return url;
+}
+
+function editPress(){
+    var text = $('.edit').text();
+    if(text == '编辑') {
+        alert("编辑");
+        for (var i = 0; i < data.length; i++) {
+            data[i].check = editURL(data[i].id, EDIT);
+            console.log(data[i].check);
+        }
+        $('#schematable').bootstrapTable('destroy');
+        loadtable.generateTable(data);
+        $('.edit').text("查看")
+
+    }
+    else{
+        alert("查看");
+        for (var i = 0; i < data.length; i++) {
+            data[i].check = editURL(data[i].id, WATCH);
+        }
+        $('#schematable').bootstrapTable('destroy');
+        loadtable.generateTable(data);
+        $('.edit').text("编辑");
+    }
+
 }
 
 function getData()
@@ -31,7 +56,7 @@ function getData()
             // data: data,//json
             contentType: 'application/json',
             dataType: 'json',
-            async: false,
+            // async: t,
             url: '/allschema',
             success: function (reply) {
                 console.log(JSON.stringify(reply));
@@ -41,13 +66,24 @@ function getData()
                     var temp = new item(ele.name,ele.year,ele.dept,ele.major,ele.foreign,ele.type,ele.id);
                     temp.check = editURL(ele.id,WATCH);
                     data.push(temp);
+                    console.log("data push")
                 }
+                loadtable.generateTable(data);
             },
             error: function (reply) {
                 alert("error")
             }
         }
     );
+}
+
+function modifyAction() {
+    var uid = getUrlParam('param');
+    if(uid[0] == '1')
+    {
+        alert('remove');
+        $('.CTAs').remove();
+    }
 }
 
 var loadtable = {
@@ -77,11 +113,10 @@ var loadtable = {
 
 
 load: function () {
+        //check id
+        modifyAction();
         getData();
-        if(count == 0) {
-            count ++;
-            loadtable.generateTable(data);
-        }
+
     },
 generateTable: function (data) {
     $('#schematable').bootstrapTable({
@@ -101,35 +136,4 @@ generateTable: function (data) {
 }
 
 };
-
-function editPress(){
-    var text = $('.edit').text();
-    if(text == '编辑') {
-        alert("编辑");
-        for (var i = 0; i < data.length; i++) {
-            data[i].check = editURL(data[i].id, EDIT);
-            console.log(data[i].check);
-        }
-        alert(data);
-        loadtable.generateTable(data);
-        // $('#schematable').bootstrapTable('refresh');
-        $('#schematable').bootstrapTable('getOptions');
-        $('.edit').text("查看")
-
-    }
-    else{
-        alert("查看")
-        for (var i = 0; i < data.length; i++) {
-            data[i].check = editURL(data[i].id, WATCH);
-        }
-        alert(data);
-        loadtable.generateTable(data);
-        // $('#schematable').bootstrapTable('refresh');
-        $('#schematable').bootstrapTable('getOptions');
-        $('.edit').text("编辑")
-
-    }
-
-}
-
 $(document).ready(loadtable.load);

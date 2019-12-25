@@ -29,6 +29,11 @@ function Schema(data) {
 
 }
 
+function back() {
+    var uid = getUrlParam('uid');
+    location.href="/AllSchema?param="+uid;
+}
+
 function store_course(type,course) {
     alert("store");
     switch (type) {
@@ -227,7 +232,9 @@ function initCourse() {
     loadInfo();
 }
 
+
 function loadInfo() {
+    var info_data = {};
     $.ajax(
         {
             type: 'POST',
@@ -238,13 +245,26 @@ function loadInfo() {
             success:function (reply) {
                 //reply 是 schemaedit 对象
                 console.log(JSON.stringify(reply));
-
+                info_data.schema_name = reply.chineseName;
+                info_data.year = reply.year;
+                info_data.department = reply.department;
+                info_data.major = reply.major;
+                info_data.HU_elec = reply.HU_elec;
+                info_data.SS_elec = reply.SS_elec;
+                info_data.AR_elec = reply.AR_elec;
+                info_data.major_elec = reply.major_elec;
+                info_data.foreign = reply.foreign==1?"是":"否";
+                info_data.one_plus3 = reply.one_plus3==1?"1+3培养":"2+2培养";
+                info_data.intro = reply.intro;
+                util.fillFormData("#data",info_data)
             },
             error: function () {
                 alert("load info error");
             }
         }
     )
+
+
 
 }
 
@@ -358,9 +378,17 @@ var loadcourse = {
 
     }
 };
+function search(){
+    $('#search').on("keyup", function() {
+        var value = $(this).val();
+        $("#All_Major .draggable").filter(function() {
+            $(this).toggle($(this).text().indexOf(value) > -1)
+        });
+});
+};
 
-
-
+$(document).ready(search);
 $(document).ready(initCourse);
 $(document).ready(loadcourse.load);
 $(document).ready(dragFrame.ready);
+

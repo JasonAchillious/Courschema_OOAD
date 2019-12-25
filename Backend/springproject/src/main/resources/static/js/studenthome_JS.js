@@ -43,11 +43,12 @@ function makeHTML(name,intro,cid) {
     // if (intro.length > 30){
     //     breifIntro = intro.substring(0,30);
     // }
+    var uid=getUrlParam('param');
 
     var template = "<td>\n" +
                    "  <div class=\"card text-white bg-primary mb-3 major\" style=\"max-width: 20rem;\">\n" +
                    "    <div class=\"card-header\">\n" +
-                   "      <a href='courschemaEdit?id="+cid+"&edit=false'>查看详情</a>\n"+
+                   "      <a href='courschemaWatch?id="+cid+"&uid="+uid+"'>查看详情</a>\n"+
                    "    </div>\n" +
                    "    <div class=\"card-body\">\n" +
                    "       <h4 class=\"card-title\">"+name+"</h4>\n" +
