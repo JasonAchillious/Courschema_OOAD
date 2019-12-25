@@ -397,6 +397,11 @@ public class StudentController{
         return "Schema_Watch";
     }
 
+    @GetMapping("/course_student")
+    public String course(){
+        return "course_student";
+    }
+
 //    @PostMapping("/Watch")
 //    public String watch(RedirectAttributes attributes){
 //        return "redirect:/courschmaWatch";}
