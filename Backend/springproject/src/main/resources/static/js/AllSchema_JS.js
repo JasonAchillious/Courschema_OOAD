@@ -25,7 +25,6 @@ function editURL(id,type) {
 function editPress(){
     var text = $('.edit').text();
     if(text == '编辑') {
-        alert("编辑");
         for (var i = 0; i < data.length; i++) {
             data[i].check = editURL(data[i].id, EDIT);
             console.log(data[i].check);
@@ -36,7 +35,6 @@ function editPress(){
 
     }
     else{
-        alert("查看");
         for (var i = 0; i < data.length; i++) {
             data[i].check = editURL(data[i].id, WATCH);
         }
@@ -81,7 +79,6 @@ function modifyAction() {
     var uid = getUrlParam('param');
     if(uid[0] == '1')
     {
-        alert('remove');
         $('.CTAs').remove();
     }
 }
