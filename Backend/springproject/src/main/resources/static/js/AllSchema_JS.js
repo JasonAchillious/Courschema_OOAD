@@ -13,11 +13,12 @@ function item(_name, _year, _dept, _major, _foreign, _type, _id,_check){
     this.id = _id;
 }
 function editURL(id,type) {
+    var u_id = getUrlParam('param');
     var url = '';
     if(type == WATCH)
-        url = '<a href="/courschemaEdit?id='+id+'&edit=false">查看</a>';
+        url = '<a href="/courschemaEdit?id='+id+'&uid='+u_id+'">查看</a>';
     else if(type == EDIT)
-        url = '<a href="/courschemaEdit?id='+id+'&edit=true">编辑</a>';
+        url = '<a href="/courschemaWatch?id='+id+'&uid='+u_id+'">编辑</a>';
 
     return url;
 }
