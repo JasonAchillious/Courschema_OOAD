@@ -23,6 +23,7 @@ var load = {
                 //修改主页显示信息
                 $("a#user_infor").text(response.name+','+uid);
                 $("p#major_info").text(response.department+": "+response.major);
+                modifyCollect(response.list)
 
 
             },
@@ -33,12 +34,24 @@ var load = {
     }
 };
 
+function makeRow(place) {
+    $('#collection').append('<tr id="'+place+'"></tr>');
+}
+function addColoum(row,content) {
+    console.log(content.name);
+    console.log(content.intro);
+    console.log(content.c_id);
+}
+
 function modifyCollect(list){
-    row = Math.ceil(list.length/3);
-    // for(var i = 0;i < row; i++)
-    // {
-    //
-    // }
+
+    for(var i = 0;i<list.length; i++)
+    {
+        row = Math.ceil((i+1)/3);
+        makeRow(row);
+        addColoum(row,list[i]);
+
+    }
 
 }
 $(document).ready(load.ready);

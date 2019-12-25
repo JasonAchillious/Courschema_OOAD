@@ -130,7 +130,6 @@ function makeForm(data) {
     form.HU_elec = data.HU_elec;
     form.SS_elec = data.SS_elec;
     form.AR_elec = data.AR_elec;
-
 }
 function setSeason(course) {
     var season_str = '';
