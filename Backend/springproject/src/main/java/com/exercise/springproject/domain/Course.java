@@ -36,6 +36,8 @@ public class Course {
     }
 
 
+    @Basic
+    @Column(name = "YuYan")
     public void setYuyan(String y){
         this.yuyan = y;
     }
@@ -164,7 +166,7 @@ public class Course {
     }
 
     @Basic
-    @Column(name = "department_name")
+    @Column(name = "Department_name")
     public String getDepartment_name() {
         return department_name;
     }
@@ -180,7 +182,7 @@ public class Course {
     }
 
     public void setXianxiu(String xianxiu) {
-        this.department_name = xianxiu;
+        this.xianxiu = xianxiu;
     }
 
     @Override

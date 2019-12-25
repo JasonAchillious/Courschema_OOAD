@@ -14,27 +14,30 @@ import java.util.Map;
 @RestController
 public class RedirectController {
 
-    @PostMapping("/redirectFunction")
-    @ResponseBody
-    public String redirect(@RequestBody Map<String, Object> json, RedirectAttributes attributes){
-        String url = (String) json.get("url");
-        int pa = (int) json.get("param");
-        re(url,pa,attributes);
-        return "success";
-    }
+//    @PostMapping("/redirectFunction")
+//    @ResponseBody
+//    public String redirect(@RequestBody Map<String, Object> json, RedirectAttributes attributes){
+//        String url = (String) json.get("url");
+//        int pa = (int) json.get("param");
+//        re(url,pa,attributes);
+//        return "success";
+//    }
+//
+//    public RedirectView re(String url, int param, RedirectAttributes attributes){
+//        RedirectView redirectTarget = new RedirectView();
+//        redirectTarget.setContextRelative(true);
+//        redirectTarget.setUrl(url);
+//        attributes.addAttribute(param);
+//        System.out.println(redirectTarget);
+//        return redirectTarget;
+//    }
+//
+//    @RequestMapping("/foo")
+//    void handleFoo(HttpServletResponse response) throws IOException {
+//        response.sendRedirect("some-url");
+//    }
 
-    public RedirectView re(String url, int param, RedirectAttributes attributes){
-        RedirectView redirectTarget = new RedirectView();
-        redirectTarget.setContextRelative(true);
-        redirectTarget.setUrl(url);
-        attributes.addAttribute(param);
-        System.out.println(redirectTarget);
-        return redirectTarget;
-    }
-
-    @RequestMapping("/foo")
-    void handleFoo(HttpServletResponse response) throws IOException {
-        response.sendRedirect("some-url");
-    }
-
+    @GetMapping("/courschemaWatch")
+    public String watch(){return "Courschema_Watch";}
+    
 }

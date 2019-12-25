@@ -188,7 +188,7 @@ public class ClassificationController {
         reply.setId(schema_id);
 
         List<Map> political = new ArrayList<Map>();
-        List<Integer> p = findPoliticalCourse(schema_id);
+        List<Integer> p = classificationService.findPoliticalCourse(schema_id);
         for(int tmp: p){
             Map<String, Object> temp = new HashMap<>();
             Course now = courseService.findCourseById(tmp);
