@@ -140,7 +140,7 @@ function save(){
         url: '/exex/saveCollect',
         success: function (reply) {
 
-            console.log(JSON.stringify(reply));
+            alert("success")
 
         },
         error: function (response) {

@@ -37,18 +37,51 @@ var load = {
 function makeRow(place) {
     $('#collection').append('<tr id="'+place+'"></tr>');
 }
+
+function makeHTML(name,intro,cid) {
+    var breifIntro = intro;
+    // if (intro.length > 30){
+    //     breifIntro = intro.substring(0,30);
+    // }
+
+    var template = "<td>\n" +
+                   "  <div class=\"card text-white bg-primary mb-3 major\" style=\"max-width: 20rem;\">\n" +
+                   "    <div class=\"card-header\">\n" +
+                   "      <a href='courschemaEdit?id="+cid+"&edit=false'>查看详情</a>\n"+
+                   "    </div>\n" +
+                   "    <div class=\"card-body\">\n" +
+                   "       <h4 class=\"card-title\">"+name+"</h4>\n" +
+                   "       <p class=\"card-text\">"+breifIntro+"</p>\n" +
+                   "    </div>\n" +
+                   "  </div>\n" +
+                   "</td>";
+
+    return template
+
+}
+
 function addColoum(row,content) {
+
+    var url = 'todo';
+
     console.log(content.name);
     console.log(content.intro);
-    console.log(content.c_id);
+    console.log(content.cid);
+    var html_content = makeHTML(content.name,content.intro,content.cid);
+    $('#'+row).append(html_content);
+    console.log("append on row:"+row+"\n"+html_content);
+
 }
 
 function modifyCollect(list){
 
+    var rows = Math.ceil(list.length/3);
+    for(var i = 1;i <= rows;i ++)
+        makeRow(i);
+
     for(var i = 0;i<list.length; i++)
     {
         row = Math.ceil((i+1)/3);
-        makeRow(row);
         addColoum(row,list[i]);
 
     }
