@@ -279,8 +279,10 @@ public class CourschemasController {
         return courschemasService.findCourschemaName(chinese_name);
     }
 
-    @PostMapping("downloadCourschemas")
-    public void downloadCourschema(@RequestParam int idCourschema) throws IOException {
+    @PostMapping(value="/downloadCourschemas")
+    @ResponseBody
+    public void downloadCourschema(@RequestBody int idCourschema) throws IOException {
+        System.out.println("download");
         courschemas  courschema= courschemasService.findcourschemasById(idCourschema);
         String path = "D:/" + courschema.getChineseName() + ".xls";
         WritableFont fontTitle = new WritableFont(WritableFont.createFont("宋体"), 12, WritableFont.NO_BOLD);
