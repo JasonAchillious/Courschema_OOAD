@@ -392,6 +392,15 @@ public class StudentController{
     @GetMapping(value = "/QandA_admin")
     public String QandAadmin(RedirectAttributes attributes){return  "QandA_admin";}
 
+    @GetMapping("/courschemaWatch")
+    public String watch(){
+        return "Schema_Watch";
+    }
+
+//    @PostMapping("/Watch")
+//    public String watch(RedirectAttributes attributes){
+//        return "redirect:/courschmaWatch";}
+
 //    @PostMapping(value = "/course_admin")
 //    public String coursePageAdmin(RedirectAttributes attributes){
 //        return "redirect:/course_admin";
