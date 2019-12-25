@@ -35,4 +35,9 @@ public class AnswerServiceImpl implements AnswerService {
     public answer findAnswerByAnswerId(int id) {
         return answerRepository.findAnswerByAnswerId(id);
     }
+
+    @Override
+    public void deleteByAnswerByQuestion(int id) {
+        answerRepository.deleteByAnswerByQuestion(id);
+    }
 }

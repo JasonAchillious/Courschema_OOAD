@@ -12,4 +12,5 @@ public interface AnswerService {
     public void deleteById(int id);
     public List<answer> findAnswerByQuestionid(int questionId);
     public answer findAnswerByAnswerId(int id);
+    public void deleteByAnswerByQuestion(int id);
 }

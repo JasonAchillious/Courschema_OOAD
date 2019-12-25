@@ -18,4 +18,9 @@ public interface QuestionRepository extends JpaRepository<question, Integer> {
     @Transactional
     @Query(value = "UPDATE answer SET adminid=?2, content=?3, answerDate=?4 WHERE ansid=?1")
     void update(int id, int adminid, String c, String time);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update question set hasAnswer=0, answerId=0 where answerId=?1")
+    void deleteQuestionByAnswer(int id);
 }

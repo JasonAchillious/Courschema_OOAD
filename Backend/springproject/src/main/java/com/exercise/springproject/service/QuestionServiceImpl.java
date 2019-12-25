@@ -41,4 +41,9 @@ public class QuestionServiceImpl implements QuestionService{
     public void update(int id, int adminid, String content, String time) {
         questionRepository.update(id, adminid, content, time);
     }
+
+    @Override
+    public void deleteQuestionByAnswer(int aId) {
+         questionRepository.deleteQuestionByAnswer(aId);
+    }
 }

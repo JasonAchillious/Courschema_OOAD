@@ -66,7 +66,7 @@ new Vue({
             if (this.adminId === -1) {
                 alert("非管理员请勿操作")
             } else if (this.answerContent != null &&
-                this.answerContent != 0 &&
+                this.answerContent !== 0 &&
                 this.answerContent.replace(/(^s*)|(s*$)/g, "").length !== 0 &&
                 !(this.isNull(this.answerContent))) {
                 console.log(url)
@@ -187,7 +187,7 @@ new Vue({
             this.answerQuestionId = -1;
             this.answerQuestionIndex = -1;
             axios
-                .post('/QandA_student/deleteQuestions', {})
+                .post('/QandA_student/deleteQuestion', {})
                 .then(response => {
                     if (response.states === "success"){
                         // put questions[index] as empty

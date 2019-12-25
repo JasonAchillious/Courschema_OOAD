@@ -269,12 +269,15 @@ public class QuestionController {
 
     }
 
-    @PostMapping("/QandA_student/deleteQuestions")
+    @PostMapping("/QandA_student/deleteQuestion")
     @ResponseBody
     public Map<String, Object> deleteQ(@RequestBody Map<String, Object> json){
+        //删answer with this question id
+        //删question
         int qId = (int) json.get("questionID");
         Map<String, Object> reply = new HashMap<>();
         try {
+            answerService.deleteByAnswerByQuestion(qId);
             questionService.deleteById(qId);
             reply.put("state", "success");
         }catch(Exception e){
@@ -317,17 +320,18 @@ public class QuestionController {
     @PostMapping("/QandA_admin/deleteAnswer")
     @ResponseBody
     public Map<String, Object> deleteA(@RequestBody Map<String, Object> json){
+        //有此answer的question先改
+        //再删除answer
         int qId = (int) json.get("questionID");
+        int aId = questionService.findQuestionById(qId).getAnswerId();
         Map<String, Object> reply = new HashMap<>();
         try {
-            question q = questionService.findQuestionById(qId);
-            q.setHasAnswer((byte)0);
-            questionService.deleteById(qId);
-            questionService.save(q);
+            questionService.deleteQuestionByAnswer(aId);
             reply.put("state", "success");
         }catch(Exception e){
             reply.put("state", "fail");
         }
+        answerService.deleteById(aId);
         List<question> question = questionService.findAll();
         List<Map> array = new ArrayList();
         for(question q: question){
