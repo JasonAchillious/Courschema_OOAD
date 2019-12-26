@@ -294,9 +294,9 @@
 
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <label class="col-form-label" for="department">所属院系 {{updateDepartments}}</label>
+                                    <label class="col-form-label" for="department">所属院系 {{updateDepartment}}</label>
                                     <input class="form-control" id="department" name="department" placeholder="输入院系"
-                                           type="text" v-model="updateDepartments">
+                                           type="text" v-model="updateDepartment">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="year">建议修读学年 {{updateYear}}</label>
@@ -357,12 +357,12 @@
                     <div class="modal-footer">
                         <button class="btn btn-default" data-dismiss="modal" type="button">关闭</button>
                         <div v-if="isUpdate">
-                            <button class="btn btn-primary" data-dismiss="modal" onclick="updateCourse()" type="button">
+                            <button @click="updateCourse()" class="btn btn-primary" data-dismiss="modal" type="button">
                                 修改课程
                             </button>
                         </div>
                         <div v-else>
-                            <button class="btn btn-primary" data-dismiss="modal" onclick="updateCourse()" type="button">
+                            <button @click="updateCourse()" class="btn btn-primary" data-dismiss="modal" type="button">
                                 添加课程
                             </button>
                         </div>

@@ -37,7 +37,7 @@ new Vue({
         updateSummer: false,
         updateRequirement: "",
         updateYear: "大一",
-        updateDepartments: "",
+        updateDepartment: "",
         updateEnglishName: "",
 
     },
@@ -86,7 +86,7 @@ new Vue({
                     break;
                 case 4:
                     _year = "大四";
-
+                    break;
                 default:
                     _year = " ";
             }
@@ -167,6 +167,7 @@ new Vue({
                     xianxiu: this.updateRequirement,
                     english_name: this.updateEnglishName,
                     year: this.updateYear,
+                    department: this.updateDepartment
                 }
             } else {
                 url = "/newcourse";
@@ -181,15 +182,16 @@ new Vue({
                     xianxiu: this.updateRequirement,
                     english_name: this.updateEnglishName,
                     year: this.updateYear,
+                    department: this.updateDepartment
                 }
             }
             axios
                 .post(url,
                     content)
                 .then(response => {
-                    if (response.state === "success") {
+                    if (response.data.state === "success") {
                         alert("添加成功")
-                    } else if (response.state === "fail") {
+                    } else if (response.data.state === "fail") {
                         alert("添加失败")
                     } else {
                         alert("后端的锅：请找后端相关人员")

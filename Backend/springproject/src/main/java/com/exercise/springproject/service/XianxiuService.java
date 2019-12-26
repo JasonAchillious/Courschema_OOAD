@@ -14,4 +14,5 @@ public interface XianxiuService {
     public Xianxiu_condition findXianxiu_conditionByIdCourseAndCourschema(int course, int schema);
     public Xianxiu_condition save(Xianxiu_condition con);
     public void deleteXianxiuCondition(int course, int courschema);
+    public void deleteXianxiuConditionByCourseid(int idCourse);
 }

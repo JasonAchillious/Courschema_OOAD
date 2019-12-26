@@ -22,4 +22,9 @@ public interface GraduationRepository extends JpaRepository<graduate_condition, 
     @Transactional
     @Query("delete from graduate_condition where idCourse=?1 and courschema=?2")
     public void deletegraduate_condition(int course, int courschema);
+
+    @Modifying
+    @Transactional
+    @Query("delete from graduate_condition where idCourse=?1")
+    public void deletegraduate_conditionByCourseid(int courseid);
 }

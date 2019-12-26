@@ -17,4 +17,5 @@ public interface ClassificationService {
     public List<Integer> findTypeTonCourse(int courschema);
     public List<Integer> findTypeXuanXiuCourse(int courschema);
     public List<Integer> findPoliticalCourse( int courschema);
+    public void deleteClassificationByCourseid(int courseid);
 }

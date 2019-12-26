@@ -1,10 +1,7 @@
 package com.exercise.springproject.web;
 
 import com.exercise.springproject.domain.*;
-import com.exercise.springproject.service.CourseService;
-import com.exercise.springproject.service.DepartmentService;
-import com.exercise.springproject.service.GraduateService;
-import com.exercise.springproject.service.XianxiuService;
+import com.exercise.springproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +19,8 @@ public class CourseController {
     private XianxiuService xianxiuService;
     @Autowired
     private GraduateService graduateService;
+    @Autowired
+    private ClassificationService classificationService;
 
     @GetMapping("/recordCourse")
     public List<Course> findAllCourse(){
@@ -101,7 +100,7 @@ public class CourseController {
 
     @PostMapping("/newcourse")
     @ResponseBody
-    public String saveCourse(@RequestBody Map<String, Object> json_map){
+    public Map saveCourse(@RequestBody Map<String, Object> json_map){
             Course newcourse = new Course();
             newcourse.setChineseName((String) json_map.get("chinese_name"));
             System.out.println(json_map.get("code"));
@@ -110,12 +109,21 @@ public class CourseController {
             System.out.println(newcourse.getIntro());
             newcourse.setCredit((int) json_map.get("credit"));
             newcourse.setXianxiu((String) json_map.get("xianxiu"));
-            int s = (int) json_map.get("summer");
-            newcourse.setSummer((byte) s);
-            int sp = (int) json_map.get("spring");
-            newcourse.setSpring((byte) sp);
-            int a  = (int) json_map.get("autumn");
-            newcourse.setAutumn((byte) a);
+            boolean s = (boolean) json_map.get("summer");
+            if(s)
+                newcourse.setSummer((byte) 1);
+            else
+                newcourse.setSummer((byte) 0);
+            boolean sp = (boolean) json_map.get("spring");
+            if(sp)
+                newcourse.setSpring((byte) 1);
+            else
+                newcourse.setSpring((byte)0);
+            boolean a  = (boolean) json_map.get("autumn");
+            if(a)
+                newcourse.setAutumn((byte) 1);
+            else
+                newcourse.setAutumn((byte) 0);
             newcourse.setEnglishName((String) json_map.get("english_name"));
             String nian = (String) json_map.get("year");
             if(nian.equals("大一")){
@@ -130,24 +138,34 @@ public class CourseController {
             newcourse.setWeektime(0);
             newcourse.setExperiment(0);
             String depart = (String) json_map.get("department");
+             System.out.println("depart");
+            System.out.println(depart);
             Department de = departmentService.findDepartmentByName(depart);
             newcourse.setDepartment(de.getIdDepartment());
             newcourse.setDepartment_name(depart);
+            Map<String, Object> reply = new HashMap<>();
             try{
                 courseService.save(newcourse);
-                return "success";
+                reply.put("state","success");
+                reply.put("course_id", newcourse.getIdCourse());
+                System.out.println("newcourse.getIdCourse()");
+                System.out.println(newcourse.getIdCourse());
             }catch(Exception e){
-                return "fail";
+                reply.put("state", "fail");
             }
+            return reply;
     }
 
     @PostMapping("/editcourse")
     @ResponseBody
-    public String editcourse(@RequestBody Map<String, Object> json_map){
+    public Map editcourse(@RequestBody Map<String, Object> json_map){
         int id = (Integer) json_map.get("course_id");
         Course search = courseService.findCourseById(id);
-        if(search == null)
-            return "fail";
+        Map<String, Object> reply = new HashMap<>();
+        if(search == null) {
+            reply.put("state", "fail");
+            return reply;
+        }
         int n = 0;
         String nian = (String) json_map.get("year");
         switch (nian) {
@@ -169,33 +187,23 @@ public class CourseController {
         courseService.editCourse(id,(String) json_map.get("chinese_name"),(String) json_map.get("code"),(String) json_map.get("intro"),
         (Double) json_map.get("credit"),(Byte) json_map.get("summer"),(Byte) json_map.get("spring"),(Byte) json_map.get("autumn"),
                 (String) json_map.get("xianxiu"), (String) json_map.get("english_name"),n, depart, de.getIdDepartment(), 0, 0);
-//        search.setChineseName((String) json_map.get("chinese_name"));
-//        search.setBianHao((String) json_map.get("code"));
-//        search.setIntro((String) json_map.get("intro"));
-//        search.setCredit((Double) json_map.get("credit"));
-//        search.setSummer((Byte) json_map.get("summer"));
-//        search.setSpring((Byte) json_map.get("spring"));
-//        search.setAutumn((Byte) json_map.get("autumn"));
-//        search.setXianxiu((String) json_map.get("xianxiu"));
-//        search.setEnglishName((String) json_map.get("english_name"));
-//        String nian = (String) json_map.get("year");
-//        if(nian.equals("大一")){
-//            search.setNian(1);
-//        }else if(nian.equals("大二")){
-//            search.setNian(2);
-//        }else if(nian.equals("大三")){
-//            search.setNian(3);
-//        }else{
-//            search.setNian(4);
-//        }
-//
 
-        try{
-            courseService.save(search);
-            return "success";
-        }catch(Exception e){
-            return "fail";
-        }
+        reply.put("state", "success");
+        return reply;
+    }
+
+    @PostMapping("/deletecourse")
+    @ResponseBody
+    public Map deletecourse(@RequestBody Map<String, Object> json_map){
+        int courseid = (int) json_map.get("course_id");
+        xianxiuService.deleteXianxiuConditionByCourseid(courseid);
+        graduateService.deletegraduate_conditionByCourseid(courseid);
+        classificationService.deleteClassificationByCourseid(courseid);
+        courseService.deleteCourseById(courseid);
+
+        Map<String, Object> reply = new HashMap<>();
+        reply.put("state", "success");
+        return reply;
     }
 
     @PostMapping("editXianxiu")
@@ -266,7 +274,7 @@ public class CourseController {
                          @RequestParam String englishName,
                          @RequestParam int year){
         Course course = new Course();
-        course.setIdCourse(idCourse);
+      //
         course.setAutumn(autumn);
         course.setChineseName(chineseName);
         course.setBianHao(code);
