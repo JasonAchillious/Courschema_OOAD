@@ -127,10 +127,12 @@ public class CourseController {
             }else{
                 newcourse.setNian(4);
             }
-           // temp.put("idCourse", now.getIdCourse());
+            newcourse.setWeektime(0);
+            newcourse.setExperiment(0);
             String depart = (String) json_map.get("department");
             Department de = departmentService.findDepartmentByName(depart);
             newcourse.setDepartment(de.getIdDepartment());
+            newcourse.setDepartment_name(depart);
             try{
                 courseService.save(newcourse);
                 return "success";
@@ -146,30 +148,47 @@ public class CourseController {
         Course search = courseService.findCourseById(id);
         if(search == null)
             return "fail";
-        courseService.deleteCourseById(id);
-        search.setChineseName((String) json_map.get("chinese_name"));
-        search.setBianHao((String) json_map.get("code"));
-        search.setIntro((String) json_map.get("intro"));
-        search.setCredit((Double) json_map.get("credit"));
-        search.setSummer((Byte) json_map.get("summer"));
-        search.setSpring((Byte) json_map.get("spring"));
-        search.setAutumn((Byte) json_map.get("autumn"));
-        search.setXianxiu((String) json_map.get("xianxiu"));
-        search.setEnglishName((String) json_map.get("english_name"));
+        int n = 0;
         String nian = (String) json_map.get("year");
-        if(nian.equals("大一")){
-            search.setNian(1);
-        }else if(nian.equals("大二")){
-            search.setNian(2);
-        }else if(nian.equals("大三")){
-            search.setNian(3);
-        }else{
-            search.setNian(4);
+        switch (nian) {
+            case "大一":
+                n = 1;
+                break;
+            case "大二":
+                n = 2;
+                break;
+            case "大三":
+                n = 3;
+                break;
+            default:
+                n = 4;
+                break;
         }
-        // temp.put("idCourse", now.getIdCourse());
         String depart = (String) json_map.get("department");
         Department de = departmentService.findDepartmentByName(depart);
-        search.setDepartment(de.getIdDepartment());
+        courseService.editCourse(id,(String) json_map.get("chinese_name"),(String) json_map.get("code"),(String) json_map.get("intro"),
+        (Double) json_map.get("credit"),(Byte) json_map.get("summer"),(Byte) json_map.get("spring"),(Byte) json_map.get("autumn"),
+                (String) json_map.get("xianxiu"), (String) json_map.get("english_name"),n, depart, de.getIdDepartment(), 0, 0);
+//        search.setChineseName((String) json_map.get("chinese_name"));
+//        search.setBianHao((String) json_map.get("code"));
+//        search.setIntro((String) json_map.get("intro"));
+//        search.setCredit((Double) json_map.get("credit"));
+//        search.setSummer((Byte) json_map.get("summer"));
+//        search.setSpring((Byte) json_map.get("spring"));
+//        search.setAutumn((Byte) json_map.get("autumn"));
+//        search.setXianxiu((String) json_map.get("xianxiu"));
+//        search.setEnglishName((String) json_map.get("english_name"));
+//        String nian = (String) json_map.get("year");
+//        if(nian.equals("大一")){
+//            search.setNian(1);
+//        }else if(nian.equals("大二")){
+//            search.setNian(2);
+//        }else if(nian.equals("大三")){
+//            search.setNian(3);
+//        }else{
+//            search.setNian(4);
+//        }
+//
 
         try{
             courseService.save(search);

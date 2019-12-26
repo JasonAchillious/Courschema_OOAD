@@ -37,4 +37,9 @@ public class CourseServiceImpl implements CourseService{
     public List<Course> findCourseByDepartment(int idDepartment){
         return courseRepository.findCourseByDepartment(idDepartment);
     }
+
+    @Override
+    public void editCourse(int id, String c_name, String code, String intro, Double credit, Byte summer, Byte spring, Byte autumn, String xianxiu, String e_name, int n, String depart, int did, int weektime, int experiment) {
+        courseRepository.editCourse(id, c_name, code, intro, credit, summer, spring, autumn, xianxiu, e_name, n, depart, did, weektime, experiment);
+    }
 }

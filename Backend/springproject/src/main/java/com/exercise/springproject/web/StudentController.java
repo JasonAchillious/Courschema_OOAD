@@ -402,6 +402,11 @@ public class StudentController{
         return "course_student";
     }
 
+    @GetMapping("/course_admin")
+    public String course_am(){
+        return "course_admin";
+    }
+
 //    @PostMapping("/Watch")
 //    public String watch(RedirectAttributes attributes){
 //        return "redirect:/courschmaWatch";}
