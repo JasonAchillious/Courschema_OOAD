@@ -204,6 +204,7 @@ public class CourschemasController {
 //        return courschemasService.save(courschemas);
 //    }
 
+
     @PostMapping(value="/saveCou")
     @ResponseBody
     public courschemas saveSchema(@RequestBody Map<String, Object> map){

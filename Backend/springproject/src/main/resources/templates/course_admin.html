@@ -7,6 +7,7 @@
     <title>全部课程</title>
     <link href="../static/css/course.css" rel="stylesheet" type="text/css"/>
     <script src="../static/js/util.js" type="application/javascript"></script>
+    <script src="../static/js/jquery-3.4.1.js"></script>
 
 </head>
 
@@ -106,7 +107,7 @@
                         <div class="col-2">
                             <div class="btn-group-vertical" data-toggle="buttons">
                                 <button @click="updateModalOn(showTable[index])" class="btn btn-primary btn" type="button">修改课程</button>
-                                <button @click="deleteModalOn()" class="btn btn-primary btn" type="button">删除课程</button>
+                                <button @click="deleteModalOn(showTable[index].idCourse)" class="btn btn-primary btn" type="button">删除课程</button>
                             </div>
                         </div>
                     </div>

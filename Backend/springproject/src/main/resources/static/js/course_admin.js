@@ -40,6 +40,8 @@ new Vue({
         updateDepartment: "",
         updateEnglishName: "",
 
+        deleteCourseId: -1
+
     },
 
     methods: {
@@ -185,12 +187,28 @@ new Vue({
                     department: this.updateDepartment
                 }
             }
+            console.log(content)
             axios
                 .post(url,
                     content)
                 .then(response => {
                     if (response.data.state === "success") {
-                        alert("添加成功")
+                        if (this.isUpdate){
+                            alert("修改成功");
+                            this.courses.push(content);
+                        }else {
+                            alert("添加成功");
+                            var course_id = response.data.course_id;
+                            axios
+                                .post('/onecourse', {id: course_id})
+                                .then(response => {
+                                    this.courses.push(response.data)
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    alert("课程信息接收错误， 请联系相关负责人员");
+                                })
+                        }
                     } else if (response.data.state === "fail") {
                         alert("添加失败")
                     } else {
@@ -229,25 +247,46 @@ new Vue({
             $('#editCourse').modal('show')
         },
 
-        deleteModalOn() {
-            $('#editCourse').modal('show')
+        deleteModalOn(id) {
+            this.deleteCourseId = id;
+            $('#deleteModal').modal('show')
         },
 
         deleteCourse() {
 
             axios
-                .post('url',
+                .post('/deletecourse',
                     {
-                        userId: this.userId,
-                        courseId: id
+                        course_id: this.deleteCourseId,
+                        user_id: this.userId
                     })
                 .then(response => {
                     if (response.data.state === "success") {
-
+                        alert("删除成功")
+                        this.loading = true;
+                        axios
+                            .post('/allcourse', {})
+                            .then(response => {
+                                this.courses = response.data
+                                console.log(this.courses)
+                            })
+                            .catch(error => {
+                                alert("课程信息接收错误， 请联系相关负责人员")
+                            })
+                            .finally(() => {
+                                this.loading = false;
+                            })
                     } else if (response.data.state === "fail") {
-
+                        alert("删除失败")
                     }
-                    console.log(response)
+                    //console.log(response)
+                })
+                .catch(error => {
+                    console.log(error)
+                    alert("未知错误， 请联系相关负责人员")
+                })
+                .finally(() => {
+                    $('#deleteModal').modal('hide')
                 })
         },
 
@@ -379,6 +418,7 @@ new Vue({
         // }
     },
     mounted: function () {
+        this.loading = true;
         axios
             .post('/allcourse', {})
             .then(response => {

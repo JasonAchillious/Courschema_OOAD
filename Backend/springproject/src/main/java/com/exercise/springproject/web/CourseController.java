@@ -21,6 +21,8 @@ public class CourseController {
     private GraduateService graduateService;
     @Autowired
     private ClassificationService classificationService;
+    @Autowired
+    private SecretaryService secretaryService;
 
     @GetMapping("/recordCourse")
     public List<Course> findAllCourse(){
@@ -138,7 +140,7 @@ public class CourseController {
             newcourse.setWeektime(0);
             newcourse.setExperiment(0);
             String depart = (String) json_map.get("department");
-             System.out.println("depart");
+            System.out.println("depart");
             System.out.println(depart);
             Department de = departmentService.findDepartmentByName(depart);
             newcourse.setDepartment(de.getIdDepartment());
@@ -161,6 +163,26 @@ public class CourseController {
     public Map editcourse(@RequestBody Map<String, Object> json_map){
         int id = (Integer) json_map.get("course_id");
         Course search = courseService.findCourseById(id);
+        int cre = (int) json_map.get("credit");
+        System.out.println("shvdgfjh");
+        System.out.println(json_map.get("summer"));
+        int s = (int) json_map.get("summer");
+        int sp = (int) json_map.get("spring");
+        int au = (int) json_map.get("autumn");
+        Byte summer, spring, autumn;
+        if(s==1)
+            summer = 1;
+        else
+            summer = 0;
+        if(sp==1)
+            spring = 1;
+        else
+            spring = 0;
+        if(au==1)
+            autumn = 1;
+        else
+            autumn = 0;
+        double credit = (double) cre/1;
         Map<String, Object> reply = new HashMap<>();
         if(search == null) {
             reply.put("state", "fail");
@@ -184,10 +206,26 @@ public class CourseController {
         }
         String depart = (String) json_map.get("department");
         Department de = departmentService.findDepartmentByName(depart);
-        courseService.editCourse(id,(String) json_map.get("chinese_name"),(String) json_map.get("code"),(String) json_map.get("intro"),
-        (Double) json_map.get("credit"),(Byte) json_map.get("summer"),(Byte) json_map.get("spring"),(Byte) json_map.get("autumn"),
-                (String) json_map.get("xianxiu"), (String) json_map.get("english_name"),n, depart, de.getIdDepartment(), 0, 0);
+        System.out.println("id"+id);
+        System.out.println("id"+(String) json_map.get("chinese_name"));
+        System.out.println("id"+(String) json_map.get("code"));
+        System.out.println("id"+json_map.get("intro").toString());
+        System.out.println("id"+credit);
+        System.out.println("id"+summer);
+        System.out.println("id"+spring);
+        System.out.println("id"+autumn);
+        System.out.println("id"+(String) json_map.get("xianxiu"));
+        System.out.println("id"+(String)json_map.get("english_name"));
+        System.out.println("id"+n);
+        System.out.println("id"+depart);
+        System.out.println("id"+de.getIdDepartment());
 
+
+
+
+
+        courseService.editCourse(id, (String) json_map.get("chinese_name"),(String) json_map.get("code"), (String) json_map.get("intro"),
+                credit, summer, spring, autumn, (String) json_map.get("xianxiu"), (String) json_map.get("english_name"),n, depart, de.getIdDepartment(), 0, 0);
         reply.put("state", "success");
         return reply;
     }
@@ -196,12 +234,23 @@ public class CourseController {
     @ResponseBody
     public Map deletecourse(@RequestBody Map<String, Object> json_map){
         int courseid = (int) json_map.get("course_id");
+        int userid = (int) json_map.get("user_id");
+        Map<String, Object> reply = new HashMap<>();
+        if(userid>29999999 && userid<40000000){
+            secretary s = secretaryService.findSecretaryById(userid);
+            int sde = s.getDepartment();
+            Course c = courseService.findCourseById(courseid);
+            int cde = c.getDepartment();
+            if(sde!=cde){
+                reply.put("state", "not match");
+                return reply;
+            }
+        }
         xianxiuService.deleteXianxiuConditionByCourseid(courseid);
         graduateService.deletegraduate_conditionByCourseid(courseid);
         classificationService.deleteClassificationByCourseid(courseid);
         courseService.deleteCourseById(courseid);
 
-        Map<String, Object> reply = new HashMap<>();
         reply.put("state", "success");
         return reply;
     }
