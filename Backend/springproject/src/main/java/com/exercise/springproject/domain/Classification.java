@@ -14,7 +14,7 @@ public class Classification {
     private Byte tongshi;
     private Byte political;
 
-    @Id
+
     @Column(name="political")
     public Byte getPolitical(){
         return political;
