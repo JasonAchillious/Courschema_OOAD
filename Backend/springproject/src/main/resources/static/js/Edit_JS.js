@@ -142,7 +142,6 @@ function fillEdit(){
             //修改定制信息
             console.log(list);
             for(var i = 0;i < list.length;i ++){
-                alert(list[i].intro);
                 $("#place"+i)
                     .find("h4").text(list[i].name);
                 $("#place"+i).find("p").text(list[i].intro);

@@ -332,7 +332,7 @@ public class CourschemasController {
 
     @PostMapping(value="/downloadCourschemas")
     @ResponseBody
-    public void downloadCourschema(@RequestBody int idCourschema) throws IOException {
+    public Map downloadCourschema(@RequestBody int idCourschema) throws IOException {
         System.out.println("download");
         courschemas  courschema= courschemasService.findcourschemasById(idCourschema);
         String path = "D:/" + courschema.getChineseName() + ".xls";
@@ -349,6 +349,9 @@ public class CourschemasController {
         OutputStream os=new FileOutputStream(filewrite);
         writeExcel(os, courschema, idCourschema);
         os.close();
+        Map<String,Object> reply = new HashMap<>();
+        reply.put("status","success");
+        return reply;
     }
 
     public void writeExcel(OutputStream os, courschemas courschema, int idCourschema)

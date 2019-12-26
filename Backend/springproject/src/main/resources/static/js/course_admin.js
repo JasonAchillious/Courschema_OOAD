@@ -23,7 +23,7 @@ new Vue({
         modalEnglishName: "",
         modalXianxiu: "",
 
-        userId: 11711335,
+        userId: Number(getUrlParam('param')),
 
         isUpdate: false,
 
@@ -169,7 +169,8 @@ new Vue({
                     xianxiu: this.updateRequirement,
                     english_name: this.updateEnglishName,
                     year: this.updateYear,
-                    department: this.updateDepartment
+                    department: this.updateDepartment,
+                    user_id: this.userId
                 }
             } else {
                 url = "/newcourse";
@@ -184,7 +185,8 @@ new Vue({
                     xianxiu: this.updateRequirement,
                     english_name: this.updateEnglishName,
                     year: this.updateYear,
-                    department: this.updateDepartment
+                    department: this.updateDepartment,
+                    user_id: this.userId
                 }
             }
             console.log(content)
@@ -208,9 +210,12 @@ new Vue({
                                     console.log(error);
                                     alert("课程信息接收错误， 请联系相关负责人员");
                                 })
+
                         }
                     } else if (response.data.state === "fail") {
                         alert("添加失败")
+                    } else if (response.data.state === "not match"){
+                        alert("您没有权限")
                     } else {
                         alert("后端的锅：请找后端相关人员")
                     }
@@ -274,10 +279,13 @@ new Vue({
                                 alert("课程信息接收错误， 请联系相关负责人员")
                             })
                             .finally(() => {
+                                this.$forceUpdate();
                                 this.loading = false;
                             })
                     } else if (response.data.state === "fail") {
                         alert("删除失败")
+                    } else if (response.data.state === "not match"){
+                        alert("您没有权限")
                     }
                     //console.log(response)
                 })

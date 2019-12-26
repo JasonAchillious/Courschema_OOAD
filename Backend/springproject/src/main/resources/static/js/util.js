@@ -55,11 +55,9 @@ var util = {
     authorityCheck: function(param,re_url_student,re_url_admin){
         var id = getUrlParam(param);
         if(id[0] == 1){
-            alert("student");
             util.redirect(re_url_student,param)
         }else
         {
-            alert("admin");
             util.redirect(re_url_admin,param)
         }
     }

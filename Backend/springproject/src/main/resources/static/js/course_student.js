@@ -25,7 +25,7 @@ new Vue({
             englishName: "",
             xianxiu: "",
         },
-        userId:  -1,
+        userId:  Number(getUrlParam('param')),
         loadingDepartment: false
 
     },

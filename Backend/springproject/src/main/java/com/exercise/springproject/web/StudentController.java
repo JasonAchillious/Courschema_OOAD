@@ -318,6 +318,7 @@ public class StudentController{
         session.removeAttribute("61733333");
         session.removeAttribute("61744444");
         session.removeAttribute("61755555");
+        session.invalidate();
         return "redirect:/login";
     }
 

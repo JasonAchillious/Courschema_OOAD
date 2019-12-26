@@ -40,7 +40,7 @@ public class CollectionController {
 
     @PostMapping("saveCollect")
     @ResponseBody
-    public String saveCollections(@RequestBody Map json){
+    public Map saveCollections(@RequestBody Map json){
         int id = (int) json.get("id");
         ArrayList<Integer> list = (ArrayList<Integer>) json.get("list");
         System.out.println("gsdfethgd");
@@ -56,7 +56,9 @@ public class CollectionController {
             System.out.println(t.getId());
             collectionsService.save(t);
         }
-        return "success";
+        Map<String,Object> reply = new HashMap<>();
+        reply.put("state","success");
+        return reply;
     }
 
 

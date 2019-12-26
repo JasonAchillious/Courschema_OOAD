@@ -26,7 +26,6 @@ $(document).ready(
                 url: '/TransmitTestList',
                 success: function (response) {
                     reply = JSON.stringify(response);
-                    alert(reply);
                 },
                 error: function (response) {
                     alert("Error")

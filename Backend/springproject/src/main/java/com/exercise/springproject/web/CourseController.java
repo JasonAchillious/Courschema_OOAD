@@ -164,11 +164,14 @@ public class CourseController {
         Map<String, Object> reply = new HashMap<>();
         int id = (Integer) json_map.get("course_id");
         int userid = (int) json_map.get("user_id");
+        System.out.println(userid);
         if(userid>29999999 && userid<40000000){
             secretary s = secretaryService.findSecretaryById(userid);
             int sde = s.getDepartment();
             Course c = courseService.findCourseById(id);
             int cde = c.getDepartment();
+            System.out.println(sde);
+            System.out.println(cde);
             if(sde!=cde){
                 reply.put("state", "not match");
                 return reply;

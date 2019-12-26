@@ -87,7 +87,6 @@ function makeHTML(course,type) {
     var course_id = course.idCourse;
 
     var del = "<a href='#' onclick='del("+course_id+",\""+ type + "\")'>删除</a>";
-    var editlink = "<a href='"+edit(course_id,schema_id)+"'>编辑详情</a>";
 
     //make html
 
@@ -99,7 +98,6 @@ function makeHTML(course,type) {
         "          <td>"+year+"</td>\n" +
         "          <td>"+department+"</td>\n" +
         "          <td>"+del+"</td>"+
-        "          <td>"+editlink+"</td>"+
         "       </tr>";
 
     return html;
