@@ -60,4 +60,9 @@ public class ClassificationServiceImpl implements ClassificationService{
     public List<Integer> findPoliticalCourse(int courschema) {
         return classificationRepository.findPoliticalCourse(courschema);
     }
+
+    @Override
+    public void deleteClassificationByCourseid(int courseid) {
+        classificationRepository.deleteClassificationByCourseid(courseid);
+    }
 }

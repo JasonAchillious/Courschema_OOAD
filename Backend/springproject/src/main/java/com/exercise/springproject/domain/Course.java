@@ -25,14 +25,8 @@ public class Course {
     private int weektime;
     private String xianxiu;
 
-    @Id
-    @Column(name = "id_course")
     public int getIdCourse() {
         return idCourse;
-    }
-
-    public void setIdCourse(int idCourse) {
-        this.idCourse = idCourse;
     }
 
 

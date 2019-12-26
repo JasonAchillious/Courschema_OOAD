@@ -36,4 +36,9 @@ public class XianxiuServiceImpl implements XianxiuService{
     public void deleteXianxiuCondition(int course, int courschema) {
         xianXiuRepository.deleteXianxiu_condition(course, courschema);
     }
+
+    @Override
+    public void deleteXianxiuConditionByCourseid(int idCourse) {
+        xianXiuRepository.deleteXianxiuConditionByCourseid(idCourse);
+    }
 }

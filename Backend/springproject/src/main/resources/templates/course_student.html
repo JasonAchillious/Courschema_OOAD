@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>全部课程</title>
     <link href="../static/css/course.css" rel="stylesheet" type="text/css" />
+    <script src="../static/js/util.js" type="application/javascript"></script>
 </head>
 
 <body>
@@ -21,14 +22,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">主页</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">自定义</a>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#" onclick="util.redirect('/Edit','param')">自定义</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">全部培养方案</a>
+                    <a class="nav-link" href="#" onclick="util.redirect('/AllSchema', 'param')">全部培养方案</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="#">全部课程<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="util.redirect('/QandA_admin', 'param')">提问与答疑</a>
                 </li>
             </ul>
         </div>

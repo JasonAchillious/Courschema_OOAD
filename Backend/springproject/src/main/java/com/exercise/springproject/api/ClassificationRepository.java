@@ -30,9 +30,15 @@ public interface ClassificationRepository extends JpaRepository<Classification, 
     @Query(value = "select p.idCourse from Classification p where p.courschema=?1 and p.tongshi=1")
     public List<Integer> findTypeTonCourse(int courschema);
 
-    @Query(value = "select p.idCourse from Classification p where p.courschema=?1 and p.tongshi=0 and p.compulsory=0 and p.ru_xi=0")
+    @Query(value = "select p.idCourse from Classification p where p.courschema=?1 and p.tongshi=0 and p.compulsory=0 and p.ru_xi=0 and p.political=0")
     public List<Integer> findTypeXuanXiuCourse(int courschema);
 
     @Query(value = "select p.idCourse from Classification p where p.courschema=?1 and p.political=1")
     public List<Integer> findPoliticalCourse(int courschema);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from Classification where idCourse=?1")
+    public void deleteClassificationByCourseid(int courseid);
+
 }

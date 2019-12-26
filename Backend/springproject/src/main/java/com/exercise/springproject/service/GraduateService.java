@@ -15,4 +15,5 @@ public interface GraduateService {
     public graduate_condition findgraduate_conditionByIdCourseAndCourschema(int idCourse, int idschema);
     public graduate_condition save(graduate_condition con);
     public void deletegraduate_condition(int course, int courschema);
+    public void deletegraduate_conditionByCourseid(int courseid);
 }

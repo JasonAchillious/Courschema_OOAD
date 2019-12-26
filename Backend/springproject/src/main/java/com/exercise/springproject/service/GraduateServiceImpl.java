@@ -37,4 +37,9 @@ public class GraduateServiceImpl implements GraduateService{
     public void deletegraduate_condition(int course, int courschema) {
         graduationRepository.deletegraduate_condition(course, courschema);
     }
+
+    @Override
+    public void deletegraduate_conditionByCourseid(int courseid) {
+        graduationRepository.deletegraduate_conditionByCourseid(courseid);
+    }
 }

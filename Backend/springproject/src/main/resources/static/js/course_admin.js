@@ -6,41 +6,56 @@ new Vue({
         departments: [],
         currentPage: 1,
         loading: true,
-        totalPages: 3,
+        loadingDepartment: true,
+        totalPages: 1,
         showNum: 0,
         currentDepart: '计算机科学与工程系',
         currentYear: 1,
         courseNum: 0,
-        modalContent: {
-            chineseName: "",
-            BianHao: "",
-            intro: "",
-            credit: '',
-            term: '',
-            year: "",
-            department: "",
-            englishName: "",
-            xianxiu: "",
-        },
-        userId:  11711335,
-        loadingDepartment: false
+
+        modalChineseName: "",
+        modalBianHao: "",
+        modalIntro: "",
+        modalCredit: '',
+        modalTerm: '',
+        modalYear: "",
+        modalDepartments: "",
+        modalEnglishName: "",
+        modalXianxiu: "",
+
+        userId: 11711335,
+
+        isUpdate: false,
+
+        updateIdCourse: -1,
+        updateChineseName: "",
+        updateBianHao: "",
+        updateIntro: "",
+        updateCredit: 3,
+        updateSpring: false,
+        updateAutumn: false,
+        updateSummer: false,
+        updateRequirement: "",
+        updateYear: "大一",
+        updateDepartment: "",
+        updateEnglishName: "",
 
     },
 
     methods: {
-        select: function(n) {
+        select: function (n) {
             if (n === this.currentPage) return
             if (typeof n === 'string') return
             this.currentPage = n
         },
 
-        prevOrNext: function(n) {
+        prevOrNext: function (n) {
             this.currentPage += n
             this.currentPage < 1 ?
                 this.currentPage = 1 :
                 this.currentPage > this.totalPages ?
-                this.currentPage = this.totalPages :
-                null
+                    this.currentPage = this.totalPages :
+                    null
         },
 
         isNull(str) {
@@ -57,8 +72,8 @@ new Vue({
                 console.log("课程不存在")
                 return "该课程不存在";
             }
-            _year = '';
 
+            _year = '';
             switch (course.year) {
                 case 1:
                     _year = "大一";
@@ -71,7 +86,7 @@ new Vue({
                     break;
                 case 4:
                     _year = "大四";
-
+                    break;
                 default:
                     _year = " ";
             }
@@ -85,6 +100,7 @@ new Vue({
         setCurrentDepart(depart) {
             this.currentDepart = depart;
         },
+
         // deepCopy = function (obj) {
         //     // 只拷贝对象
         //     if (typeof obj !== 'object') return;
@@ -99,6 +115,7 @@ new Vue({
         //     }
         //     return newObj;
         // }
+
         generateTerm(course) {
             _term = "";
             if (course.spring) {
@@ -120,49 +137,165 @@ new Vue({
         },
 
         setModalcontent(course) {
-            this.modalContent.term = this.generateTerm(course);
-            this.modalContent.chineseName = course.chineseName;
-            this.modalContent.BianHao = course.BianHao;
-            this.modalContent.intro = course.intro;
-            this.modalContent.credit = course.credit;
-            this.modalContent.year = this.generateYear(course);
-            this.modalContent.departments = course.department;
-            this.modalContent.englishName = course.englishName;
-            this.modalContent.xianxiu = course.xianxiu;
-            $('#showCourse').modal('show')
-        }
+            this.modalTerm = this.generateTerm(course);
+            this.modalChineseName = course.chineseName;
+            this.modalBianHao = course.BianHao;
+            this.modalIntro = course.intro;
+            this.modalCredit = course.credit;
+            this.modalYear = this.generateYear(course);
+            this.modalDepartments = course.department;
+            this.modalEnglishName = course.englishName;
+            this.modalXianxiu = course.xianxiu;
+            $('#courseModal').modal('show')
+        },
 
+        updateCourse() {
+            this.loading = true;
+            var url;
+            var contentl;
+            if (this.isUpdate) {
+                url = "/editcourse";
+                content = {
+                    course_id: this.updateIdCourse,
+                    chinese_name: this.updateChineseName,
+                    code: this.updateBianHao,
+                    intro: this.updateIntro,
+                    credit: this.updateCredit,
+                    summer: this.updateSummer,
+                    spring: this.updateSpring,
+                    autumn: this.updateAutumn,
+                    xianxiu: this.updateRequirement,
+                    english_name: this.updateEnglishName,
+                    year: this.updateYear,
+                    department: this.updateDepartment
+                }
+            } else {
+                url = "/newcourse";
+                content = {
+                    chinese_name: this.updateChineseName,
+                    code: this.updateBianHao,
+                    intro: this.updateIntro,
+                    credit: this.updateCredit,
+                    summer: this.updateSummer,
+                    spring: this.updateSpring,
+                    autumn: this.updateAutumn,
+                    xianxiu: this.updateRequirement,
+                    english_name: this.updateEnglishName,
+                    year: this.updateYear,
+                    department: this.updateDepartment
+                }
+            }
+            axios
+                .post(url,
+                    content)
+                .then(response => {
+                    if (response.data.state === "success") {
+                        alert("添加成功")
+                    } else if (response.data.state === "fail") {
+                        alert("添加失败")
+                    } else {
+                        alert("后端的锅：请找后端相关人员")
+                    }
+                    console.log(response)
+                })
+                .finally(() => {
+                    this.loading = false;
+                    $('#editCourse').modal('hide');
+                    this.clearEditModal();
+                })
+        },
+
+
+        updateModalOn(course) {
+            this.isUpdate = true;
+            this.updateIdCourse = course.idCourse;
+            this.updateChineseName = course.chineseName;
+            this.updateBianHao = course.BianHao;
+            this.updateIntro = course.intro;
+            this.updateCredit = course.credit;
+            this.updateSpring = course.spring;
+            this.updateAutumn = course.autumn;
+            this.updateSummer = course.summer;
+            this.updateRequirement = course.xianxiu;
+            this.updateYear = this.generateYear(course);
+            this.updateDepartment = course.department;
+            this.updateEnglishName = course.englishName;
+            $('#editCourse').modal('show')
+        },
+
+        addModalOn() {
+            this.isUpdate = false;
+            this.clearEditModal();
+            $('#editCourse').modal('show')
+        },
+
+        deleteModalOn() {
+            $('#editCourse').modal('show')
+        },
+
+        deleteCourse() {
+
+            axios
+                .post('url',
+                    {
+                        userId: this.userId,
+                        courseId: id
+                    })
+                .then(response => {
+                    if (response.data.state === "success") {
+
+                    } else if (response.data.state === "fail") {
+
+                    }
+                    console.log(response)
+                })
+        },
+
+        clearEditModal() {
+            this.updateIdCourse = -1;
+            this.updateChineseName = "";
+            this.updateBianHao = "";
+            this.updateIntro = "";
+            this.updateCredit = 0;
+            this.updateSpring = false;
+            this.updateAutumn = false;
+            this.updateSummer = false;
+            this.updateIntro = "";
+            this.updateYear = 1;
+            this.updateDepartment = "";
+            this.updateEnglishName = "";
+        }
 
     },
 
     watch: {
         courses: {
-          handler(newCourses, oldCourses) {
-              if (this.courses == null) {
-                  this.courseNum = 0;
-              } else {
-                  this.courseNum = this.courses.length;
-                  console.log(this.courseNum);
-              }
-          },
+            handler() {
+                if (this.courses === null) {
+                    this.courseNum = 0;
+                } else {
+                    this.courseNum = this.courses.length;
+                }
+            },
             immediate: true,
             deep: true
         },
+
         showTable: {
             handler(newShowTable, oldShowTable) {
-                if (this.showTable == null) {
+                if (this.showTable === null) {
                     this.showNum = 0;
                 } else {
                     this.showNum = this.showTable.length;
                 }
 
-                if (this.showNum == 0) {
+                if (this.showNum === 0) {
                     this.totalPages = 1;
                 } else {
                     this.totalPages = Math.ceil(this.showNum / 10);
                 }
-                console.log(this.showNum);
             },
+
             immediate: true,
             deep: true
         },
@@ -247,27 +380,24 @@ new Vue({
     },
     mounted: function () {
         axios
-            .post('/allcourse')
+            .post('/allcourse', {})
             .then(response => {
-                console.log(response);
-                console.log(response.data);
                 this.courses = response.data
+                console.log(this.courses)
             })
             .catch(error => {
-                console.log(error)
-                alert("未知错误， 请联系相关负责人员")
+                alert("课程信息接收错误， 请联系相关负责人员")
             })
             .finally(() => {
-                this.loadingDepartment = false;
+                this.loading = false;
             })
-
 
         axios
             .post("/department/findAllDepartmentAndMajor", {userId: 11711335})
             .then(response => {
                 const departArr = response.data;
                 console.log(departArr)
-                for (var i = 0; i < departArr.length; i++){
+                for (var i = 0; i < departArr.length; i++) {
                     this.departments.push(departArr[i].name)
                 }
                 console.log(this.departments)
@@ -279,5 +409,7 @@ new Vue({
             .finally(() => {
                 this.loadingDepartment = false;
             })
+
     },
+
 })
