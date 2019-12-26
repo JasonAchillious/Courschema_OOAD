@@ -205,6 +205,41 @@ public class CourschemasController {
 //    }
 
 
+    @PostMapping(value="/editCou")
+    @ResponseBody
+    public Map editSchema(@RequestBody Map<String, Object> map) {
+        int schemaid = (int) map.get("id");
+        int AR_elec = ((int)map.get("AR_elec"));
+        String ChineseName = ((String) map.get("schema_name"));
+        String depart = (String) map.get("department");
+        Department de = departmentService.findDepartmentByName(depart);
+        int departid = de.getIdDepartment();
+        Map<String, Object> reply = new HashMap<>();
+        if(de==null){
+            reply.put("state","fail");
+            return reply;
+        }
+        int WaiGuo = ((int) map.get("foreign"));
+        int HU_elec = ((int)map.get("HU_elec"));
+        String major = (String) map.get("major");
+        Major m = majorService.findMajorByCname(major);
+        int mid = m.getIdMajor();
+        if(m==null){
+            reply.put("state","fail");
+            return reply;
+        }
+        int Major_elec =  ((int)map.get("major_elec"));
+        int One_plus3 = ((int)map.get("one_plus3"));
+        int SS_elec = ((int)map.get("SS_elec"));
+        int Nian = ((int)map.get("year"));
+        String Intro = ((String)map.get("intro"));
+        courschemasService.editSchema(schemaid, AR_elec, ChineseName, depart, departid, WaiGuo, HU_elec, major, mid, Major_elec,
+                One_plus3, SS_elec, Nian, Intro);
+
+        reply.put("state", "success");
+        return reply;
+    }
+
     @PostMapping(value="/saveCou")
     @ResponseBody
     public Map saveSchema(@RequestBody Map<String, Object> map){

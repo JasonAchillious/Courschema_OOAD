@@ -53,6 +53,11 @@ public class CourschemasServiceImpl implements CourschemasService {
     }
 
     @Override
+    public void editSchema(int schemaid, int AR_elec, String ChineseName, String depart, int departid, int WaiGuo, int HU_elec, String major, int mid, int Major_elec, int One_plus3, int SS_elec, int Nian, String Intro) {
+        courschemasRepository.editSchema(schemaid, AR_elec, ChineseName, depart, departid, WaiGuo, HU_elec, major, mid, Major_elec, One_plus3, SS_elec, Nian, Intro);
+    }
+
+    @Override
     public void deleteCourschema(int courschema) {
         courschemasRepository.deleteCourschema(courschema);
     }

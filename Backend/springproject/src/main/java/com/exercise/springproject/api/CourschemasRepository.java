@@ -33,6 +33,11 @@ public interface CourschemasRepository extends JpaRepository<courschemas, Intege
     @Query("select p from courschemas p where p.courschema=?1")
     public courschemas findcourschemasById(int id);
 
+    @Modifying
+    @Transactional
+    @Query("update courschemas set AR_elec=?2, ChineseName=?3, department_name=?4, Department=?5, WaiGuo=?6, HU_elec=?7, major_name=?8, Major=?9, major_elec=?10, one_plus3=?11, SS_elec=?12, nian=?13, Intro=?14 where courschema=?1 ")
+    public void editSchema(int schemaid, int AR_elec, String ChineseName, String depart, int departid, int WaiGuo, int HU_elec, String major, int mid, int Major_elec, int One_plus3, int SS_elec, int Nian, String Intro);
+
 }
 
 

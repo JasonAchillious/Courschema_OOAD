@@ -16,4 +16,7 @@ public interface CourschemasService {
     public courschemas findcourschemasByYear(int year);
     public courschemas findcourschemasByDepartment(int de);
     public courschemas findcourschemasById(int id);
+    public void editSchema(int schemaid, int AR_elec, String ChineseName, String depart, int departid, int WaiGuo,
+                           int HU_elec, String major, int mid, int Major_elec,
+               int One_plus3, int SS_elec, int Nian, String Intro);
 }
