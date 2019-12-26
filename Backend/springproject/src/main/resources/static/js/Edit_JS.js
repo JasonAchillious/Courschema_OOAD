@@ -34,7 +34,7 @@ var dragFrame = {
                     $(this)
                         .removeClass()
                         .addClass("card border-info mb-3 droppable")
-                        .find("h4").text(name);
+                        .find("h4").text(name)
                     $(this).find("div.card-header").text("SET");
                     // alert(text);
 
@@ -89,7 +89,7 @@ var load = {
                 alert("Error")
             }
         });
-
+        fillEdit();
     },
 
     appendMajor: function (major) {
@@ -124,6 +124,37 @@ var load = {
 
     }
 };
+
+function fillEdit(){
+    var uid = Number(getUrlParam('param'));
+    var J_id = {id:uid};
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(J_id),//json
+        contentType: 'application/json',
+        dataType: 'json',
+        url: '/home_student',
+        success: function (response) {
+
+            reply = JSON.stringify(response);
+            console.log(reply);
+            var list = response.list;
+            //修改定制信息
+            console.log(list);
+            for(var i = 0;i < list.length;i ++){
+                alert(list[i].intro);
+                $("#place"+i)
+                    .find("h4").text(list[i].name)
+                $("#place"+i).find("p").text(list[i].intro);
+            }
+
+
+        },
+        error: function (response) {
+            alert("Error")
+        }
+    });
+}
 
 function save(){
     //upload

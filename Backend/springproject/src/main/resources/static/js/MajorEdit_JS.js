@@ -35,7 +35,6 @@ function back() {
 }
 
 function store_course(type,course) {
-    alert("store");
     switch (type) {
         case "ruxi":
             schemaedit.ruxi.push(course);

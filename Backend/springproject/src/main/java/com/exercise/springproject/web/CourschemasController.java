@@ -207,7 +207,7 @@ public class CourschemasController {
 
     @PostMapping(value="/saveCou")
     @ResponseBody
-    public courschemas saveSchema(@RequestBody Map<String, Object> map){
+    public Map saveSchema(@RequestBody Map<String, Object> map){
         courschemas c = new courschemas();
         System.out.println(c);
         System.out.println(c.getCourschema());
@@ -224,11 +224,24 @@ public class CourschemasController {
         c.setChineseName((String) map.get("schema_name"));
         //String depart = (String) map.get("department");
         String depart = (String) map.get("department");
-        c.setDepartment(departmentService.findDepartmentByName(depart).getIdDepartment());
+        Department de = departmentService.findDepartmentByName(depart);
+        Map<String, Object> reply = new HashMap<>();
+        if(de==null){
+            reply.put("state","fail");
+            return reply;
+        }
+        c.setDepartment_name(depart);
+        c.setDepartment(de.getIdDepartment());
         c.setWaiGuo((int) map.get("foreign"));
         c.setHU_elec((int)map.get("HU_elec"));
         //String major = (String) map.get("major");
         String major = (String) map.get("major");
+        Major m = majorService.findMajorByCname(major);
+        if(m==null){
+            reply.put("state","fail");
+            return reply;
+        }
+        c.setMajor_name(major);
         c.setMajor(majorService.findMajorByCname(major).getIdMajor());
         c.setMajor_elec((int)map.get("major_elec"));
         c.setOne_plus3((int)map.get("one_plus3"));
@@ -236,7 +249,9 @@ public class CourschemasController {
         c.setNian((int)map.get("year"));
         c.setIntro((String)map.get("intro"));
 
-        return courschemasService.save(c);
+        courschemasService.save(c);
+        reply.put("state","success");
+        return reply;
         //return reply;
     }
 

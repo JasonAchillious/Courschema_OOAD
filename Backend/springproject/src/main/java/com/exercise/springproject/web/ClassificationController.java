@@ -214,7 +214,7 @@ public class ClassificationController {
 
     @PostMapping(value = "/editClassification")
     @ResponseBody
-    public String handleedit(@RequestBody SchemaEdit newEdit){
+    public Map handleedit(@RequestBody SchemaEdit newEdit){
         //save newEdit to database
         //maybe first delete from database, then add
         int schemaId = newEdit.getId();
@@ -285,7 +285,9 @@ public class ClassificationController {
             cla.setPolitical((byte)1);
             classificationService.save(cla);
         }
+        Map<String, Object> reply = new HashMap<>();
+        reply.put("state","success");
 
-        return "success";
+        return reply;
     }
 }

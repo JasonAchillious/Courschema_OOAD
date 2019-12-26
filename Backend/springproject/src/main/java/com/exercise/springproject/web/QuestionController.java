@@ -69,6 +69,7 @@ public class QuestionController {
     @ResponseBody
     public Map askQuestions(@RequestBody Map<String, Object> json_map){
         int id = (int) json_map.get("studentId");
+        System.out.println("stu"+id);
         String ques = (String) json_map.get("questionAsk");
         question now = new question();
         now.setCreaterid(id);

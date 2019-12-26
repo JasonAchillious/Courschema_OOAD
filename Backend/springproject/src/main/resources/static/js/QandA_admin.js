@@ -33,8 +33,8 @@ new Vue({
         },
 
         select: function(n) {
-            if (n === this.currentPage) return
-            if (typeof n === 'string') return
+            if (n === this.currentPage) return;
+            if (typeof n === 'string') return;
             this.currentPage = n
         },
 
@@ -86,7 +86,7 @@ new Vue({
                         if (response != null) {
                             if (response.data.state == "success") {
                                 this.questions = response.data.questions;
-                                alert("提交成功")
+                                alert("提交成功");
                                 console.log(this.questions)
                             } else if (response.status == "fail") {
                                 alert("提交失败")
