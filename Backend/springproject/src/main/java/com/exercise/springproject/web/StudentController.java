@@ -60,38 +60,81 @@ public class StudentController{
     @GetMapping("/home")
     public String homepage(){return "home";}
 
+
+
     @GetMapping("/userhome")
-    public String userhomepage(){
+    public String userhomepage(HttpSession httpSession){
+        boolean login = allUser(httpSession);
         //todo 直接访问应该返回404 page
-        return "userhome";
+        if(login){
+            return "userhome";
+        }
+        else{
+            return "login";
+        }
     }
 
     @GetMapping("/courschemaEdit")
-    public String courshemaEdit(){return "MajorEdit";}
+    public String courshemaEdit(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(login){
+            return "MajorEdit";
+        }
+        else{
+            return "login";
+        }
+    }
 
     @GetMapping("/adminhome")
-    public String adminhomepage()
+    public String adminhomepage(HttpSession httpSession)
     {
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
         return "adminhome";
     }
 
     @GetMapping("/sechome")
-    public String sechomepage(){return "sechome";}
+    public String sechomepage(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
+        return "sechome";}
 
     @GetMapping("/AllSchema")
-    public String allschema(){return "AllSchema";}
+    public String allschema(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(login){
+            return "AllSchema";
+        }
+        else{
+            return "login";
+        }
+        //return "AllSchema";
+    }
 
     @GetMapping("/testNewCourse")
-    public String testNewCourse(){return "NewCourse";}
+    public String testNewCourse(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
+        return "NewCourse";}
 
     @GetMapping("/Edit")
-    public String edit(){return "Edit";}
+    public String edit(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
+        return "Edit";}
 
     @PostMapping(value = "/home_student")
     @ResponseBody
     public Map handle(@RequestBody Map<String, Object> json_map){
        // ObjectMapper mapper = new ObjectMapper();
-
         System.out.println(json_map.get("id"));
         Map <String,Object> reply = new HashMap<String,Object>();
         //Class t = json_map.get("id").getClass();
@@ -259,7 +302,16 @@ public class StudentController{
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         // 移除session
-        session.removeAttribute(WebSecurityConfig.SESSION_KEY);
+        session.removeAttribute("11712819");
+        session.removeAttribute("11711335");
+        session.removeAttribute("11711613");
+        session.removeAttribute("11711111");
+        session.removeAttribute("11711721");
+        session.removeAttribute("33373337");
+        session.removeAttribute("33733335");
+        session.removeAttribute("33733336");
+        session.removeAttribute("33733338");
+        session.removeAttribute("33733339");
         return "redirect:/login";
     }
 
@@ -388,27 +440,100 @@ public class StudentController{
 //        return "redirect:/course_student";}
 
     @GetMapping(value = "/QandA_student")
-    public String QandAstudent(RedirectAttributes attributes){
+    public String QandAstudent(RedirectAttributes attributes, HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
         attributes.addFlashAttribute("errorMsg","the ID is not correct");
+
         return "QandA_student";
     }
 
     @GetMapping(value = "/QandA_admin")
-    public String QandAadmin(RedirectAttributes attributes){return  "QandA_admin";}
+    public String QandAadmin(RedirectAttributes attributes, HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
+        return  "QandA_admin";}
 
     @GetMapping("/courschemaWatch")
-    public String watch(){
+    public String watch(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
         return "Schema_Watch";
     }
 
     @GetMapping("/course_student")
-    public String course(){
+    public String course(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
         return "course_student";
     }
 
     @GetMapping("/course_admin")
-    public String course_am(){
+    public String course_am(HttpSession httpSession){
+        boolean login = allUser(httpSession);
+        if(!login){
+            return "login";
+        }
         return "course_admin";
+    }
+
+    public boolean allUser(HttpSession httpSession){
+
+        if(httpSession.getAttribute("11711335")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("11711613")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("11711111")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("11711721")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("61711111")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("61711335")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("61722222")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("61733333")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("61744444")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("61755555")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("33373337")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("33733335")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("33733336")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("33733338")!=null){
+            return true;
+        }
+        if(httpSession.getAttribute("33733339")!=null){
+            return true;
+        }
+
+        return false;
     }
 
 //    @PostMapping("/Watch")
