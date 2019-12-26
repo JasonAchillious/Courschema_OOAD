@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RestController
@@ -17,10 +18,10 @@ public class StudentCourseController {
     @Autowired
     private StudentCourseService studentCourseService;
 
-    @PostMapping("student_course")
-    @ResponseBody
-    public List<StudentCourse> findCourse(@RequestBody Integer ids){
-        List<StudentCourse> reply = studentCourseService.findCourseByid_student(ids);
-        return reply;
-    }
+//    @PostMapping("student_course")
+//    @ResponseBody
+//    public Map<String, Object> findCourse(@RequestBody Integer ids){
+//        List<StudentCourse> reply =  studentCourseService.findCourseByid_student(ids);
+//
+//    }
 }
