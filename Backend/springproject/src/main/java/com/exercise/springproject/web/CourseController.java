@@ -161,7 +161,19 @@ public class CourseController {
     @PostMapping("/editcourse")
     @ResponseBody
     public Map editcourse(@RequestBody Map<String, Object> json_map){
+        Map<String, Object> reply = new HashMap<>();
         int id = (Integer) json_map.get("course_id");
+        int userid = (int) json_map.get("user_id");
+        if(userid>29999999 && userid<40000000){
+            secretary s = secretaryService.findSecretaryById(userid);
+            int sde = s.getDepartment();
+            Course c = courseService.findCourseById(id);
+            int cde = c.getDepartment();
+            if(sde!=cde){
+                reply.put("state", "not match");
+                return reply;
+            }
+        }
         Course search = courseService.findCourseById(id);
         int cre = (int) json_map.get("credit");
         System.out.println("shvdgfjh");
@@ -183,7 +195,7 @@ public class CourseController {
         else
             autumn = 0;
         double credit = (double) cre/1;
-        Map<String, Object> reply = new HashMap<>();
+
         if(search == null) {
             reply.put("state", "fail");
             return reply;
