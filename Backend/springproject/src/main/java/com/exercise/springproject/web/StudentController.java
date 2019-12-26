@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
@@ -263,7 +264,7 @@ public class StudentController{
     }
 
     @PostMapping("/login")
-    public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes){
+    public String loginStudent(@Valid studentForm stu, RedirectAttributes attributes, HttpSession httpSession){
         if ((stu.getUsername() == 0 )&&(stu.getPassword() == null)){
             attributes.addFlashAttribute("pswmsg","password cannot be none");
             attributes.addFlashAttribute("namemsg","StudentId cannot be none");
@@ -293,7 +294,8 @@ public class StudentController{
             }else {
                 if (search.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-
+                    Integer user = stu.getUsername();
+                    httpSession.setAttribute(String.valueOf(stu.getUsername()), user);
                     return "redirect:/userhome";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
@@ -310,7 +312,8 @@ public class StudentController{
             }else {
                 if (secr.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-                    secretary_login(secr);
+                    Integer user = stu.getUsername();
+                    httpSession.setAttribute(String.valueOf(stu.getUsername()), user);
                     return "redirect:/sechome";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
@@ -327,7 +330,8 @@ public class StudentController{
             }else {
                 if (adm.getPassword().equals(stu.getPassword())){
                     attributes.addAttribute("param", stu.getUsername());
-                    admin_login(adm);
+                    Integer user = stu.getUsername();
+                    httpSession.setAttribute(String.valueOf(stu.getUsername()), user);
                     return "redirect:/adminhome";
                 }else{
                     attributes.addFlashAttribute("pswmsg","password is not correct");
