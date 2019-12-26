@@ -42,7 +42,7 @@ new Vue({
         raiseQuestion: function () {
             var t = this
             t.loading = true;
-            console.log(t.userId)
+            console.log(t.userId);
             if (this.userId === '') {
                 // force it to jump to login page
             } else if (t.questionInput != null &&
@@ -93,13 +93,13 @@ new Vue({
 
     mounted: function () {
         axios
-            .post('/QandA_getInfo', {userId: 11711335})
+            .post('/QandA_getInfo', {userId: Number(getUrlParam("param"))})
             .then(response => {
                 this.questions = response.data.questions;
                 this.userId = response.data.userId
             })
             .catch(error => {
-                console.log(error)
+                console.log(error);
                 alert("未知错误， 请联系相关负责人员")
             })
             .finally(() => {

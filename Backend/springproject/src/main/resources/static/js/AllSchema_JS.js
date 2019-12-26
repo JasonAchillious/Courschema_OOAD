@@ -61,10 +61,10 @@ function getData()
                 //reply[i]:{"major":"计算机科学与技术","year":2020,"name":"测试测试","dept":"计算机科学与工程系","type":"1+3培养","foreign":"是"}
                 for(i = 0;i < reply.length;i ++) {
                     var ele = reply[i];
+                    console.log(reply[i]);
                     var temp = new item(ele.name,ele.year,ele.dept,ele.major,ele.foreign,ele.type,ele.id);
                     temp.check = editURL(ele.id,WATCH);
                     data.push(temp);
-                    console.log("data push")
                 }
                 loadtable.generateTable(data);
             },
