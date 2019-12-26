@@ -40,6 +40,12 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public void editCourse(int id, String c_name, String code, String intro, Double credit, Byte summer, Byte spring, Byte autumn, String xianxiu, String e_name, int n, String depart, int did, int weektime, int experiment) {
+//        System.out.println("idhahahahahahah");
+//
+//        System.out.println("id"+id);
+//        System.out.println("id"+c_name);
+//        System.out.println("id"+intro);
+
         courseRepository.editCourse(id, c_name, code, intro, credit, summer, spring, autumn, xianxiu, e_name, n, depart, did, weektime, experiment);
     }
 }

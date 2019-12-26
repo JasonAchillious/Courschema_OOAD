@@ -12,6 +12,6 @@ public interface CourseService {
     public Course findCourseById(int idCourse);
     List<Course> findAll();
     public List<Course> findCourseByDepartment(int idDepartment);
-    public void editCourse(int id,String c_name, String code, String intro, Double credit, Byte summer, Byte spring, Byte autumn,
+    public void editCourse(int id, String c_name, String code, String intro, Double credit, Byte summer, Byte spring, Byte autumn,
             String xianxiu, String e_name, int n, String depart, int did, int weektime, int experiment);
 }

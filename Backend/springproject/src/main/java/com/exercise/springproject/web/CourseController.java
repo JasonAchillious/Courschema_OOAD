@@ -220,11 +220,8 @@ public class CourseController {
         System.out.println("id"+depart);
         System.out.println("id"+de.getIdDepartment());
 
-
-
-
-
-        courseService.editCourse(id, (String) json_map.get("chinese_name"),(String) json_map.get("code"), (String) json_map.get("intro"),
+        courseService.editCourse(id, (String) json_map.get("chinese_name"),(String) json_map.get("code"),
+                (String) json_map.get("intro"),
                 credit, summer, spring, autumn, (String) json_map.get("xianxiu"), (String) json_map.get("english_name"),n, depart, de.getIdDepartment(), 0, 0);
         reply.put("state", "success");
         return reply;

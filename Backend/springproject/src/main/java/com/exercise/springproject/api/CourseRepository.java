@@ -27,7 +27,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer>{
 
     @Modifying
     @Transactional
-    @Query("update Course set chineseName=?2, BianHao=?3, intro=?3, credit=?4, summer=?5, spring=?6, autumn=?7, xianxiu=?8, englishName=?9, nian=?10, department_name=?11, department=?12, weektime=?13, experiment=?14 where idCourse=?1")
+    @Query("update Course set chineseName=?2, BianHao=?3, intro=?4, credit=?5, summer=?6, spring=?7, autumn=?8, xianxiu=?9, englishName=?10, nian=?11, department_name=?12, department=?13, weektime=?14, experiment=?15 where idCourse=?1")
     public void editCourse(int id, String c_name, String code, String intro, Double credit, Byte summer, Byte spring, Byte autumn,
                            String xianxiu, String e_name, int n, String depart, int did, int weektime, int experiment);
 
