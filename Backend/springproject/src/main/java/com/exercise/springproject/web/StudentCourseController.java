@@ -24,18 +24,23 @@ public class StudentCourseController {
     @Autowired
     private CourseService courseService;
 
-    @PostMapping("student_course")
+    @PostMapping("/student_course")
     @ResponseBody
-    public List<Map> findCourse(@RequestBody Integer ids){
+    public List<Map> findCourse(@RequestBody Map<String,Integer> map){
+        int ids = map.get("id");
+        System.out.println(map.get("id"));
         List<StudentCourse> search =  studentCourseService.findCourseByid_student(ids);
         List<Map> reply = new ArrayList<>();
         for(StudentCourse sc: search){
+            System.out.println(sc.getId_course());
             Map<String, Object> tmp = new HashMap<>();
             int id = sc.getId_course();
             Course c = courseService.findCourseById(id);
             tmp.put("id_course", sc.getId_course());
             tmp.put("ChineseName", c.getChineseName());
+            reply.add(tmp);
         }
+        System.out.println(reply);
         return reply;
     }
 }

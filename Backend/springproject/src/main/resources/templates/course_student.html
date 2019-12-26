@@ -88,8 +88,8 @@
 
                 <div v-else>
                     <template v-for="index in computeIndex">
-
-                        <a @click="setModalcontent(showTable[index])" class="list-group-item list-group-item-action flex-column align-items-start"
+                        <div v-if="learnedCourse.indexOf(showTable[index].idCourse) >= 0">
+                        <a @click="setModalcontent(showTable[index])" class="list-group-item list-group-item-action flex-column align-items-start active"
                             href="#">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
@@ -101,6 +101,21 @@
 
                             <small class="text-muted">{{showTable[index].xianxiu}}</small>
                         </a>
+                        </div>
+                        <div v-else>
+                            <a @click="setModalcontent(showTable[index])" class="list-group-item list-group-item-action flex-column align-items-start"
+                               href="#">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">
+                                        {{showTable[index].BianHao}}:{{showTable[index].chineseName}}
+                                    </h5>
+                                    <small class="text-muted">建议修读年份: {{generateYear(showTable[index])}}</small>
+                                </div>
+                                <p class="mb-1">{{showTable[index].intro}}</p>
+
+                                <small class="text-muted">{{showTable[index].xianxiu}}</small>
+                            </a>
+                        </div>
 
                     </template>
                 </div>

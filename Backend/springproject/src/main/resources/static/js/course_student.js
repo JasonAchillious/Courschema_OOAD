@@ -1,9 +1,12 @@
+// $(document).ready(markCourse);
+
 new Vue({
     el: "#courseDesc",
     data: {
         courses: [],
         showTable: [],
         departments: [],
+        learnedCourse: [],
         currentPage: 1,
         loading: true,
         totalPages: 3,
@@ -22,7 +25,7 @@ new Vue({
             englishName: "",
             xianxiu: "",
         },
-        userId:  11711335,
+        userId:  -1,
         loadingDepartment: false
 
     },
@@ -263,7 +266,7 @@ new Vue({
 
 
         axios
-            .post("/department/findAllDepartmentAndMajor", {userId: 11711335})
+            .post("/department/findAllDepartmentAndMajor", {userId: Number(getUrlParam('param'))})
             .then(response => {
                 const departArr = response.data;
                 console.log(departArr)
@@ -279,5 +282,44 @@ new Vue({
             .finally(() => {
                 this.loadingDepartment = false;
             })
+
+        axios
+            .post("/student_course", {id: Number(getUrlParam('param'))})
+            .then(response => {
+                var learned = response.data;
+                for (var i = 0; i < learned.length; i++){
+                    this.learnedCourse.push(learned[i].id_course)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                alert("未知错误， 请联系相关负责人员")
+            })
+
     },
-})
+});
+
+// function markCourse() {
+//     var id = Number(getUrlParam('param'));
+//     $.ajax(
+//         {
+//             type: 'POST',
+//             data: JSON.stringify(id),
+//             contentType: 'application/json',
+//             dataType: 'json',
+//             url: '/student_course',
+//             success:function (reply) {
+//                 for(var i = 0;i < reply.length;i ++){
+//                     console.log(reply[i]);
+//                     alert("asdad");
+//                     var id_course = reply[i].id_course;
+//                     var chinese_name = reply[i].ChineseName;
+//                 }
+//             },
+//             error: function () {
+//                 alert("error");
+//             }
+//         }
+//     )
+// }
+//

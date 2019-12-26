@@ -25,6 +25,7 @@ function Schema(data) {
     this.intro = data.intro;//string
     this.foreign = 0;//default 0 int
     this.one_plus3 = 0;//default 2+2 int
+    this.id = Number(getUrlParam('id'));
 
 
 }
@@ -166,7 +167,7 @@ function upload() {
     console.log(JSON.stringify(c_schema));
 
     transmitList();
-    // transmitInfo();
+    transmitInfo(c_schema);
 }
 function transmitList() {
     $.ajax(
@@ -185,16 +186,21 @@ function transmitList() {
         }
     )
 }
-function transmitInfo() {
-    //todo transmitInfo
+function transmitInfo(c_schema) {
     $.ajax(
         {
             type: 'POST',
-            data: data,//json
+            data: JSON.stringify(c_schema),//json
             contentType: 'application/json',
             dataType: 'json',
             // async: false,
-            url: '/allcourse',
+            url: '/editCou',
+            success:function (reply) {
+
+            },
+            error: function () {
+                alert("info 保存失败")
+            }
         }
     )
 }

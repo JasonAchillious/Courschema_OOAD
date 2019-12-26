@@ -144,8 +144,9 @@ function fillEdit(){
             for(var i = 0;i < list.length;i ++){
                 alert(list[i].intro);
                 $("#place"+i)
-                    .find("h4").text(list[i].name)
+                    .find("h4").text(list[i].name);
                 $("#place"+i).find("p").text(list[i].intro);
+                collect_schema.push(list[i].cid);
             }
 
 
@@ -162,7 +163,6 @@ function save(){
     var data = {'id':s_id,
             'list':collect_schema};
     var j_data = JSON.stringify(data);
-    alert(j_data);
     $.ajax({
         type: 'POST',
         data: j_data,//json

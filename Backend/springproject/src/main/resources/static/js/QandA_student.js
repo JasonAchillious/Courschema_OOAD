@@ -166,4 +166,4 @@ new Vue({
         deep: true
     }
 
-})
+});
