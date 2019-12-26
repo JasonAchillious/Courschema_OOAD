@@ -312,6 +312,12 @@ public class StudentController{
         session.removeAttribute("33733336");
         session.removeAttribute("33733338");
         session.removeAttribute("33733339");
+        session.removeAttribute("61711111");
+        session.removeAttribute("61711335");
+        session.removeAttribute("61722222");
+        session.removeAttribute("61733333");
+        session.removeAttribute("61744444");
+        session.removeAttribute("61755555");
         return "redirect:/login";
     }
 
@@ -486,7 +492,9 @@ public class StudentController{
     }
 
     public boolean allUser(HttpSession httpSession){
-
+        if(httpSession.getAttribute("11712819")!=null){
+            return true;
+        }
         if(httpSession.getAttribute("11711335")!=null){
             return true;
         }
